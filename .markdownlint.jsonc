@@ -1,4 +1,6 @@
 {
+  // Hard tabs are fine in code blocks: assembly is tab-indented.
+  "MD010": { "code_blocks": false },
   // Long lines are fine: register tables and links get long.
   "MD013": false,
   // Repeated headings are fine across sections (templates reuse them).
