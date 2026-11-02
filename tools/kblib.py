@@ -9,20 +9,46 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # Top-level files and folders that are not knowledge base content.
 SKIP_TOP_FILES = {"README.md", "AGENTS.md", "CONTRIBUTING.md", "CLAUDE.md"}
-SKIP_DIRS = {"templates", "seed", "tools", "skills", "evals", ".github", ".git"}
+SKIP_DIRS = {"templates", "seed", "sources", "tools", "skills", "evals",
+             ".github", ".git"}
 
-# Expected `type` per top-level content folder.
+# The three knowledge pillars. Files in a pillar are references, except in
+# its best-practices/ and pitfalls/ subfolders.
+PILLARS = {"core", "os", "toolchain"}
+PILLAR_SUBFOLDER_TYPES = {"best-practices": "best-practice",
+                          "pitfalls": "pitfall"}
+
+# Expected `type` per cross-cutting top-level folder.
 FOLDER_TYPES = {
-    "core": "reference",
-    "os": "reference",
-    "toolchain": "reference",
     "guides": "guide",
     "conventions": "convention",
-    "best-practices": "best-practice",
-    "pitfalls": "pitfall",
     "examples": "example",
     "lessons": "lesson",
 }
+
+MAINTAINERS_FILE = os.path.join(ROOT, ".github", "CODEOWNERS.base")
+
+
+def expected_type(path):
+    """Return the `type` a content file must have, from its folder, or None
+    if the file is outside the known content folders."""
+    parts = path.split(os.sep)
+    if parts[0] in PILLARS:
+        if len(parts) > 2 and parts[1] in PILLAR_SUBFOLDER_TYPES:
+            return PILLAR_SUBFOLDER_TYPES[parts[1]]
+        return "reference"
+    return FOLDER_TYPES.get(parts[0])
+
+
+def maintainers():
+    """Return the maintainer handles: the owners of `*` in CODEOWNERS.base."""
+    with open(MAINTAINERS_FILE, encoding="utf-8") as f:
+        for line in f:
+            fields = line.split()
+            if fields and fields[0] == "*":
+                return {h.lstrip("@") for h in fields[1:]}
+    return set()
+
 
 HANDLE_RE = re.compile(r"^@?[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$")
 

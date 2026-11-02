@@ -10,7 +10,8 @@ AI agents creating or editing files in this repository MUST follow it.
 
 1. **Document the differences.** Do not re-document classic AmigaOS or AROS
    behavior that is unchanged. Focus on where ApolloOS, the 68080 and the SAGA
-   chipset differ, extend, or break expectations.
+   chipset differ, extend, or break expectations. Exception: official
+   documents (section 11) are converted in full.
 2. **One topic per file.** If a file covers two things, split it.
 3. **Be exact.** Give register offsets, bit meanings, cycle counts, return
    values and version numbers. Never write "see the manual".
@@ -23,44 +24,54 @@ AI agents creating or editing files in this repository MUST follow it.
 
 ## 2. Where things go
 
-| Folder | Contains | Typical `type` |
-|---|---|---|
-| `core/cpu-68080/` | ISA, AMMX, pipeline, timing, 68060 differences | reference |
-| `core/saga-video-isabelle/` | Video chip: modes, registers, features | reference |
-| `core/saga-audio-arne/` | Audio chip | reference |
-| `core/saga-dma-anni/` | DMA chip | reference |
-| `core/saga-3d-maggie/` | 3D chip | reference |
-| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `os-takeover.md` (entering and leaving a takeover), `apolloos-specific-on-v4.md` (ApolloOS only: ApolloOS features and differences from AROS) | reference |
-| `os/libraries/` | ApolloOS API routines (Libs:) | reference |
-| `os/devs/` | ApolloOS device drivers (Devs:) | reference |
-| `os/filesys/` | ApolloOS filesystem handlers (L:) | reference |
-| `os/commands/` | ApolloOS shell commands (C:) | reference |
-| `os/datatypes/` | ApolloOS datatypes (Classes:) | reference |
-| `toolchain/` | ApolloCrossDev (github.com/WDrijver/ApolloCrossDev), the single toolchain for all Apollo development: components, setup, compiler and assembler options, syntax | reference |
-| `guides/` | Step-by-step how-tos for common tasks | guide |
-| `conventions/` | Coding style, toolchain, build, testing, PRs | convention |
-| `best-practices/` | How to write optimal code using all V4 features | best-practice |
-| `pitfalls/` | Known traps and how to avoid them | pitfall |
-| `examples/` | Small, compiling, tested code snippets | example |
-| `lessons/` | Raw project retrospectives | lesson |
-| `templates/` | File templates per type (`files/`), code-repo templates (`repo/`), seed collection template (`seed/`) | — |
-| `skills/` | AI agent skills (see step 2) | — |
-| `evals/` | Benchmark tasks for AI evaluation (see step 5) | — |
-| `tools/` | CI scripts and generators | — |
+The knowledge base has three pillars: **core** (the hardware), **os** (the
+operating systems) and **toolchain** (ApolloCrossDev). Each pillar holds
+reference files plus its own `best-practices/` and `pitfalls/`. Knowledge
+that spans pillars goes in the cross-cutting folders.
+
+```text
+core/                       68080 CPU and SAGA chipset
+├── cpu-68080/              ISA, AMMX, pipeline, timing, 68060 differences
+├── saga-video-isabelle/    video chip
+├── saga-audio-arne/        audio chip
+├── saga-dma-anni/          DMA chip
+├── saga-3d-maggie/         3D chip
+├── best-practices/
+└── pitfalls/
+os/                         ApolloOS R10, AmigaOS 3.9 and 3.2 on Apollo V4
+├── *.md                    running on V4, OS takeover, ApolloOS specifics
+├── libraries/ devs/ filesys/ commands/ datatypes/   ApolloOS components
+├── best-practices/
+└── pitfalls/
+toolchain/                  ApolloCrossDev
+├── *.md                    components, setup, options, syntax
+├── best-practices/
+└── pitfalls/
+guides/                     step-by-step how-tos
+examples/                   small, compiling, tested code
+conventions/                team coding style and process
+lessons/                    project retrospectives
+```
+
+| Folder | `type` |
+|---|---|
+| `core/`, `os/`, `toolchain/` and their subfolders | reference |
+| `<pillar>/best-practices/` | best-practice |
+| `<pillar>/pitfalls/` | pitfall |
+| `guides/` | guide |
+| `examples/` | example |
+| `conventions/` | convention |
+| `lessons/` | lesson |
+
+Not content: `templates/` (file, repo and seed templates), `sources/`
+(original documents for document intake, section 11), `skills/` (AI agent
+skills, step 2), `evals/` (AI benchmarks, step 5), `tools/` (CI scripts).
 
 Each chip folder keeps its register map in `registers.md` inside that folder.
 
-`best-practices/` and `pitfalls/` are split into subfolders that mirror the
-reference areas, so related knowledge is easy to find:
-
-```text
-best-practices/
-├── core/           # CPU and chipset-level optimization
-└── toolchain/      # ApolloCrossDev: flags and settings for optimal output
-pitfalls/
-├── core/
-└── toolchain/
-```
+A best practice or pitfall goes in the pillar it is about. One that spans
+pillars goes in the pillar where a developer would look first, with
+`related:` links to the others.
 
 Toolchain best practices still need evidence: show the compiler flags or
 settings, and compare the generated code or measured speed against a baseline.
@@ -72,11 +83,17 @@ Apollo V4 software targets the V4 hardware, running ApolloOS R10, AmigaOS
 the OS. Guidelines for running well on V4 under each OS go in
 `os/apolloos-and-amigaos-on-v4.md`.
 
-There are no `best-practices/os/` or `pitfalls/os/` folders. Where ApolloOS
-behaves differently from AmigaOS in a way that breaks programs, that is an
-ApolloOS bug: report it as an issue in
+AmigaOS is the leading reference. When something works on AmigaOS but fails
+on ApolloOS, that is an ApolloOS bug: report it as an issue in
 github.com/ApolloTeam-dev/ApolloOS.R10 so it gets fixed in the source. Do not
 document a workaround in this knowledge base.
+
+Everything else is welcome in `os/best-practices/` and `os/pitfalls/`, with
+`applies_to.os` set accordingly:
+
+- valid on both ApolloOS and AmigaOS on V4: `os: [any]`
+- a trap in AmigaOS 3.9 or 3.2 itself: for example `os: [amigaos-3.2]`
+- about an ApolloOS-only feature: `os: [apolloos-r10]`
 
 ### Execution mode
 
@@ -92,9 +109,10 @@ execution modes:
   restores multitasking and the Workbench screen. Typical for games and
   demos.
 
-How to enter and leave a takeover goes in `os/os-takeover.md`. Takeover best
-practices and pitfalls go in `best-practices/core/` and `pitfalls/core/`,
-with `mode: [os-takeover]` in their frontmatter.
+How to enter and leave a takeover goes in `os/os-takeover.md`, with its best
+practices and pitfalls in `os/best-practices/` and `os/pitfalls/`. Direct
+hardware programming during a takeover goes in `core/`. Both use
+`mode: [os-takeover]` in their frontmatter.
 
 ---
 
@@ -118,7 +136,7 @@ title: AMMX pixel blending                # required, human-readable
 type: best-practice                       # required, see allowed values
 owner: github-handle                      # required, one GitHub handle
 status: draft                             # required, see allowed values
-origin: human                             # required: human | ai-assisted
+origin: human                             # required, see allowed values
 components: [cpu-68080, saga-video-isabelle]  # required, see allowed values
 applies_to:                               # required
   core: "<core revision or range>"        # use the team's revision notation
@@ -127,10 +145,11 @@ applies_to:                               # required
 last_verified: 2026-10-31                 # required once status is verified
 tags: [ammx, graphics, blitting]          # optional, free keywords for search
 related:                                  # optional, paths to related files
-  - pitfalls/ammx-alignment.md
+  - core/pitfalls/ammx-alignment.md
 sources:                                  # required for reference, best-practice
   - "Apollo core spec, section X"
 superseded_by:                            # only when status is deprecated
+generated_from:                           # only for document intake, section 11
 ---
 ```
 
@@ -143,8 +162,12 @@ superseded_by:                            # only when status is deprecated
   - `reviewed`: owner has reviewed content
   - `verified`: tested on real Apollo V4 hardware on the stated core revision
   - `deprecated`: no longer valid; must name `superseded_by`
-- **origin:** `human`, or `ai-assisted` (any AI-drafted content). AI-assisted
-  files can only move beyond `draft` after a human review.
+- **origin:**
+  - `human`: written by a person
+  - `ai-assisted`: any AI-drafted content; can only move beyond `draft`
+    after a human review
+  - `official`: from official Apollo documentation through document intake
+    (section 11); maintainers only, CI checks that the owner is a maintainer
 - **components:** `cpu-68080`, `saga-video-isabelle`, `saga-audio-arne`,
   `saga-dma-anni`, `saga-3d-maggie`, `libraries`, `devs`, `filesys`,
   `commands`, `datatypes`, `toolchain`, `general`
@@ -206,8 +229,9 @@ don't use.
 
 1. After a project, write `lessons/YYYY-MM-project-name.md` (AI may draft).
 2. Lessons stay `draft` and are not read by AI agents by default.
-3. Periodically, the team distills recurring points into `best-practices/`,
-   `pitfalls/` or `guides/`, and links the lesson in their `sources`.
+3. Periodically, the team distills recurring points into the pillars'
+   `best-practices/` or `pitfalls/`, or into `guides/`, and links the lesson
+   in their `sources`.
 4. Distilled lessons stay in place as history.
 
 ---
@@ -239,8 +263,9 @@ Do not delete outdated files. Set `status: deprecated`, fill in
 Every pull request runs (scripts in `tools/`):
 
 - `check_frontmatter.py`: required fields, allowed values, file naming,
-  type matches folder, no leftover `<placeholder>` text, `related` and
-  `superseded_by` paths exist
+  type matches folder, no leftover `<placeholder>` text, `related`,
+  `superseded_by` and `generated_from` paths exist, `official` files are
+  owned by a maintainer
 - `check_links.py`: internal markdown links point to existing files
 - `check_owners.py`: every owner is an existing GitHub account
 - Markdown lint (rules in `.markdownlint.jsonc`)
@@ -252,7 +277,8 @@ On every merge to `main`, `generate_codeowners.py` regenerates
 `.github/CODEOWNERS`. Fixed owners for files without frontmatter go in
 `.github/CODEOWNERS.base`.
 
-The `seed/` and `templates/` folders are excluded from content checks.
+The `seed/`, `sources/` and `templates/` folders are excluded from content
+checks.
 
 Run the checks locally before opening a pull request:
 
@@ -261,3 +287,52 @@ pip install pyyaml
 python tools/check_frontmatter.py
 python tools/check_links.py
 ```
+
+---
+
+## 11. Document intake (maintainers only)
+
+Official Apollo documentation, such as the Apollo 68080 Programmer's
+Reference Manual, enters the knowledge base through document intake. Only
+the maintainers (WDrijver and TuKo1982, the default owners in
+`.github/CODEOWNERS.base`) use this route.
+
+**The original document is leading**, unless the intake PR states otherwise.
+Updates to the original are expected, and each one goes through the intake
+steps again. Never edit generated files by hand: change the original and
+regenerate.
+
+### Steps
+
+1. Add or update the original in `sources/official/`, in an editable format
+   such as ODT. PDF is a last resort.
+2. Convert it to Markdown, for example with pandoc.
+3. Optimize for AI (see below) and split it into knowledge base files in the
+   right pillar. Every generated file gets:
+   - `origin: official`
+   - `owner`: a maintainer
+   - `status: draft`
+   - `generated_from: sources/official/<file>`
+4. Open a PR. The maintainer checks the conversion against the original and
+   sets `status: reviewed` when it is correct.
+5. On an update of the original: repeat steps 1–4, and review the diff of
+   the generated files.
+
+When the PR states that the Markdown becomes leading instead, leave out
+`generated_from` and remove the original from `sources/official/`. From then
+on, the files are edited like any other file.
+
+### Optimized for AI
+
+- Markdown files of at most ~400 lines, one topic per file. A large manual
+  becomes a folder with an `index.md` that maps topics (for example
+  mnemonics) to files.
+- The same structure for every entry of the same kind, for example every
+  instruction with syntax, operation, sizes, condition codes, encoding and
+  cycles.
+- Facts in tables: registers, opcodes, timing.
+- No facts only in images. Describe every diagram or timing chart in text.
+- Code blocks with a language tag, cross-references as `related:` links.
+- Differences from the 68000/68060 or AmigaOS called out explicitly.
+- Anything that did not convert cleanly is listed in the PR, not silently
+  dropped.
