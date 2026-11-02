@@ -16,6 +16,7 @@
 
 /os/apolloos-and-amigaos-on-v4.md @WDrijver
 /os/apolloos-specific-on-v4.md @WDrijver
+/os/os-takeover.md @WDrijver
 /toolchain/c-compiler-options.md @WDrijver
 /toolchain/compiler-variants.md @WDrijver
 /toolchain/index.md @WDrijver

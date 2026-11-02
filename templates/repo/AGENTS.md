@@ -21,6 +21,7 @@ without it.
 - **Kind:** <OS component | application | tool | game | library>
 - **Target:** core revision <...>
 - **Target OS:** <one or more: ApolloOS R10, AmigaOS 3.9, AmigaOS 3.2>
+- **Execution mode:** <os-friendly | os-takeover>
 - **Languages:** <one or more: C, C++, 68080 assembly>
 
 ## Relevant knowledge base areas

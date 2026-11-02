@@ -30,7 +30,7 @@ AI agents creating or editing files in this repository MUST follow it.
 | `core/saga-audio-arne/` | Audio chip | reference |
 | `core/saga-dma-anni/` | DMA chip | reference |
 | `core/saga-3d-maggie/` | 3D chip | reference |
-| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `apolloos-specific-on-v4.md` (ApolloOS only: ApolloOS features and differences from AROS) | reference |
+| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `os-takeover.md` (entering and leaving a takeover), `apolloos-specific-on-v4.md` (ApolloOS only: ApolloOS features and differences from AROS) | reference |
 | `os/libraries/` | ApolloOS API routines (Libs:) | reference |
 | `os/devs/` | ApolloOS device drivers (Devs:) | reference |
 | `os/filesys/` | ApolloOS filesystem handlers (L:) | reference |
@@ -78,6 +78,24 @@ ApolloOS bug: report it as an issue in
 github.com/ApolloTeam-dev/ApolloOS.R10 so it gets fixed in the source. Do not
 document a workaround in this knowledge base.
 
+### Execution mode
+
+Every Apollo V4 program starts from an OS and returns to it, in one of two
+execution modes:
+
+- **os-friendly:** uses AmigaOS/ApolloOS calls where available. Direct SAGA
+  access is allowed at the discretion and responsibility of the developer.
+  Typical for applications, tools and OS components.
+- **os-takeover:** disables multitasking with `Forbid()`, uses only basic OS
+  calls such as `AllocMem()`/`FreeMem()` and `Open()`/`Close()`, and focuses
+  on direct hardware access to the 68080 and the SAGA chipset. On exit it
+  restores multitasking and the Workbench screen. Typical for games and
+  demos.
+
+How to enter and leave a takeover goes in `os/os-takeover.md`. Takeover best
+practices and pitfalls go in `best-practices/core/` and `pitfalls/core/`,
+with `mode: [os-takeover]` in their frontmatter.
+
 ---
 
 ## 3. File naming
@@ -105,6 +123,7 @@ components: [cpu-68080, saga-video-isabelle]  # required, see allowed values
 applies_to:                               # required
   core: "<core revision or range>"        # use the team's revision notation
   os: [any]                               # see allowed values
+  mode: [os-takeover]                     # optional, see allowed values
 last_verified: 2026-10-31                 # required once status is verified
 tags: [ammx, graphics, blitting]          # optional, free keywords for search
 related:                                  # optional, paths to related files
@@ -137,6 +156,11 @@ superseded_by:                            # only when status is deprecated
 
   When a fact depends on a specific version (for example "fixed in 10.2"),
   state that in the body.
+- **applies_to.mode:** optional list of execution modes the file is valid
+  for (see section 2). Leaving it out means `any`.
+  - `any`: valid in both modes; not combined with others
+  - `os-friendly`: only for programs that keep the OS running
+  - `os-takeover`: only for programs that take over the machine
 
 ---
 

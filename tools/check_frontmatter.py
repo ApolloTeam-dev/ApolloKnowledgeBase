@@ -17,12 +17,26 @@ COMPONENTS = {"cpu-68080", "saga-video-isabelle", "saga-audio-arne",
               "saga-dma-anni", "saga-3d-maggie", "libraries", "devs",
               "filesys", "commands", "datatypes", "toolchain", "general"}
 OSES = {"any", "apolloos-r10", "amigaos-3.9", "amigaos-3.2"}
+MODES = {"any", "os-friendly", "os-takeover"}
 REQUIRED = ["title", "type", "owner", "status", "origin", "components",
             "applies_to"]
 NEEDS_SOURCES = {"reference", "best-practice"}
 
 KEBAB_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.md$")
 LESSON_RE = re.compile(r"^\d{4}-\d{2}-[a-z0-9]+(-[a-z0-9]+)*\.md$")
+
+
+def check_values(at, key, allowed):
+    """Check applies_to.<key>: a non-empty list of allowed values, where
+    'any' stands alone."""
+    values = at[key]
+    if not isinstance(values, list) or not values:
+        return [f"applies_to.{key} must be a non-empty list"]
+    errs = [f"invalid {key} '{v}'" for v in values if v not in allowed]
+    if "any" in values and len(values) > 1:
+        errs.append(f"applies_to.{key} 'any' cannot be combined with other "
+                    "values")
+    return errs
 
 
 def has_placeholder(value):
@@ -101,16 +115,9 @@ def check(path):
         if not isinstance(at, dict) or not {"core", "os"} <= set(at):
             errs.append("applies_to must contain 'core' and 'os'")
         else:
-            oses = at["os"]
-            if not isinstance(oses, list) or not oses:
-                errs.append("applies_to.os must be a non-empty list")
-            else:
-                for o in oses:
-                    if o not in OSES:
-                        errs.append(f"invalid os '{o}'")
-                if "any" in oses and len(oses) > 1:
-                    errs.append("applies_to.os 'any' cannot be combined "
-                                "with other values")
+            errs += check_values(at, "os", OSES)
+            if "mode" in at:
+                errs += check_values(at, "mode", MODES)
 
     lv = fm.get("last_verified")
     if status == "verified" and not lv:

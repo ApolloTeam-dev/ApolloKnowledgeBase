@@ -21,6 +21,13 @@ relative to the knowledge base root.
   (fork of AROS, optimized for Apollo V4), **AmigaOS 3.9** and
   **AmigaOS 3.2**. The project's own AGENTS.md states which. Hardware
   knowledge applies whatever the OS.
+- **Execution mode**: the project's AGENTS.md also states one of two modes.
+  - `os-friendly`: use OS calls where available. Direct SAGA access only at
+    the developer's discretion and responsibility.
+  - `os-takeover`: `Forbid()` multitasking, use only basic OS calls
+    (`AllocMem()`/`FreeMem()`, `Open()`/`Close()`), program the 68080 and
+    SAGA directly, and restore multitasking and the Workbench screen on exit.
+    Typical for games and demos.
 - **ApolloCrossDev**: the one and only toolchain
   (github.com/WDrijver/ApolloCrossDev).
 
@@ -42,6 +49,11 @@ compiler knowledge is where you will make confident mistakes.
   `best-practices/` before writing performance-relevant code.
 - DON'T use OS functions that are missing in one of the project's target
   operating systems. Check `os/apolloos-and-amigaos-on-v4.md`.
+- DON'T access SAGA registers directly in an `os-friendly` project unless the
+  developer asks for it. When you do, say so.
+- DON'T call OS functions beyond the basic set in an `os-takeover` project,
+  and DON'T leave the machine without restoring multitasking and the
+  Workbench screen. Check `os/os-takeover.md`.
 - DON'T invent register addresses, bit meanings, function signatures or
   compiler flags. If it is not in the knowledge base or in source code you
   have read, say that you don't know.
@@ -57,6 +69,7 @@ Read only what your task needs. Always check the matching `pitfalls/` and
 |---|---|
 | Any task | This file, `os/apolloos-and-amigaos-on-v4.md` |
 | Target OS is ApolloOS only, or working on ApolloOS itself (ApolloOS.R10) | `os/apolloos-specific-on-v4.md`, `os/` subfolders |
+| Execution mode is `os-takeover` (games, demos) | `os/os-takeover.md`, `core/`, `best-practices/core/`, `pitfalls/core/` |
 | Writing code at all | `conventions/`, `toolchain/` |
 | CPU-heavy or assembly code | `core/cpu-68080/`, `best-practices/core/`, `pitfalls/core/` |
 | Graphics, screens, video modes | `core/saga-video-isabelle/` |
@@ -91,8 +104,9 @@ Every file starts with YAML frontmatter (full spec in `CONTRIBUTING.md`).
   - `draft`: unreviewed. Use with caution and tell the user when your answer
     depends on a draft.
   - `deprecated`: do not use. Follow `superseded_by`.
-- **applies_to**: check that the core revision matches the user's target and
-  that `os` is `any` or covers every target OS of the project. If not, or the
+- **applies_to**: check that the core revision matches the user's target,
+  that `os` is `any` or covers every target OS of the project, and that
+  `mode` (if present) includes the project's execution mode. If not, or the
   target is unknown, say so.
 - **origin: ai-assisted**: drafted by an AI. Treat like `draft` unless the
   status says otherwise.
