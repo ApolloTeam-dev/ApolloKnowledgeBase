@@ -1,0 +1,12 @@
+{
+  // Long lines are fine: register tables and links get long.
+  "MD013": false,
+  // Repeated headings are fine across sections (templates reuse them).
+  "MD024": { "siblings_only": true },
+  // Allow HTML comments and simple inline HTML.
+  "MD033": false,
+  // Files start with frontmatter, not a heading.
+  "MD041": false,
+  // Compact table separators (|---|) are fine.
+  "MD060": false
+}

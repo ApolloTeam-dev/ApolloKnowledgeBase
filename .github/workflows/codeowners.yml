@@ -1,0 +1,29 @@
+name: Regenerate CODEOWNERS
+
+on:
+  push:
+    branches: [main]
+    paths: ["**/*.md", ".github/CODEOWNERS.base", "tools/generate_codeowners.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml==6.0.2
+      - run: python tools/generate_codeowners.py
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet .github/CODEOWNERS; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .github/CODEOWNERS
+            git commit -m "Regenerate CODEOWNERS"
+            git push
+          fi

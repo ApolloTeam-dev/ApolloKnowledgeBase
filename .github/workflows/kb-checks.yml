@@ -1,0 +1,50 @@
+name: KB checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml==6.0.2
+
+      - name: Frontmatter, naming and placement
+        run: python tools/check_frontmatter.py
+      - name: Internal links
+        run: python tools/check_links.py
+      - name: Owners are GitHub users
+        run: python tools/check_owners.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !seed/**
+            !templates/**
+
+  compile-examples:
+    runs-on: ubuntu-latest
+    # Disabled until ApolloCrossDev is available in CI.
+    # Set the repository variable KB_COMPILE_ENABLED to "true" to enable.
+    if: vars.KB_COMPILE_ENABLED == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml==6.0.2
+      - run: python tools/extract_compile_blocks.py
+      # TODO (ApolloTeam): install ApolloCrossDev here and set CC/AS/flags.
+      - run: sh tools/compile-snippets.sh
