@@ -13,19 +13,30 @@ the platform correctly and to its full potential.
 
 ## What's inside
 
-| Folder | Contents |
+Three pillars of knowledge, each with reference files, best practices and
+pitfalls:
+
+| Pillar | Contents |
 |---|---|
 | `core/` | 68080 CPU and the SAGA chips: Isabelle (video), Arne (audio), Anni (DMA), Maggie (3D) |
-| `os/` | Running on V4 under ApolloOS R10, AmigaOS 3.9 and 3.2; ApolloOS internals (differences from AROS, libraries, devs, filesys, commands, datatypes) |
+| `os/` | Running on V4 under ApolloOS R10, AmigaOS 3.9 and 3.2; OS takeover; ApolloOS internals (libraries, devs, filesys, commands, datatypes) |
 | `toolchain/` | ApolloCrossDev setup, options and syntax |
-| `best-practices/` | How to write optimal code using all Apollo V4 features |
-| `pitfalls/` | Known traps and how to avoid them |
+
+Each pillar has `best-practices/` (how to write optimal code using all Apollo
+V4 features) and `pitfalls/` (known traps and how to avoid them).
+
+Cross-cutting folders:
+
+| Folder | Contents |
+|---|---|
 | `guides/` | Step-by-step how-tos |
 | `examples/` | Small, compiling, tested code |
 | `conventions/` | Team coding style and process |
 | `lessons/` | Project retrospectives |
-| `templates/` | Templates for new knowledge base files, for code repositories, and for collecting seed content |
-| `skills/`, `evals/`, `tools/` | AI agent skills, AI benchmarks, CI scripts |
+
+Supporting folders: `templates/` (templates for knowledge base files, code
+repositories and seed content), `sources/` (original official documents),
+`tools/` (CI scripts), and later `skills/` and `evals/`.
 
 Each file shows its owner, its status (`draft`, `reviewed`, `verified`,
 `deprecated`) and which core revision, target OS and execution mode
@@ -62,7 +73,7 @@ the file format and review process. The most valuable contributions are:
 
 - Places where ApolloOS, the 68080 or SAGA differ from what developers (and
   AI models) expect
-- Measured optimization techniques for `best-practices/`
-- Bugs you hit and how you fixed them, for `pitfalls/`
+- Measured optimization techniques, for the pillars' `best-practices/`
+- Bugs you hit and how you fixed them, for the pillars' `pitfalls/`
 
 AI agents: start with `AGENTS.md`.

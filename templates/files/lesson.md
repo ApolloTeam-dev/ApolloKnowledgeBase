@@ -3,7 +3,7 @@ title: <short descriptive title>
 type: lesson
 owner: <github-handle>
 status: draft
-origin: <human | ai-assisted>
+origin: <human | ai-assisted | official>
 components: [<one or more: cpu-68080, saga-video-isabelle, saga-audio-arne, saga-dma-anni, saga-3d-maggie, libraries, devs, filesys, commands, datatypes, toolchain, general>]
 applies_to:
   core: "<core revision or range>"

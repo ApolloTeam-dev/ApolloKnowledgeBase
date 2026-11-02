@@ -46,7 +46,7 @@ compiler knowledge is where you will make confident mistakes.
 - DON'T assume generic m68k GCC or vasm behavior. ApolloCrossDev is a patched
   GCC 6.5 with 68080 support. Check `toolchain/`.
 - DON'T write generic 68k code when an Apollo-specific technique exists. Check
-  `best-practices/` before writing performance-relevant code.
+  `core/best-practices/` before writing performance-relevant code.
 - DON'T use OS functions that are missing in one of the project's target
   operating systems. Check `os/apolloos-and-amigaos-on-v4.md`.
 - DON'T access SAGA registers directly in an `os-friendly` project unless the
@@ -62,16 +62,19 @@ compiler knowledge is where you will make confident mistakes.
 
 ## 3. What to read for your task
 
-Read only what your task needs. Always check the matching `pitfalls/` and
-`best-practices/` subfolders as well as the reference files.
+The knowledge base has three pillars: `core/` (68080 and SAGA), `os/`
+(ApolloOS and AmigaOS on V4) and `toolchain/` (ApolloCrossDev). Each has its
+own `best-practices/` and `pitfalls/` subfolders. Read only what your task
+needs, and always check the `best-practices/` and `pitfalls/` of every pillar
+you read.
 
 | Task | Read |
 |---|---|
-| Any task | This file, `os/apolloos-and-amigaos-on-v4.md` |
+| Any task | This file, `os/apolloos-and-amigaos-on-v4.md`, `os/best-practices/`, `os/pitfalls/` |
 | Target OS is ApolloOS only, or working on ApolloOS itself (ApolloOS.R10) | `os/apolloos-specific-on-v4.md`, `os/` subfolders |
-| Execution mode is `os-takeover` (games, demos) | `os/os-takeover.md`, `core/`, `best-practices/core/`, `pitfalls/core/` |
+| Execution mode is `os-takeover` (games, demos) | `os/os-takeover.md`, `core/` |
 | Writing code at all | `conventions/`, `toolchain/` |
-| CPU-heavy or assembly code | `core/cpu-68080/`, `best-practices/core/`, `pitfalls/core/` |
+| CPU-heavy or assembly code | `core/cpu-68080/`, `core/best-practices/`, `core/pitfalls/` |
 | Graphics, screens, video modes | `core/saga-video-isabelle/` |
 | Sound | `core/saga-audio-arne/` |
 | Memory transfers, DMA | `core/saga-dma-anni/` |
@@ -81,7 +84,7 @@ Read only what your task needs. Always check the matching `pitfalls/` and
 | Filesystems | `os/filesys/` |
 | Shell commands | `os/commands/` |
 | Datatypes | `os/datatypes/` |
-| Build problems, compiler flags, optimization settings | `toolchain/`, `best-practices/toolchain/`, `pitfalls/toolchain/` |
+| Build problems, compiler flags, optimization settings | `toolchain/`, `toolchain/best-practices/`, `toolchain/pitfalls/` |
 | A task with a matching how-to | `guides/` |
 | Looking for working code to start from | `examples/` |
 
@@ -108,8 +111,14 @@ Every file starts with YAML frontmatter (full spec in `CONTRIBUTING.md`).
   that `os` is `any` or covers every target OS of the project, and that
   `mode` (if present) includes the project's execution mode. If not, or the
   target is unknown, say so.
-- **origin: ai-assisted**: drafted by an AI. Treat like `draft` unless the
-  status says otherwise.
+- **origin**
+  - `official`: converted from official Apollo documentation. Authoritative,
+    but conversion errors are possible while the status is `draft`.
+  - `ai-assisted`: drafted by an AI. Treat like `draft` unless the status
+    says otherwise.
+- **generated_from**: the file is generated from an original document in
+  `sources/official/`. Never edit it. Propose the change to the maintainers
+  as a change to the original document.
 
 When two files contradict each other, prefer the higher status, then the more
 recent `last_verified`, and tell the user about the conflict.
@@ -123,15 +132,16 @@ recent `last_verified`, and tell the user about the conflict.
    ApolloCrossDev repository) and say that your answer is based on it.
 3. Propose a new knowledge base file or addition so the gap gets closed.
 
-If ApolloOS behaves differently from AmigaOS in a way that breaks a program,
-that is an ApolloOS bug. Propose an issue for
-github.com/ApolloTeam-dev/ApolloOS.R10, not a knowledge base workaround.
+If something works on AmigaOS but fails on ApolloOS, that is an ApolloOS bug.
+Propose an issue for github.com/ApolloTeam-dev/ApolloOS.R10, not a pitfall or
+workaround in the knowledge base.
 
 ---
 
 ## 6. Writing code
 
-- Apply relevant `best-practices/` and avoid all relevant `pitfalls/`.
+- Apply the relevant best practices and avoid all relevant pitfalls of each
+  pillar.
 - Build with ApolloCrossDev as described in `toolchain/`, and fix all errors
   and warnings before presenting code.
 - In pull request descriptions, list the knowledge base files you relied on.
@@ -143,7 +153,10 @@ github.com/ApolloTeam-dev/ApolloOS.R10, not a knowledge base workaround.
 ## 7. Writing to the knowledge base
 
 - Follow `CONTRIBUTING.md` exactly: folder, file name, frontmatter, template.
-- Always set `origin: ai-assisted` and `status: draft`.
+- Always set `origin: ai-assisted` and `status: draft`. Exception: during
+  document intake by a maintainer, set `origin: official` as described in
+  `CONTRIBUTING.md` section 11.
+- Never edit a file that has `generated_from` in its frontmatter.
 - Set `owner` to the person who asked you to make the change, unless they
   name someone else.
 - Never change the `status` of an existing file. Status changes are human

@@ -7,12 +7,13 @@ import re
 
 import yaml
 
-from kblib import FOLDER_TYPES, HANDLE_RE, ROOT, content_files, frontmatter, read, report
+from kblib import (HANDLE_RE, ROOT, content_files, expected_type, frontmatter,
+                   maintainers, read, report)
 
 TYPES = {"reference", "guide", "convention", "best-practice", "pitfall",
          "example", "lesson"}
 STATUSES = {"draft", "reviewed", "verified", "deprecated"}
-ORIGINS = {"human", "ai-assisted"}
+ORIGINS = {"human", "ai-assisted", "official"}
 COMPONENTS = {"cpu-68080", "saga-video-isabelle", "saga-audio-arne",
               "saga-dma-anni", "saga-3d-maggie", "libraries", "devs",
               "filesys", "commands", "datatypes", "toolchain", "general"}
@@ -53,8 +54,9 @@ def check(path):
     errs = []
     name = os.path.basename(path)
     top = path.split(os.sep)[0]
+    expected = expected_type(path)
 
-    if top not in FOLDER_TYPES:
+    if expected is None:
         return [f"file is outside the known content folders ({top}/)"]
 
     if top == "lessons":
@@ -81,9 +83,9 @@ def check(path):
     if t is not None:
         if t not in TYPES:
             errs.append(f"invalid type '{t}'")
-        elif t != FOLDER_TYPES[top]:
-            errs.append(f"type '{t}' does not belong in {top}/ "
-                        f"(expected '{FOLDER_TYPES[top]}')")
+        elif t != expected:
+            errs.append(f"type '{t}' does not belong in "
+                        f"{os.path.dirname(path)}/ (expected '{expected}')")
 
     owner = fm.get("owner")
     if owner is not None and not (isinstance(owner, str)
@@ -97,6 +99,19 @@ def check(path):
     origin = fm.get("origin")
     if origin is not None and origin not in ORIGINS:
         errs.append(f"invalid origin '{origin}'")
+
+    # Document intake (CONTRIBUTING.md section 11) is for maintainers only.
+    if origin == "official" and isinstance(owner, str) \
+            and owner.lstrip("@") not in maintainers():
+        errs.append("origin 'official' requires a maintainer as owner")
+    gf = fm.get("generated_from")
+    if gf is not None:
+        if origin != "official":
+            errs.append("generated_from requires origin 'official'")
+        if not (isinstance(gf, str) and gf.startswith("sources/official/")):
+            errs.append("generated_from must be a path in sources/official/")
+        elif not os.path.isfile(os.path.join(ROOT, gf)):
+            errs.append(f"generated_from points to missing file '{gf}'")
 
     if t == "lesson" and status not in (None, "draft", "deprecated"):
         errs.append("lessons stay draft (or deprecated)")
