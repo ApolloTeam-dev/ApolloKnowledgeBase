@@ -35,16 +35,70 @@ jobs:
             !templates/**
 
   compile-examples:
-    runs-on: ubuntu-latest
-    # Disabled until ApolloCrossDev is available in CI.
-    # Set the repository variable KB_COMPILE_ENABLED to "true" to enable.
+    # ApolloCrossDev supports Ubuntu 24.04 only.
+    runs-on: ubuntu-24.04
+    # Enabled by the repository variable KB_COMPILE_ENABLED = "true".
     if: vars.KB_COMPILE_ENABLED == 'true'
+    env:
+      ACD_DIR: /home/runner/ApolloCrossDev
+      PREFIX: /home/runner/ApolloCrossDev/Compilers/GCC-6.50-Dev
     steps:
       - uses: actions/checkout@v4
+
+      # The toolchain is built from source once per ApolloCrossDev commit and
+      # cached; a full build takes about an hour.
+      - name: Find ApolloCrossDev commit
+        id: acd
+        run: echo "sha=$(git ls-remote https://github.com/WDrijver/ApolloCrossDev refs/heads/main | cut -f1)" >> "$GITHUB_OUTPUT"
+      - name: Restore ApolloCrossDev
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.PREFIX }}
+          key: apollocrossdev-gcc650dev-${{ steps.acd.outputs.sha }}
+
+      - name: Free disk space
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
+      - name: Build ApolloCrossDev
+        if: steps.cache.outputs.cache-hit != 'true'
+        timeout-minutes: 180
+        env:
+          TERM: xterm
+        run: |
+          git init -q "$ACD_DIR"
+          cd "$ACD_DIR"
+          git fetch -q --depth 1 https://github.com/WDrijver/ApolloCrossDev ${{ steps.acd.outputs.sha }}
+          git checkout -q FETCH_HEAD
+          bash GCC-6.50-Dev-Linux.sh
+      - name: Check toolchain binaries
+        run: |
+          for b in m68k-amigaos-gcc m68k-amigaos-g++ vasmm68k_mot; do
+            test -x "$PREFIX/bin/$b" || { echo "::error::$b missing after build"; exit 1; }
+          done
+          "$PREFIX/bin/m68k-amigaos-gcc" --version | head -1
+      - name: Upload build logs
+        if: failure() && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: apollocrossdev-logs
+          path: ${{ env.PREFIX }}/_logs
+      - name: Save ApolloCrossDev
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.PREFIX }}
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+
+      - name: Toolchain smoke test
+        run: |
+          mkdir -p build/smoke
+          cp tools/smoke/* build/smoke/
+          sh tools/compile-snippets.sh build/smoke
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install pyyaml==6.0.2
       - run: python tools/extract_compile_blocks.py
-      # TODO (ApolloTeam): install ApolloCrossDev here and set CC/AS/flags.
-      - run: sh tools/compile-snippets.sh
+      - name: Compile kb:compile blocks
+        run: sh tools/compile-snippets.sh

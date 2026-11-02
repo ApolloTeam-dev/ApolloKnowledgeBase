@@ -3,7 +3,7 @@
 compile them with ApolloCrossDev (see tools/compile-snippets.sh).
 
 A block is compiled when its first line is `; kb:compile` (assembly) or
-`// kb:compile` (C). Output names: <file-path-with-dashes>-<n>.<ext>"""
+`// kb:compile` (C, C++). Output names: <file-path-with-dashes>-<n>.<ext>"""
 import os
 import re
 import shutil
@@ -11,7 +11,7 @@ import shutil
 from kblib import ROOT, content_files, read
 
 BLOCK_RE = re.compile(r"^```(\w+)\n(.*?)^```", re.DOTALL | re.MULTILINE)
-EXT = {"c": "c", "asm": "s"}
+EXT = {"c": "c", "cpp": "cpp", "asm": "s"}
 OUT = os.path.join(ROOT, "build", "snippets")
 
 

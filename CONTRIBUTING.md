@@ -149,11 +149,13 @@ don't use.
 - Short sentences. Exact numbers. Units always stated.
 - Put the most important fact first.
 - Use "DO" / "DON'T" for rules; AI agents follow these reliably.
-- Code blocks always carry a language tag (`asm`, `c`, `sh`). The
+- Code blocks always carry a language tag (`asm`, `c`, `cpp`, `sh`). The
   assembler syntax and build settings are documented once in
   `toolchain/`, not repeated in every file.
 - Code blocks that should compile in CI are tagged with a comment on the
-  first line: `; kb:compile` (assembly) or `// kb:compile` (C).
+  first line: `; kb:compile` (assembly) or `// kb:compile` (C, C++).
+  CI compiles each block on its own to an object file (no linking), so a
+  `kb:compile` block must be a complete source file with its own includes.
 
 ---
 
@@ -200,7 +202,8 @@ Every pull request runs (scripts in `tools/`):
 - `check_owners.py`: every owner is an existing GitHub account
 - Markdown lint (rules in `.markdownlint.jsonc`)
 - Compilation of all `kb:compile` code blocks with ApolloCrossDev
-  (enabled once ApolloCrossDev runs in CI)
+  (GCC-6.50-Dev, flags as in its Makefile template; see
+  `tools/compile-snippets.sh`)
 
 On every merge to `main`, `generate_codeowners.py` regenerates
 `.github/CODEOWNERS`. Fixed owners for files without frontmatter go in
