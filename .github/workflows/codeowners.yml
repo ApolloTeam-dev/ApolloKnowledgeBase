@@ -5,14 +5,18 @@ on:
     branches: [main]
     paths: ["**/*.md", ".github/CODEOWNERS.base", "tools/generate_codeowners.py"]
 
+# Pushes with the CODEOWNERS_DEPLOY_KEY deploy key, the only actor allowed to
+# bypass the ruleset on main. GITHUB_TOKEN cannot bypass repository rulesets.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   regenerate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.CODEOWNERS_DEPLOY_KEY }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
