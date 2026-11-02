@@ -17,8 +17,10 @@ relative to the knowledge base root.
   of the Motorola 68000 family, with the **AMMX** SIMD extension.
 - **SAGA chipset**: `saga-video-isabelle` (video), `saga-audio-arne` (audio),
   `saga-dma-anni` (DMA), `saga-3d-maggie` (3D).
-- **ApolloOS**: fork of AROS, simplified and optimized specifically for
-  Apollo V4. Not identical to AROS or AmigaOS.
+- **Target OS**: Apollo V4 software runs on one or more of **ApolloOS R10**
+  (fork of AROS, optimized for Apollo V4), **AmigaOS 3.9** and
+  **AmigaOS 3.2**. The project's own AGENTS.md states which. Hardware
+  knowledge applies whatever the OS.
 - **ApolloCrossDev**: the one and only toolchain
   (github.com/WDrijver/ApolloCrossDev).
 
@@ -26,17 +28,20 @@ relative to the knowledge base root.
 
 ## 2. Your knowledge is probably wrong here
 
-Your training data covers classic AmigaOS, AROS and the 68000–68060 well.
-That is exactly where you will make confident mistakes on this platform.
+Your training data covers classic AmigaOS and the 68000–68060 well. Your
+AmigaOS API knowledge is mostly right on Apollo V4. Your hardware and
+compiler knowledge is where you will make confident mistakes.
 
 - DON'T assume 68060 behavior, timing or instruction availability applies to
   the 68080. Check `core/cpu-68080/`.
 - DON'T assume classic Amiga chipset behavior applies to SAGA. Check the
   relevant `core/saga-*` folder.
-- DON'T assume AROS or AmigaOS API behavior is unchanged in ApolloOS. Check
-  `os/differences-from-aros.md` and `os/`.
+- DON'T assume generic m68k GCC or vasm behavior. ApolloCrossDev is a patched
+  GCC 6.5 with 68080 support. Check `toolchain/`.
 - DON'T write generic 68k code when an Apollo-specific technique exists. Check
   `best-practices/` before writing performance-relevant code.
+- DON'T use OS functions that are missing in one of the project's target
+  operating systems. Check `os/apolloos-and-amigaos-on-v4.md`.
 - DON'T invent register addresses, bit meanings, function signatures or
   compiler flags. If it is not in the knowledge base or in source code you
   have read, say that you don't know.
@@ -50,14 +55,15 @@ Read only what your task needs. Always check the matching `pitfalls/` and
 
 | Task | Read |
 |---|---|
-| Any task | This file, `os/differences-from-aros.md` |
+| Any task | This file, `os/apolloos-and-amigaos-on-v4.md` |
+| Target OS is ApolloOS only, or working on ApolloOS itself (ApolloOS.R10) | `os/apolloos-specific-on-v4.md`, `os/` subfolders |
 | Writing code at all | `conventions/`, `toolchain/` |
 | CPU-heavy or assembly code | `core/cpu-68080/`, `best-practices/core/`, `pitfalls/core/` |
 | Graphics, screens, video modes | `core/saga-video-isabelle/` |
 | Sound | `core/saga-audio-arne/` |
 | Memory transfers, DMA | `core/saga-dma-anni/` |
 | 3D | `core/saga-3d-maggie/` |
-| Using or changing an OS library | `os/libraries/`, `best-practices/os/`, `pitfalls/os/` |
+| Using or changing an ApolloOS library | `os/libraries/` |
 | Device drivers | `os/devs/`, plus the `core/` folder of the hardware involved |
 | Filesystems | `os/filesys/` |
 | Shell commands | `os/commands/` |
@@ -85,8 +91,9 @@ Every file starts with YAML frontmatter (full spec in `CONTRIBUTING.md`).
   - `draft`: unreviewed. Use with caution and tell the user when your answer
     depends on a draft.
   - `deprecated`: do not use. Follow `superseded_by`.
-- **applies_to**: check that the core revision and ApolloOS version match
-  the user's target. If they don't, or the target is unknown, say so.
+- **applies_to**: check that the core revision matches the user's target and
+  that `os` is `any` or covers every target OS of the project. If not, or the
+  target is unknown, say so.
 - **origin: ai-assisted**: drafted by an AI. Treat like `draft` unless the
   status says otherwise.
 
@@ -101,6 +108,10 @@ recent `last_verified`, and tell the user about the conflict.
 2. If available, read the actual source code (ApolloOS repository,
    ApolloCrossDev repository) and say that your answer is based on it.
 3. Propose a new knowledge base file or addition so the gap gets closed.
+
+If ApolloOS behaves differently from AmigaOS in a way that breaks a program,
+that is an ApolloOS bug. Propose an issue for
+github.com/ApolloTeam-dev/ApolloOS.R10, not a knowledge base workaround.
 
 ---
 

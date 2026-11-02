@@ -19,8 +19,9 @@ without it.
 - **What it is:** <one or two sentences, e.g. "the ApolloOS kernel and core
   libraries" or "a 2D platform game">
 - **Kind:** <OS component | application | tool | game | library>
-- **Target:** core revision <...>, ApolloOS version <...>
-- **Languages:** <C | 68080 assembly | both>
+- **Target:** core revision <...>
+- **Target OS:** <one or more: ApolloOS R10, AmigaOS 3.9, AmigaOS 3.2>
+- **Languages:** <one or more: C, C++, 68080 assembly>
 
 ## Relevant knowledge base areas
 
