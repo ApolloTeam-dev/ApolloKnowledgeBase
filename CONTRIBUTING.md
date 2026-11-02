@@ -30,12 +30,12 @@ AI agents creating or editing files in this repository MUST follow it.
 | `core/saga-audio-arne/` | Audio chip | reference |
 | `core/saga-dma-anni/` | DMA chip | reference |
 | `core/saga-3d-maggie/` | 3D chip | reference |
-| `os/` | Architecture, `differences-from-aros.md` | reference |
-| `os/libraries/` | OS API routines (Libs:) | reference |
-| `os/devs/` | Device drivers (Devs:) | reference |
-| `os/filesys/` | Filesystem handlers (L:) | reference |
-| `os/commands/` | Shell commands (C:) | reference |
-| `os/datatypes/` | Datatypes (Classes:) | reference |
+| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `apolloos-specific-on-v4.md` (ApolloOS only: ApolloOS features and differences from AROS) | reference |
+| `os/libraries/` | ApolloOS API routines (Libs:) | reference |
+| `os/devs/` | ApolloOS device drivers (Devs:) | reference |
+| `os/filesys/` | ApolloOS filesystem handlers (L:) | reference |
+| `os/commands/` | ApolloOS shell commands (C:) | reference |
+| `os/datatypes/` | ApolloOS datatypes (Classes:) | reference |
 | `toolchain/` | ApolloCrossDev (github.com/WDrijver/ApolloCrossDev), the single toolchain for all Apollo development: components, setup, compiler and assembler options, syntax | reference |
 | `guides/` | Step-by-step how-tos for common tasks | guide |
 | `conventions/` | Coding style, toolchain, build, testing, PRs | convention |
@@ -56,16 +56,27 @@ reference areas, so related knowledge is easy to find:
 ```text
 best-practices/
 ├── core/           # CPU and chipset-level optimization
-├── os/             # using libraries, devs, filesys, datatypes optimally
 └── toolchain/      # ApolloCrossDev: flags and settings for optimal output
 pitfalls/
 ├── core/
-├── os/
 └── toolchain/
 ```
 
 Toolchain best practices still need evidence: show the compiler flags or
 settings, and compare the generated code or measured speed against a baseline.
+
+### Target OS and OS bugs
+
+Apollo V4 software targets the V4 hardware, running ApolloOS R10, AmigaOS
+3.9 or AmigaOS 3.2, often more than one. Hardware knowledge applies whatever
+the OS. Guidelines for running well on V4 under each OS go in
+`os/apolloos-and-amigaos-on-v4.md`.
+
+There are no `best-practices/os/` or `pitfalls/os/` folders. Where ApolloOS
+behaves differently from AmigaOS in a way that breaks programs, that is an
+ApolloOS bug: report it as an issue in
+github.com/ApolloTeam-dev/ApolloOS.R10 so it gets fixed in the source. Do not
+document a workaround in this knowledge base.
 
 ---
 
@@ -93,7 +104,7 @@ origin: human                             # required: human | ai-assisted
 components: [cpu-68080, saga-video-isabelle]  # required, see allowed values
 applies_to:                               # required
   core: "<core revision or range>"        # use the team's revision notation
-  apolloos: "<version or range>"
+  os: [any]                               # see allowed values
 last_verified: 2026-10-31                 # required once status is verified
 tags: [ammx, graphics, blitting]          # optional, free keywords for search
 related:                                  # optional, paths to related files
@@ -118,6 +129,14 @@ superseded_by:                            # only when status is deprecated
 - **components:** `cpu-68080`, `saga-video-isabelle`, `saga-audio-arne`,
   `saga-dma-anni`, `saga-3d-maggie`, `libraries`, `devs`, `filesys`,
   `commands`, `datatypes`, `toolchain`, `general`
+- **applies_to.os:** a list of target operating systems the file is valid for:
+  - `any`: valid whatever the OS (all hardware facts); not combined with others
+  - `apolloos-r10`: ApolloOS R10, the current 10.x versions from ApolloTeam-dev
+  - `amigaos-3.9`: AmigaOS 3.9 (Haage & Partner)
+  - `amigaos-3.2`: AmigaOS 3.2, the current 3.2.x versions from Hyperion
+
+  When a fact depends on a specific version (for example "fixed in 10.2"),
+  state that in the body.
 
 ---
 

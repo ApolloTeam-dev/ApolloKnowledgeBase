@@ -16,7 +16,7 @@ the platform correctly and to its full potential.
 | Folder | Contents |
 |---|---|
 | `core/` | 68080 CPU and the SAGA chips: Isabelle (video), Arne (audio), Anni (DMA), Maggie (3D) |
-| `os/` | ApolloOS architecture, differences from AROS, libraries, devs, filesys, commands, datatypes |
+| `os/` | Running on V4 under ApolloOS R10, AmigaOS 3.9 and 3.2; ApolloOS internals (differences from AROS, libraries, devs, filesys, commands, datatypes) |
 | `toolchain/` | ApolloCrossDev setup, options and syntax |
 | `best-practices/` | How to write optimal code using all Apollo V4 features |
 | `pitfalls/` | Known traps and how to avoid them |
@@ -28,7 +28,7 @@ the platform correctly and to its full potential.
 | `skills/`, `evals/`, `tools/` | AI agent skills, AI benchmarks, CI scripts |
 
 Each file shows its owner, its status (`draft`, `reviewed`, `verified`,
-`deprecated`) and which core revision and ApolloOS version it applies to.
+`deprecated`) and which core revision and target OS it applies to.
 
 ---
 

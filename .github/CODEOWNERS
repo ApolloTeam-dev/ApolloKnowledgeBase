@@ -14,3 +14,11 @@
 /.github/ @WDrijver @TuKo1982
 /.markdownlint.jsonc @WDrijver @TuKo1982
 
+/os/apolloos-and-amigaos-on-v4.md @WDrijver
+/os/apolloos-specific-on-v4.md @WDrijver
+/toolchain/c-compiler-options.md @WDrijver
+/toolchain/compiler-variants.md @WDrijver
+/toolchain/index.md @WDrijver
+/toolchain/project-makefile.md @WDrijver
+/toolchain/target-os-headers.md @WDrijver
+/toolchain/vasm-assembler.md @WDrijver

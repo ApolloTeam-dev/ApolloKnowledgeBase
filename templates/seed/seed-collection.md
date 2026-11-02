@@ -35,14 +35,14 @@ experienced Amiga/AROS developer, or an AI, would expect?
 - **People assume:**
 - **Actually true:**
 - **How you know:** <spec, source file, tested on hardware, experience>
-- **Core revision / ApolloOS version:** <if relevant, or "unknown">
+- **Core revision / target OS:** <if relevant, or "unknown"; OS: any, ApolloOS R10, AmigaOS 3.9, AmigaOS 3.2>
 
 ### A2.
 - **Area:**
 - **People assume:**
 - **Actually true:**
 - **How you know:**
-- **Core revision / ApolloOS version:**
+- **Core revision / target OS:**
 
 <!-- Copy the block for more entries. -->
 

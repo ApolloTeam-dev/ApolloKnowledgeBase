@@ -16,6 +16,7 @@ ORIGINS = {"human", "ai-assisted"}
 COMPONENTS = {"cpu-68080", "saga-video-isabelle", "saga-audio-arne",
               "saga-dma-anni", "saga-3d-maggie", "libraries", "devs",
               "filesys", "commands", "datatypes", "toolchain", "general"}
+OSES = {"any", "apolloos-r10", "amigaos-3.9", "amigaos-3.2"}
 REQUIRED = ["title", "type", "owner", "status", "origin", "components",
             "applies_to"]
 NEEDS_SOURCES = {"reference", "best-practice"}
@@ -97,8 +98,19 @@ def check(path):
 
     at = fm.get("applies_to")
     if at is not None:
-        if not isinstance(at, dict) or not {"core", "apolloos"} <= set(at):
-            errs.append("applies_to must contain 'core' and 'apolloos'")
+        if not isinstance(at, dict) or not {"core", "os"} <= set(at):
+            errs.append("applies_to must contain 'core' and 'os'")
+        else:
+            oses = at["os"]
+            if not isinstance(oses, list) or not oses:
+                errs.append("applies_to.os must be a non-empty list")
+            else:
+                for o in oses:
+                    if o not in OSES:
+                        errs.append(f"invalid os '{o}'")
+                if "any" in oses and len(oses) > 1:
+                    errs.append("applies_to.os 'any' cannot be combined "
+                                "with other values")
 
     lv = fm.get("last_verified")
     if status == "verified" and not lv:
