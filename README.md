@@ -28,7 +28,8 @@ the platform correctly and to its full potential.
 | `skills/`, `evals/`, `tools/` | AI agent skills, AI benchmarks, CI scripts |
 
 Each file shows its owner, its status (`draft`, `reviewed`, `verified`,
-`deprecated`) and which core revision and target OS it applies to.
+`deprecated`) and which core revision, target OS and execution mode
+(`os-friendly` or `os-takeover`) it applies to.
 
 ---
 
