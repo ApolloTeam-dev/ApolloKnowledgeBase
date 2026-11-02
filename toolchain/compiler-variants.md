@@ -15,6 +15,7 @@ related:
 sources:
   - "github.com/WDrijver/ApolloCrossDev README.md"
   - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Base-Linux.sh, GCC-6.50-Stable-Linux.sh, GCC-6.50-Dev-Linux.sh, GCC-13.3.sh, GCC-15.2.sh"
+  - "WDrijver (ApolloCrossDev maintainer), 2026-11-02"
 ---
 
 ## Summary
@@ -61,8 +62,8 @@ Planned, not yet supported: `mov3q`, `clr.q`, `move2.b`, `movs.b/w`,
 
 Scripts `GCC-13.1.sh`, `GCC-13.2.sh`, `GCC-13.3.sh` and `GCC-15.2.sh` build
 the branches `amiga-gcc-13.x` and `amiga-gcc-15.2`. They are beta and their
-scripts apply none of the Apollo patches above. Whether they support
-`-m68080` is not documented here.
+scripts apply none of the Apollo patches above, and they do not support
+`-m68080`.
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -74,4 +75,5 @@ scripts apply none of the Apollo patches above. Whether they support
 - DO use GCC-6.50-Dev for Apollo V4 code.
 - DO try GCC-6.50-Stable when you suspect a compiler bug in GCC-6.50-Dev, and
   report the difference.
-- DON'T use the GCC 13 or 15 beta for Apollo V4 work unless the user asks.
+- DON'T use the GCC 13 or 15 beta for Apollo V4 code. They cannot target the
+  68080.

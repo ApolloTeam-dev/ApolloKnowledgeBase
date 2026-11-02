@@ -75,8 +75,7 @@ Optional include folders: `<prefix>/m68k-amigaos/include/GL`, `.../SDL`,
 ### Other options in the Makefile template
 
 - `-g`: debug information, for remote debugging with bgdbserver.
-- `-DREGPARM=4`: defined by the template. Its purpose is not documented here
-  yet.
+- `-DREGPARM=4`: ignore it. It is not part of the standard options.
 
 ### Compile and link
 

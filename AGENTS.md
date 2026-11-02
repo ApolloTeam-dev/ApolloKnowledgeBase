@@ -56,7 +56,7 @@ Read only what your task needs. Always check the matching `pitfalls/` and
 | Task | Read |
 |---|---|
 | Any task | This file, `os/apolloos-and-amigaos-on-v4.md` |
-| Target OS is ApolloOS only, or working on ApolloOS itself (ApolloOS.R10) | `os/differences-from-aros.md`, `os/` subfolders |
+| Target OS is ApolloOS only, or working on ApolloOS itself (ApolloOS.R10) | `os/apolloos-specific-on-v4.md`, `os/` subfolders |
 | Writing code at all | `conventions/`, `toolchain/` |
 | CPU-heavy or assembly code | `core/cpu-68080/`, `best-practices/core/`, `pitfalls/core/` |
 | Graphics, screens, video modes | `core/saga-video-isabelle/` |

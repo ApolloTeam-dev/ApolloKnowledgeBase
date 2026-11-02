@@ -30,7 +30,7 @@ AI agents creating or editing files in this repository MUST follow it.
 | `core/saga-audio-arne/` | Audio chip | reference |
 | `core/saga-dma-anni/` | DMA chip | reference |
 | `core/saga-3d-maggie/` | 3D chip | reference |
-| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `differences-from-aros.md` (ApolloOS only) | reference |
+| `os/` | `apolloos-and-amigaos-on-v4.md` (running on V4 under any target OS), `apolloos-specific-on-v4.md` (ApolloOS only: ApolloOS features and differences from AROS) | reference |
 | `os/libraries/` | ApolloOS API routines (Libs:) | reference |
 | `os/devs/` | ApolloOS device drivers (Devs:) | reference |
 | `os/filesys/` | ApolloOS filesystem handlers (L:) | reference |

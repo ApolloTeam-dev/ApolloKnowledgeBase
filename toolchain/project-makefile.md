@@ -44,7 +44,7 @@ project folder must be two levels below the ApolloCrossDev root.
 | `C_COMPILER` | `m68k-amigaos-gcc` | Switch to `m68k-amigaos-g++` for C++ |
 | `C_LIB` | `-noixemul` | C runtime (libnix); alternative `-mcrt=clib2` |
 | `C_INCL_NDK` | NDK 3.2 | NDK headers, see `toolchain/target-os-headers.md` |
-| `C_OPTIONS` | `-O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer -DREGPARM=4` | Compiler options |
+| `C_OPTIONS` | `-O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer -DREGPARM=4` | Compiler options. Ignore `-DREGPARM=4`. |
 | `C_DEBUG` | `-g` | Debug information |
 | `S_FLAGS` | `-Fhunk -m68080 -m68881 -opt-speed -linedebug -kick1hunks -I<DevPac includes>` | Assembler options |
 | `C_LIBS_SDL`, `C_LIBS_MUI`, `C_LIBS_MATH` | off | Extra libraries, enable by removing `#` |
