@@ -14,6 +14,11 @@
 /.github/ @WDrijver @TuKo1982
 /.markdownlint.jsonc @WDrijver @TuKo1982
 
+/core/saga-dma-anni/index.md @WDrijver
+/core/saga-3d-maggie/index.md @WDrijver
+/core/saga-audio-arne/index.md @WDrijver
+/core/saga-video-isabelle/index.md @WDrijver
+/core/cpu-68080/index.md @WDrijver
 /os/apolloos-and-amigaos-on-v4.md @WDrijver
 /os/apolloos-specific-on-v4.md @WDrijver
 /os/os-takeover.md @WDrijver
