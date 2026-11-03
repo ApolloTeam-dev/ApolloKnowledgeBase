@@ -22,6 +22,8 @@ jobs:
         run: python tools/check_frontmatter.py
       - name: Internal links
         run: python tools/check_links.py
+      - name: Generated files match their originals
+        run: for s in tools/intake/*.py; do python "$s" --check; done
       - name: Owners are GitHub users
         run: python tools/check_owners.py
         env:
