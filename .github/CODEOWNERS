@@ -157,6 +157,13 @@
 /os/apolloos-and-amigaos-on-v4.md @WDrijver
 /os/apolloos-specific-on-v4.md @WDrijver
 /os/os-takeover.md @WDrijver
+/os/best-practices/detect-68080-and-fpu-at-run-time.md @TuKo1982
+/os/libraries/maggie-library.md @TuKo1982
+/os/pitfalls/library-globals-shared-between-tasks.md @TuKo1982
+/os/pitfalls/maggie-library-side-effects.md @TuKo1982
+/os/pitfalls/ramlib-reuses-library-by-name.md @TuKo1982
+/os/pitfalls/stack-patches-hide-small-stack-bugs.md @TuKo1982
+/os/pitfalls/v4-rom-modules-and-reset.md @TuKo1982
 /toolchain/c-compiler-options.md @WDrijver
 /toolchain/compiler-variants.md @WDrijver
 /toolchain/index.md @WDrijver

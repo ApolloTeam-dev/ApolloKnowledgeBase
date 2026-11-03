@@ -17,14 +17,16 @@ sources:
 Guidelines for programs that run on Apollo V4 hardware under ApolloOS R10,
 AmigaOS 3.9 or AmigaOS 3.2. Read this for every Apollo V4 project.
 
-**This file has no content yet.** If your task depends on it, tell the user
-that the knowledge base does not cover OS-specific guidelines yet.
+**This file is only partly covered.** It points to the files that exist so
+far. For anything else, tell the user that the knowledge base does not cover
+OS-specific guidelines yet.
 
 ## Details
 
 ### Detecting Apollo V4 hardware
 
-No content yet.
+Gate 68080 code on AttnFlags bit 10 and FPU code on the 68881 flag at run
+time: see [best-practices/detect-68080-and-fpu-at-run-time.md](best-practices/detect-68080-and-fpu-at-run-time.md).
 
 ### OS functions per target OS
 
@@ -32,7 +34,16 @@ No content yet.
 
 ### Using SAGA features through the OS
 
-No content yet.
+- Maggie 3D: [libraries/maggie-library.md](libraries/maggie-library.md),
+  and read [pitfalls/maggie-library-side-effects.md](pitfalls/maggie-library-side-effects.md)
+  first.
+
+### Known traps on V4 under AmigaOS
+
+See `os/pitfalls/`: stack patches hiding small-stack bugs, library globals
+shared between tasks, V4 ROM modules and soft resets, and `ramlib` reusing a
+library by name. `CacheClearU` doing nothing on the 68080 is in
+[core/pitfalls/self-modifying-code-and-caches.md](../core/pitfalls/self-modifying-code-and-caches.md).
 
 ## Differences from AmigaOS / AROS / 68060
 

@@ -29,7 +29,7 @@ or 68060 knowledge.
 - `registers.md`: the span unit registers as maggie.library uses them, with
   measured behaviour (exists; no official register documentation yet)
 - One file per feature, for example texture mapping
-- Using maggie.library: planned in `os/libraries/`
+- Using maggie.library: [os/libraries/maggie-library.md](../../os/libraries/maggie-library.md)
 
 ### For contributors
 
