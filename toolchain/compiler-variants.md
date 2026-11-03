@@ -51,12 +51,27 @@ Patches applied by GCC-6.50-Dev, from `Compilers/_archives/patches/`:
 
 GCC-6.50-Stable applies `q2g-stable.patch` and the four patches by Morten.
 
+### Known GCC bugs with pending fixes
+
+| Bug | Fix | State on 2026-11-03 |
+|---|---|---|
+| bbb pass counts a post-increment twice | ApolloCrossDev pull request #5 | Open: see [gcc-bbb-autoinc.md](pitfalls/gcc-bbb-autoinc.md) |
+| 16-bit loop counter in an address register runs away | ApolloCrossDev pull request #7 | Open: see [gcc-dbra-address-register-loop.md](pitfalls/gcc-dbra-address-register-loop.md) |
+
+Until a fix is merged and you rebuild the toolchain, the matching pitfall
+applies to every GCC 6.5 variant.
+
 ### 68080 instructions the compiler generates
 
 According to the ApolloCrossDev README, the patched GCC 6.5 generates these
 68080 instructions: `cmpiw.l`, `addiw.l`, `dbra.l`, `moviw.l`, `bcc.s`.
 Planned, not yet supported: `mov3q`, `clr.q`, `move2.b`, `movs.b/w`,
 `movz.b/w`.
+
+`mov3q`, `clr.q`, `movs` and `movz` are LineA instructions that exist only
+on cores 10280–10904 (official, see [core/cpu-68080/isa-notes-measured.md](../core/cpu-68080/isa-notes-measured.md)).
+Code generated with them would not run on current cores; the fused pairs
+(`moveq #0` + `move.b`, `move.w` + `ext.l`) give the same effect.
 
 ### GCC 13 and 15 (beta)
 
