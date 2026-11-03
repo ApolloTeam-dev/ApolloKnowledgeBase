@@ -14,6 +14,7 @@ related:
   - core/cpu-68080/prm/integer-unit.md
   - core/cpu-68080/isa-notes-measured.md
   - toolchain/vasm-assembler.md
+  - toolchain/pitfalls/vasm-pc-relative-destination.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rule 22), 7.2 and 9.4"
 ---
@@ -34,7 +35,7 @@ format, for example `(table.l,d0.w)` or memory indirect.
 vasm with `-m68080` makes such destinations by itself: it rewrites an
 absolute destination `move.x <src>,label` into `label(pc)` by default (also
 for addq/subq, bchg/bclr/bset, eor, fmove and AMMX stores). The
-toolchain side is described in [toolchain/vasm-assembler.md](../../toolchain/vasm-assembler.md).
+toolchain side is described in [vasm-pc-relative-destination.md](../../toolchain/pitfalls/vasm-pc-relative-destination.md).
 
 ## Wrong
 
