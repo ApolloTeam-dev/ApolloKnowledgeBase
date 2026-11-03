@@ -16,16 +16,20 @@ sources:
 
 Maggie, the SAGA 3D chip.
 
-**This folder has no content yet.** If your task depends on it, tell the
-user that the knowledge base does not cover the SAGA 3D (Maggie) yet. Do not fill the
-gap with classic Amiga or 68060 knowledge.
+**This folder is only partly covered.** It has the span registers as
+maggie.library uses them (`registers.md`) and the pitfalls in
+`core/pitfalls/maggie-*.md`. For anything else, tell the user that the
+knowledge base does not cover it yet. Do not fill the gap with classic Amiga
+or 68060 knowledge.
 
 ## Details
 
 ### Planned files
 
-- `registers.md`: register map with offsets, bits and access rules
+- `registers.md`: the span unit registers as maggie.library uses them, with
+  measured behaviour (exists; no official register documentation yet)
 - One file per feature, for example texture mapping
+- Using maggie.library: planned in `os/libraries/`
 
 ### For contributors
 

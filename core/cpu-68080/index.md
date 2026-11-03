@@ -36,6 +36,25 @@ converted in [prm/](prm/index.md).
 | Cycle counts, benchmark, optimizing | [prm/instruction-timing.md](prm/instruction-timing.md), [prm/instruction-efficiency.md](prm/instruction-efficiency.md), [prm/optimizing.md](prm/optimizing.md) |
 | Caches, bus, trace | [prm/specs.md](prm/specs.md), [prm/trace.md](prm/trace.md) |
 
+### Measured on V4 cores (rank above the PRM when they disagree)
+
+| Topic | File |
+|---|---|
+| Key numbers: clock, pipes, caches, AttnFlags | [core-at-a-glance.md](core-at-a-glance.md) |
+| The real 15-stage pipeline | [pipeline-15-stages.md](pipeline-15-stages.md) |
+| Second pipe, pairing, learning, fusing measured | [superscalar-issue.md](superscalar-issue.md) |
+| Branch costs, prediction, predication | [branches-and-prediction.md](branches-and-prediction.md) |
+| Cycle costs per instruction | [measured-instruction-costs.md](measured-instruction-costs.md) |
+| FPU performance model | [fpu-performance-model.md](fpu-performance-model.md) |
+| Cache lines, streaming, misses, alignment | [caches-and-memory.md](caches-and-memory.md) |
+| BANK prefix, E and B registers | [bank-prefix.md](bank-prefix.md) |
+| ISA notes beyond the PRM | [isa-notes-measured.md](isa-notes-measured.md) |
+| CCC and IEP counters | [performance-counters.md](performance-counters.md) |
+| Core bugs, by core revision | [core-bugs-by-revision.md](core-bugs-by-revision.md) |
+
+Best practices and pitfalls for the 68080 are in `core/best-practices/` and
+`core/pitfalls/`.
+
 The files in `prm/` are generated from the original manual in
 `sources/official/` and are never edited by hand. Other 68080 content goes
 next to `prm/` in this folder.
@@ -46,7 +65,8 @@ next to `prm/` in this folder.
   68080 adds to the 68000 family. For the classic instructions, the Motorola
   manuals apply.
 - `differences-from-68060.md`: what a 68060 programmer would wrongly assume,
-  collected in one place.
+  collected in one place. Until then, see the "Differences" section of each
+  file.
 
 ### For contributors
 
