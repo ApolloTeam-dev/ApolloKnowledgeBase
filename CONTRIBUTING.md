@@ -24,8 +24,9 @@ AI agents creating or editing files in this repository MUST follow it.
 
 ## 2. Where things go
 
-The knowledge base has three pillars: **core** (the hardware), **os** (the
-operating systems) and **toolchain** (ApolloCrossDev). Each pillar holds
+The knowledge base has four pillars: **core** (the FPGA core: 68080 CPU and
+SAGA chipset), **hardware** (the V4 boards), **os** (the operating systems)
+and **toolchain** (ApolloCrossDev). Each pillar holds
 reference files plus its own `best-practices/` and `pitfalls/`. Knowledge
 that spans pillars goes in the cross-cutting folders.
 
@@ -36,6 +37,15 @@ core/                       68080 CPU and SAGA chipset
 ├── saga-audio-arne/        audio chip
 ├── saga-dma-anni/          DMA chip
 ├── saga-3d-maggie/         3D chip
+├── best-practices/
+└── pitfalls/
+hardware/                   the V4 boards
+├── v4-generic/             shared by all V4 models: memory map, common connectors
+├── v4-standalone/          V4 Standalone (SA)
+├── v4-unicorn/             V4 UniCorn (UNI, A6000)
+├── v4-icedrake/            V4 IceDrake (ICE)
+├── v4-manticore/           V4 Manticore (MC)
+├── v4-firebird/            V4 Firebird (FB)
 ├── best-practices/
 └── pitfalls/
 os/                         ApolloOS R10, AmigaOS 3.9 and 3.2 on Apollo V4
@@ -55,7 +65,7 @@ lessons/                    project retrospectives
 
 | Folder | `type` |
 |---|---|
-| `core/`, `os/`, `toolchain/` and their subfolders | reference |
+| `core/`, `hardware/`, `os/`, `toolchain/` and their subfolders | reference |
 | `<pillar>/best-practices/` | best-practice |
 | `<pillar>/pitfalls/` | pitfall |
 | `guides/` | guide |
@@ -68,6 +78,12 @@ Not content: `templates/` (file, repo and seed templates), `sources/`
 skills, step 2), `evals/` (AI benchmarks, step 5), `tools/` (CI scripts).
 
 Each chip folder keeps its register map in `registers.md` inside that folder.
+
+`core/` is the FPGA core, the same on every V4 model. `hardware/` is the
+board: connectors, headers, memory and what differs per model. Knowledge that
+holds for all models goes in `hardware/v4-generic/`; a model folder holds
+only what is specific to that model. Common abbreviations: SA (Standalone),
+UNI or A6000 (UniCorn), ICE (IceDrake), MC (Manticore), FB (Firebird).
 
 A best practice or pitfall goes in the pillar it is about. One that spans
 pillars goes in the pillar where a developer would look first, with
@@ -137,11 +153,13 @@ type: best-practice                       # required, see allowed values
 owner: github-handle                      # required, one GitHub handle
 status: draft                             # required, see allowed values
 origin: human                             # required, see allowed values
+basis: [measured, core-developer]         # optional, kinds of source used
 components: [cpu-68080, saga-video-isabelle]  # required, see allowed values
 applies_to:                               # required
-  core: "<core revision or range>"        # use the team's revision notation
+  core: "Core 12841+"                     # required, see allowed values
   os: [any]                               # see allowed values
   mode: [os-takeover]                     # optional, see allowed values
+  board: [v4-standalone]                  # optional, see allowed values
 last_verified: 2026-10-31                 # required once status is verified
 tags: [ammx, graphics, blitting]          # optional, free keywords for search
 related:                                  # optional, paths to related files
@@ -168,9 +186,17 @@ generated_from:                           # only for document intake, section 11
     after a human review
   - `official`: from official Apollo documentation through document intake
     (section 11); maintainers only, CI checks that the owner is a maintainer
+- **basis:** optional list of the kinds of source the file relies on, from
+  the highest rank to the lowest (see "Sources and their rank" below):
+  `core-developer`, `measured`, `official`, `source-code`, `other`
 - **components:** `cpu-68080`, `saga-video-isabelle`, `saga-audio-arne`,
   `saga-dma-anni`, `saga-3d-maggie`, `libraries`, `devs`, `filesys`,
-  `commands`, `datatypes`, `toolchain`, `general`
+  `commands`, `datatypes`, `toolchain`, `hardware`, `general`
+- **applies_to.core:** the core revisions the file is valid for:
+  - `any`: valid on every core
+  - `Core 12841`: one core
+  - `Core 12830-12840`: a range, both ends included
+  - `Core 12841+`: this core and later
 - **applies_to.os:** a list of target operating systems the file is valid for:
   - `any`: valid whatever the OS (all hardware facts); not combined with others
   - `apolloos-r10`: ApolloOS R10, the current 10.x versions from ApolloTeam-dev
@@ -184,6 +210,28 @@ generated_from:                           # only for document intake, section 11
   - `any`: valid in both modes; not combined with others
   - `os-friendly`: only for programs that keep the OS running
   - `os-takeover`: only for programs that take over the machine
+- **applies_to.board:** optional list of V4 models the file is valid for.
+  Leaving it out means `any`.
+  - `any`: all models; not combined with others
+  - `v4-standalone`, `v4-unicorn`, `v4-icedrake`, `v4-manticore`,
+    `v4-firebird`
+
+### Sources and their rank
+
+Mark where each fact comes from with a tag right after it, and list the kinds
+in `basis`. When sources disagree, the higher rank wins:
+
+| Rank | Tag | `basis` | Source |
+|---|---|---|---|
+| 1 | **(G)** | `core-developer` | Gunnar, the core developer. Name the date: "(G, 2026-10-29)" |
+| 2 | **(M)** | `measured` | Measured on real V4 hardware. State the core and the method (counters, test program) |
+| 3 | **(official)** | `official` | The 68080 PRM and other official Apollo documents |
+| 4 | **(SRC)** | `source-code` | Read from source code (ApolloOS, a library, ApolloCrossDev) |
+| 5 | | `other` | Anything else, such as forum posts or apollo-core.com |
+
+Within the same rank, the newer core wins. Facts tied to a core say so in the
+text ("on Core 12841") and in `applies_to.core`. A later core can change
+them: measure again on yours.
 
 ---
 
@@ -227,12 +275,33 @@ don't use.
 
 ## 7. Lessons lifecycle
 
-1. After a project, write `lessons/YYYY-MM-project-name.md` (AI may draft).
-2. Lessons stay `draft` and are not read by AI agents by default.
-3. Periodically, the team distills recurring points into the pillars'
-   `best-practices/` or `pitfalls/`, or into `guides/`, and links the lesson
-   in their `sources`.
-4. Distilled lessons stay in place as history.
+Lessons carry what a project learned back into the knowledge base.
+
+1. **Offer.** AI agents offer a lesson when the developer says a project, a
+   release or a milestone is done, or asks for a summary, and right away when
+   they find that an assumption from AGENTS.md section 2 was wrong.
+2. **Draft.** The agent writes `lessons/YYYY-MM-project-name.md` from
+   `templates/files/lesson.md`, with the evidence (source, core, method) for
+   every measured claim, and shows it to the developer. Nothing is submitted
+   without the developer's approval.
+3. **Submit.** Either way works:
+   - **Pull request (preferred):** in the knowledge base clone (the
+     `ApolloKnowledgeBase/` submodule of the project), on a new branch
+     `lesson/YYYY-MM-project-name`, commit the lesson and open a PR with
+     `gh pr create`. Without write access, `gh` offers to use a fork. Then
+     return the submodule to the commit the project uses
+     (`git submodule update ApolloKnowledgeBase` in the project).
+   - **Issue form:** open an issue with the "Submit a lesson" form on
+     github.com/ApolloTeam-dev/ApolloKnowledgeBase and paste the lesson. A
+     maintainer turns it into a file.
+4. **Review.** CI checks the file; a maintainer merges it. Lessons stay
+   `draft` and are not read by AI agents by default: one project's experience
+   is not yet a rule.
+5. **Distill.** The team turns the lesson's "Candidates for distillation"
+   into files in the pillars' `best-practices/` or `pitfalls/`, or into
+   `guides/`, and links the lesson in their `sources`. From then on every
+   agent finds it.
+6. Distilled lessons stay in place as history.
 
 ---
 
@@ -262,7 +331,8 @@ Do not delete outdated files. Set `status: deprecated`, fill in
 
 Every pull request runs (scripts in `tools/`):
 
-- `check_frontmatter.py`: required fields, allowed values, file naming,
+- `check_frontmatter.py`: required fields, allowed values (including the
+  `applies_to.core` notation and `basis`), file naming,
   type matches folder, no leftover `<placeholder>` text, `related`,
   `superseded_by` and `generated_from` paths exist, `official` files are
   owned by a maintainer

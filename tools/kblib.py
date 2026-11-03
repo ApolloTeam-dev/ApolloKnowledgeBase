@@ -12,9 +12,9 @@ SKIP_TOP_FILES = {"README.md", "AGENTS.md", "CONTRIBUTING.md", "CLAUDE.md"}
 SKIP_DIRS = {"templates", "seed", "sources", "tools", "skills", "evals",
              ".github", ".git"}
 
-# The three knowledge pillars. Files in a pillar are references, except in
+# The four knowledge pillars. Files in a pillar are references, except in
 # its best-practices/ and pitfalls/ subfolders.
-PILLARS = {"core", "os", "toolchain"}
+PILLARS = {"core", "hardware", "os", "toolchain"}
 PILLAR_SUBFOLDER_TYPES = {"best-practices": "best-practice",
                           "pitfalls": "pitfall"}
 

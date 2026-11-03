@@ -17,6 +17,10 @@ relative to the knowledge base root.
   of the Motorola 68000 family, with the **AMMX** SIMD extension.
 - **SAGA chipset**: `saga-video-isabelle` (video), `saga-audio-arne` (audio),
   `saga-dma-anni` (DMA), `saga-3d-maggie` (3D).
+- **V4 models**: V4 Standalone (SA), V4 UniCorn (UNI, A6000), V4 IceDrake
+  (ICE), V4 Manticore (MC) and V4 Firebird (FB). They share the FPGA core
+  (68080 and SAGA) but differ as boards. The project's own AGENTS.md states
+  the target model(s), if it depends on one.
 - **Target OS**: Apollo V4 software runs on one or more of **ApolloOS R10**
   (fork of AROS, optimized for Apollo V4), **AmigaOS 3.9** and
   **AmigaOS 3.2**. The project's own AGENTS.md states which. Hardware
@@ -54,6 +58,8 @@ compiler knowledge is where you will make confident mistakes.
 - DON'T call OS functions beyond the basic set in an `os-takeover` project,
   and DON'T leave the machine without restoring multitasking and the
   Workbench screen. Check `os/os-takeover.md`.
+- DON'T assume a connector, header or memory layout is the same on every V4
+  model. Check `hardware/v4-generic/` and the model's folder in `hardware/`.
 - DON'T invent register addresses, bit meanings, function signatures or
   compiler flags. If it is not in the knowledge base or in source code you
   have read, say that you don't know.
@@ -62,8 +68,9 @@ compiler knowledge is where you will make confident mistakes.
 
 ## 3. What to read for your task
 
-The knowledge base has three pillars: `core/` (68080 and SAGA), `os/`
-(ApolloOS and AmigaOS on V4) and `toolchain/` (ApolloCrossDev). Each has its
+The knowledge base has four pillars: `core/` (68080 and SAGA), `hardware/`
+(the V4 boards), `os/` (ApolloOS and AmigaOS on V4) and `toolchain/`
+(ApolloCrossDev). Each has its
 own `best-practices/` and `pitfalls/` subfolders. Read only what your task
 needs, and always check the `best-practices/` and `pitfalls/` of every pillar
 you read.
@@ -79,8 +86,9 @@ you read.
 | Sound | `core/saga-audio-arne/` |
 | Memory transfers, DMA | `core/saga-dma-anni/` |
 | 3D | `core/saga-3d-maggie/` |
+| Board connectors, headers, memory, model differences | `hardware/v4-generic/`, the model's folder in `hardware/` |
 | Using or changing an ApolloOS library | `os/libraries/` |
-| Device drivers | `os/devs/`, plus the `core/` folder of the hardware involved |
+| Device drivers | `os/devs/`, plus the `core/` or `hardware/` folder of the hardware involved |
 | Filesystems | `os/filesys/` |
 | Shell commands | `os/commands/` |
 | Datatypes | `os/datatypes/` |
@@ -107,10 +115,14 @@ Every file starts with YAML frontmatter (full spec in `CONTRIBUTING.md`).
   - `draft`: unreviewed. Use with caution and tell the user when your answer
     depends on a draft.
   - `deprecated`: do not use. Follow `superseded_by`.
-- **applies_to**: check that the core revision matches the user's target,
-  that `os` is `any` or covers every target OS of the project, and that
-  `mode` (if present) includes the project's execution mode. If not, or the
-  target is unknown, say so.
+- **applies_to**: check that `core` covers the user's core (`any`,
+  `Core 12841`, a range `Core 12830-12840` or `Core 12841+`), that `os` is
+  `any` or covers every target OS of the project, and that `mode` and
+  `board` (if present) include the project's execution mode and V4 model. If
+  not, or the target is unknown, say so.
+- **basis** and the tags after facts tell where a fact comes from: **(G)**
+  the core developer, **(M)** measured on V4 hardware, **(official)** official
+  Apollo documentation such as the 68080 PRM, **(SRC)** source code.
 - **origin**
   - `official`: converted from official Apollo documentation. Authoritative,
     but conversion errors are possible while the status is `draft`.
@@ -120,8 +132,16 @@ Every file starts with YAML frontmatter (full spec in `CONTRIBUTING.md`).
   `sources/official/`. Never edit it. Propose the change to the maintainers
   as a change to the original document.
 
-When two files contradict each other, prefer the higher status, then the more
-recent `last_verified`, and tell the user about the conflict.
+When two facts contradict each other, decide in this order, and always tell
+the user about the conflict:
+
+1. The source rank: (G) core developer, then (M) measured, then (official)
+   documentation, then (SRC) source code, then anything else.
+2. The newer core.
+3. The higher status, then the more recent `last_verified`.
+
+So a measured fact in a pitfall beats the 68080 PRM, even when the PRM file
+has a higher status.
 
 ---
 
@@ -166,9 +186,23 @@ workaround in the knowledge base.
 
 ---
 
-## 8. After finishing a project
+## 8. Lessons: give back what the project learned
 
-Offer to draft a lesson in `lessons/` using the lesson template. Be specific
-and honest about what you got wrong, especially wrong assumptions from
-section 2. Those are the most valuable input for improving this knowledge
-base.
+Offer the developer a lesson when:
+
+- they say a project, a release or a milestone is done, or ask for a summary;
+- you find that an assumption from section 2 was wrong (offer it right away,
+  while the details are fresh).
+
+Then:
+
+1. Draft `lessons/YYYY-MM-project-name.md` from
+   `templates/files/lesson.md`. Be specific and honest about what you got
+   wrong, especially wrong assumptions from section 2. Give the evidence
+   (source tag, core, method) for every measured claim.
+2. Show the draft to the developer. Submit nothing without their approval.
+3. Submit it as described in `CONTRIBUTING.md` section 7: preferably as a
+   pull request from the knowledge base clone (the `ApolloKnowledgeBase/`
+   submodule), on a branch `lesson/YYYY-MM-project-name`; otherwise give the
+   developer the text for the "Submit a lesson" issue form.
+4. Return the submodule to the commit the project uses afterwards.

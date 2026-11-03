@@ -1,0 +1,52 @@
+name: Submit a lesson
+description: Share what a project learned about Apollo V4 development. A maintainer turns it into a file in lessons/.
+title: "Lesson: <project name>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Prefer a pull request with a file from `templates/files/lesson.md` when you can (see CONTRIBUTING.md section 7). This form is the alternative. An AI agent can fill in these fields for you.
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: Name, repository and dates.
+    validations:
+      required: true
+  - type: input
+    id: github
+    attributes:
+      label: Your GitHub handle
+      description: Becomes the owner of the lesson file.
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Target
+      description: Core (for example "Core 12841"), target OS, execution mode and V4 model.
+    validations:
+      required: true
+  - type: textarea
+    id: went-well
+    attributes:
+      label: What went well
+  - type: textarea
+    id: went-wrong
+    attributes:
+      label: What went wrong
+  - type: textarea
+    id: ai-wrong
+    attributes:
+      label: What the AI got wrong
+      description: Concrete mistakes and wrong assumptions, with examples.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: For each measured or reported fact, the source ((G) core developer with date, (M) measured, (official) document, (SRC) source code), the core and the method.
+  - type: textarea
+    id: candidates
+    attributes:
+      label: Candidates for distillation
+      description: Proposed new or updated files in best-practices/, pitfalls/ or guides/.

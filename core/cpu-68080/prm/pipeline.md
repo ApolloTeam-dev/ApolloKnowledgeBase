@@ -4,6 +4,7 @@ type: reference
 owner: WDrijver
 status: reviewed
 origin: official
+basis: [official]
 components: [cpu-68080]
 applies_to:
   core: "any"
