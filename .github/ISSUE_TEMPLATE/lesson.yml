@@ -1,6 +1,7 @@
 name: Submit a lesson
 description: Share what a project learned about Apollo V4 development. A maintainer turns it into a file in lessons/.
 title: "Lesson: <project name>"
+labels: [lesson]
 body:
   - type: markdown
     attributes:
