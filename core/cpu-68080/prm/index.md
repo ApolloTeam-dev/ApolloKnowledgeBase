@@ -2,7 +2,7 @@
 title: "Apollo 68080 Programmer's Reference Manual"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -13,7 +13,7 @@ tags: [68080, prm, instructions, index]
 related:
   - core/cpu-68080/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -30,7 +30,7 @@ The Apollo 68080 Programmer's Reference Manual (PRM), converted for AI agents. I
 - Title: 68080 Programmer's Reference Manual, "The New Instructions". Concept by Tommo. Based on the original hardcopy PRM from Motorola, but simplified.
 - Original: [`sources/official/AC68080PRM.odt`](../../../sources/official/AC68080PRM.odt). It is leading; these files are generated from it by `tools/intake/prm68080.py`.
 - Tools named in the original: assembler: VASM , vasmm68k\_mot\_os3 & ASM1 beta; debugger: Devpac's "Vamped" MonAm 3.09; docs: Developer Documentation.
-- Update: okt 2026
+- Update: nov 2026
 
 ### How to read an instruction file
 
@@ -38,6 +38,7 @@ The Apollo 68080 Programmer's Reference Manual (PRM), converted for AI agents. I
 - **Condition codes**: as in the Motorola manuals: `*` = set according to the result, `–` = not affected, `0`/`1` = always cleared/set.
 - **Encoding**: one row per bit field. Word 1 is the opcode word; words 2 and up are extension words. Constant bits are in backticks.
 - **Example**: register and memory contents are written as bytes, most significant first, as the original draws them in boxes of one hex digit. `.` is a box left empty in the original. The prefix names the operand role (`ea`, `vea`, `a`, `b`, `d`) and register.
+- **Grayed out**: the original grays out what is less relevant, removed or unused (document owner, 2026-11-03). Each place says "grayed out in the original".
 - Every file ends with the differences from the 68000–68060 and DO/DON'T rules taken from the page.
 
 ### Overview files

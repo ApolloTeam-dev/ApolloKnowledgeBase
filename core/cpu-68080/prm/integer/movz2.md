@@ -2,7 +2,7 @@
 title: "MOVZ2: Move two with Zero fill"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -13,7 +13,7 @@ tags: [68080, integer, movz2]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -47,9 +47,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 7–6 | Size |
 | 1 | 5–3 | Mode |
 | 1 | 2–0 | Register |
-| 2 | 15 | (empty in the original) |
-| 2 | 14–13 | B |
-| 2 | 12 | (empty in the original) |
+| 2 | 15–12 | B |
 | 2 | 11–10 | `00` |
 | 2 | 9–6 | C |
 | 2 | 5–0 | `010010` |
@@ -66,7 +64,7 @@ generated_from: sources/official/AC68080PRM.odt
 - ea (a0) memory content where a0 points to
 
 ```text
-02 23 45 67 89 AB CD EF
+01 23 45 67 89 AB CD EF
 Result:
 b d2 & d3: .. .. .. .. 00 00 01 23
            .. .. .. .. 00 00 45 67

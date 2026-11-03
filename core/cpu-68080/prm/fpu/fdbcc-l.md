@@ -2,7 +2,7 @@
 title: "FDBcc: Floating-point Test Decrement & Branch Conditional"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -13,7 +13,7 @@ tags: [68080, fpu, fdbcc]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -27,7 +27,7 @@ generated_from: sources/official/AC68080PRM.odt
 
 | Field | Value |
 |---|---|
-| Operation | `If not cc then ( PC – 1 → Dn ; if Dn <> – 1 then PC + dn → PC )` |
+| Operation | `If not cc then ( Dn – 1 → Dn ; if Dn <> – 1 then PC + dn → PC )` |
 | Syntax | `FDBcc.L Dn,<label>` |
 | Short | Decrement Dn & conditional jump to label. |
 | Description | Controls a loop of instructions. If condition is true the loop ends and the program continues with the next instruction. Else count register Dn is decremented by 1. If Dn = – 1 the loop also ends and the program continues with the next instruction. If Dn &lt;&gt; – 1 the loop continues and the program execution continues at location (PC) + displacement. The displacement is always even. When it appears as odd, then the counter is a long, not a word. |
@@ -41,8 +41,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 2–0 | Count Register |
 | 2 | 15–6 | `0000000000` |
 | 2 | 5–0 | Conditional predicate |
-| 3 | 15 | (empty in the original) |
-| 3 | 14–1 | 16 bit Displacement |
+| 3 | 15–1 | 16 bit Displacement |
 | 3 | 0 | `1` |
 
 ### Notes

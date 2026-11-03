@@ -2,7 +2,7 @@
 title: "BRA: Branch"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -13,7 +13,7 @@ tags: [68080, integer, bra]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -38,8 +38,7 @@ generated_from: sources/official/AC68080PRM.odt
 | Word | Bits | Content |
 |---|---|---|
 | 1 | 15–8 | `01100000` |
-| 1 | 7 | (empty in the original) |
-| 1 | 6–1 | Short Extended Displacement |
+| 1 | 7–1 | Short Extended Displacement |
 | 1 | 0 | `1` |
 
 - Range bra.s : –128 .. +126

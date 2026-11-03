@@ -2,7 +2,7 @@
 title: "STOREILM: Store Inverted Long masked register into memory"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -14,7 +14,7 @@ related:
   - core/cpu-68080/prm/index.md
   - core/cpu-68080/prm/ammx/ammx-format.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -63,7 +63,7 @@ d d1: 01 01 00 01 01 00 00 01
 Result:
 ```
 
-- vea (a2) memory content where a0 points to
+- vea (a2) memory content where a2 points to
 
 ```text
 .. .. 33 .. .. 66 77 ..
