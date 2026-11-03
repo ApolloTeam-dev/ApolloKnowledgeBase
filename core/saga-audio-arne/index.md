@@ -16,15 +16,17 @@ sources:
 
 Arne, the SAGA audio chip.
 
-**This folder has no content yet.** If your task depends on it, tell the
-user that the knowledge base does not cover the SAGA audio (Arne) yet. Do not fill the
-gap with classic Amiga or 68060 knowledge.
+**This folder is only partly covered.** `registers.md` has the registers and
+values used in V4 audio driver work. For anything else, tell the user that
+the knowledge base does not cover it yet. Do not fill the gap with classic
+Amiga (Paula) or 68060 knowledge.
 
 ## Details
 
 ### Planned files
 
-- `registers.md`: register map with offsets, bits and access rules
+- `registers.md`: partial register reference (exists; the full map is still
+  missing)
 - One file per feature, for example channels or sample formats
 
 ### For contributors
