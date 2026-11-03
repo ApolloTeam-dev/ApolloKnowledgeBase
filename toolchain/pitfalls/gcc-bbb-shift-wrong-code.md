@@ -15,7 +15,7 @@ related:
   - toolchain/pitfalls/gcc-bbb-autoinc.md
 sources:
   - "github.com/WDrijver/ApolloCrossDev pull request #10 (merged on 2026-11-03)"
-  - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Dev-Linux.sh, GCC-6.50-Stable-Linux.sh (2026-11-03)"
+  - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Dev-Linux.sh, GCC-6.50-Stable-Linux.sh (after pull request #13, 2026-11-03)"
 ---
 
 ## Symptom
@@ -39,7 +39,7 @@ that are still needed:
 
 The fixes, `opt-elim-shift-count-fix.patch` and `opt-shift-jump-fix.patch`
 from ApolloCrossDev pull request #10, were merged on 2026-11-03.
-GCC-6.50-Dev and GCC-6.50-Stable apply them; GCC-6.50-Base does not.
+Only GCC-6.50-Dev applies them.
 
 ## Wrong
 
@@ -60,7 +60,7 @@ int f(const short *p, int x)
 
 ## Right
 
-Use GCC-6.50-Dev or GCC-6.50-Stable installed on or after 2026-11-03. With
+Use GCC-6.50-Dev installed on or after 2026-11-03. With GCC-6.50-Stable,
 GCC-6.50-Base or an older install, compile the affected file with `-fbbb=-`,
 or leave the letter of the pass (`e` or `h`) out of `-fbbb=`.
 
