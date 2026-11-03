@@ -15,7 +15,8 @@ related:
   - toolchain/c-compiler-options.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 9.2"
-  - "github.com/WDrijver/ApolloCrossDev pull request #5 (open on 2026-11-03)"
+  - "github.com/WDrijver/ApolloCrossDev pull request #5 (merged on 2026-11-03)"
+  - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Dev-Linux.sh, GCC-6.50-Stable-Linux.sh (2026-11-03)"
 ---
 
 ## Symptom
@@ -27,8 +28,9 @@ at `-O2`.
 
 Bebbo's bbb optimizer pass (`-fbbb=i`, auto-increment) turns it into
 `cmp.b #N,(a0)+` / Scc / `pea (3,a0,d0.w)`, which counts the post-increment
-twice. The bug is in GCC 6.5 as built by ApolloCrossDev; the fix is
-ApolloCrossDev pull request #5, still open on 2026-11-03.
+twice. The bug is in GCC 6.5 as built by ApolloCrossDev. The fix,
+ApolloCrossDev pull request #5, was merged on 2026-11-03. GCC-6.50-Dev and
+GCC-6.50-Stable apply it; GCC-6.50-Base does not.
 
 ## Wrong
 
@@ -41,7 +43,8 @@ const char *skip(const char *p)
 
 ## Right
 
-Until PR #5 is merged into the ApolloCrossDev build you use:
+Use GCC-6.50-Dev or GCC-6.50-Stable installed on or after 2026-11-03. With
+GCC-6.50-Base or an older install:
 
 - check the generated code (see Detection), and
 - rewrite the expression so the test and the addition are separate, and
@@ -67,4 +70,4 @@ Scc.
 | Claim | Source | Core | Method |
 |---|---|---|---|
 | Miscompile as described | (M) | any | Real project code, `-S` output |
-| Fix in ApolloCrossDev PR #5 | (SRC) | any | Pull request |
+| Fix in ApolloCrossDev PR #5, applied by the Dev and Stable scripts | (SRC) | any | Pull request, install scripts |

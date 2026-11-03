@@ -16,6 +16,7 @@ sources:
   - "github.com/WDrijver/ApolloCrossDev README.md"
   - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Base-Linux.sh, GCC-6.50-Stable-Linux.sh, GCC-6.50-Dev-Linux.sh, GCC-13.3.sh, GCC-15.2.sh"
   - "WDrijver (ApolloCrossDev maintainer), 2026-11-02"
+  - "github.com/WDrijver/ApolloCrossDev pull requests #5 to #10 (merged on 2026-11-03) and #12 (open on 2026-11-03)"
 ---
 
 ## Summary
@@ -30,14 +31,16 @@ and differ mainly in which Apollo 68080 patches they apply. Use GCC-6.50-Dev.
 
 | Variant | Script | Apollo patches applied | Use |
 |---|---|---|---|
-| GCC-6.50-Dev | `GCC-6.50-Dev-Linux.sh`, `-MacOS.sh` | 7 (see below) | Default, latest |
-| GCC-6.50-Stable | `GCC-6.50-Stable-Linux.sh`, `-MacOS.sh` | 5 | Fallback if GCC-6.50-Dev gives problems |
+| GCC-6.50-Dev | `GCC-6.50-Dev-Linux.sh`, `-MacOS.sh` | 12 (see below) | Default, latest |
+| GCC-6.50-Stable | `GCC-6.50-Stable-Linux.sh`, `-MacOS.sh` | 8 | Fallback if GCC-6.50-Dev gives problems |
 | GCC-6.50-Base | `GCC-6.50-Base-Linux.sh`, `-MacOS.sh` | none | Original baseline (November 2024) |
 
 Each variant installs into its own folder `Compilers/<variant>`, so several
-can be installed side by side.
+can be installed side by side. All three set `MUIMASTER_VMIN` to 19 in
+`mui.h`, so MUI programs also open on MUI 3.8 (from 2026-11-03).
 
-Patches applied by GCC-6.50-Dev, from `Compilers/_archives/patches/`:
+Patches applied by GCC-6.50-Dev on 2026-11-03, from
+`Compilers/_archives/patches/`:
 
 | Patch | Author |
 |---|---|
@@ -48,18 +51,28 @@ Patches applied by GCC-6.50-Dev, from `Compilers/_archives/patches/`:
 | `opt-shift-lsr-signext-fix.patch` | Morten |
 | `postinc-size-fix.patch` | Morten |
 | `double-indirect-fix.patch` | Marcel (RedBug) |
+| `bbb-autoinc-direct-add-fix.patch` | TuKo1982 |
+| `opt-shift-jump-fix.patch` | TuKo1982 |
+| `opt-elim-shift-count-fix.patch` | TuKo1982 |
+| `m68k-mrtd-call-pop.patch` | TuKo1982 |
+| `m68k-sincos-constraint-fix.patch` | TuKo1982 |
 
-GCC-6.50-Stable applies `q2g-stable.patch` and the four patches by Morten.
+GCC-6.50-Stable applies `q2g-stable.patch`, the four patches by Morten and
+the first three patches by TuKo1982.
 
-### Known GCC bugs with pending fixes
+### Known GCC bugs and which variant fixes them
 
-| Bug | Fix | State on 2026-11-03 |
-|---|---|---|
-| bbb pass counts a post-increment twice | ApolloCrossDev pull request #5 | Open: see [gcc-bbb-autoinc.md](pitfalls/gcc-bbb-autoinc.md) |
-| 16-bit loop counter in an address register runs away | ApolloCrossDev pull request #7 | Open: see [gcc-dbra-address-register-loop.md](pitfalls/gcc-dbra-address-register-loop.md) |
+| Bug | Pitfall | Dev | Stable | Base |
+|---|---|---|---|---|
+| bbb pass counts a post-increment twice | [gcc-bbb-autoinc.md](pitfalls/gcc-bbb-autoinc.md) | Fixed | Fixed | Not fixed |
+| bbb pass deletes needed instructions around shifts | [gcc-bbb-shift-wrong-code.md](pitfalls/gcc-bbb-shift-wrong-code.md) | Fixed | Fixed | Not fixed |
+| ICE with `-mrtd` | [gcc-mrtd-calling-convention.md](pitfalls/gcc-mrtd-calling-convention.md) | Fixed | Not fixed | Not fixed |
+| ICE on `sinf`/`cosf` with `-ffast-math` | [gcc-fsincos-ice.md](pitfalls/gcc-fsincos-ice.md) | Fixed | Not fixed | Not fixed |
+| 16-bit loop counter in an address register runs away | [gcc-dbra-address-register-loop.md](pitfalls/gcc-dbra-address-register-loop.md) | Pending: ApolloCrossDev pull request #12 | Not fixed | Not fixed |
 
-Until a fix is merged and you rebuild the toolchain, the matching pitfall
-applies to every GCC 6.5 variant.
+"Fixed" means the install script applies the patch on 2026-11-03. A fix only
+reaches you when you reinstall the variant; an older install still has the
+bug.
 
 ### 68080 instructions the compiler generates
 

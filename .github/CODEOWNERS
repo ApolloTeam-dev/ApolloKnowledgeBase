@@ -174,8 +174,11 @@
 /toolchain/pitfalls/calling-assembler-from-gcc.md @TuKo1982
 /toolchain/pitfalls/float-settings-mismatch.md @TuKo1982
 /toolchain/pitfalls/gcc-bbb-autoinc.md @TuKo1982
+/toolchain/pitfalls/gcc-bbb-shift-wrong-code.md @TuKo1982
 /toolchain/pitfalls/gcc-dbra-address-register-loop.md @TuKo1982
+/toolchain/pitfalls/gcc-fsincos-ice.md @TuKo1982
 /toolchain/pitfalls/gcc-misc-traps.md @TuKo1982
+/toolchain/pitfalls/gcc-mrtd-calling-convention.md @TuKo1982
 /toolchain/pitfalls/gcc-stackswap-defer-pop.md @TuKo1982
 /toolchain/pitfalls/libnix-and-header-traps.md @TuKo1982
 /toolchain/pitfalls/vasm-68080-encoding-issues.md @TuKo1982
