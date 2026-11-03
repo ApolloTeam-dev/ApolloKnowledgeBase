@@ -56,7 +56,8 @@ FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
 
 def content_files():
-    """Yield repo-relative paths of all knowledge base content files."""
+    """Yield repo-relative paths of all knowledge base content files, in the
+    same order on every platform."""
     for dirpath, dirnames, filenames in os.walk(ROOT):
         rel_dir = os.path.relpath(dirpath, ROOT)
         top = rel_dir.split(os.sep)[0]
@@ -64,6 +65,8 @@ def content_files():
             dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS)
         elif top in SKIP_DIRS:
             continue
+        else:
+            dirnames.sort()
         for name in sorted(filenames):
             if not name.endswith(".md"):
                 continue
