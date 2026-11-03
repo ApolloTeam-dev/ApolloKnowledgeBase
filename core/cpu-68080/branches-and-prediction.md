@@ -71,8 +71,8 @@ Measured: 3.0 cycles whatever the pattern, never mispredicted (M).
 ### 080 branch sizes
 
 - `bcc.s+`: an odd displacement byte gives +128..+254 and −256..−132. −130 is
-  impossible (`$FF` means `.l`). Byte = displacement − 127 forward,
-  + 129 backward.
+  impossible (`$FF` means `.l`). Byte = displacement − 127 forward, and
+  displacement + 129 backward.
 - `dbcc.l`: an odd displacement word means a 32-bit counter (displacement
   word = displacement + 1).
 
