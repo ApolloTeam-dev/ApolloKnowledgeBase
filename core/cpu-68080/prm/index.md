@@ -13,7 +13,7 @@ tags: [68080, prm, instructions, index]
 related:
   - core/cpu-68080/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -30,7 +30,7 @@ The Apollo 68080 Programmer's Reference Manual (PRM), converted for AI agents. I
 - Title: 68080 Programmer's Reference Manual, "The New Instructions". Concept by Tommo. Based on the original hardcopy PRM from Motorola, but simplified.
 - Original: [`sources/official/AC68080PRM.odt`](../../../sources/official/AC68080PRM.odt). It is leading; these files are generated from it by `tools/intake/prm68080.py`.
 - Tools named in the original: assembler: VASM , vasmm68k\_mot\_os3 & ASM1 beta; debugger: Devpac's "Vamped" MonAm 3.09; docs: Developer Documentation.
-- Update: okt 2026
+- Update: nov 2026
 
 ### How to read an instruction file
 

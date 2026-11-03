@@ -2,7 +2,7 @@
 title: "PCMPccB: Vector compare"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -14,7 +14,7 @@ related:
   - core/cpu-68080/prm/index.md
   - core/cpu-68080/prm/ammx/ammx-format.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -59,7 +59,7 @@ generated_from: sources/official/AC68080PRM.odt
 
 ```asm
     pcmpgtb	d0,d1,d2	; d2 = (d1>d0)
-    bsel		d2,d1,e0	; if (d1 > d0) then replace e0 with d1
+    bsel		d1,d2,e0	; if (d1 > d0) then replace e0 with d1
 ```
 
 ```text

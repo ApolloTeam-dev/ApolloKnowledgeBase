@@ -13,7 +13,7 @@ tags: [68080, integer, movz2]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -64,7 +64,7 @@ generated_from: sources/official/AC68080PRM.odt
 - ea (a0) memory content where a0 points to
 
 ```text
-02 23 45 67 89 AB CD EF
+01 23 45 67 89 AB CD EF
 Result:
 b d2 & d3: .. .. .. .. 00 00 01 23
            .. .. .. .. 00 00 45 67

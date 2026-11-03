@@ -15,6 +15,7 @@ the manual's fixed page structure: one page per instruction with a
 Description, condition codes, encoding tables, an example and notes.
 Diagrams and drawings are described in text by the renderers below.
 """
+import hashlib
 import os
 import re
 import sys
@@ -26,7 +27,7 @@ SOURCE = "sources/official/AC68080PRM.odt"
 OUTDIR = "core/cpu-68080/prm"
 OWNER = "WDrijver"
 SOURCE_NAME = ("Apollo 68080 Programmer's Reference Manual, "
-               "AC68080PRM.odt (update okt 2026)")
+               "AC68080PRM.odt (update nov 2026)")
 
 NS = {
     "office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
@@ -39,6 +40,16 @@ NS = {
 }
 O, T, TB, D, S, FO = (f"{{{NS[k]}}}" for k in
                       ("office", "text", "table", "draw", "style", "fo"))
+
+# Paragraph styles the converter relies on, by the hash of their
+# properties. LibreOffice renames automatic styles (P47, P59, ...) on every
+# save, so a name is only stable within one version of the document.
+STYLE_ROLES = {
+    "b8522c44d6b5": "name",       # instruction name under a page title
+    "864665536cd3": "subheading", # "Label:" headings on overview pages
+    "193af7a26fdf": "cover-tools",  # tool lines on the cover
+    "c6bcaa1b9bbb": "code",       # code and preformatted lines
+}
 
 # Text colors and cell backgrounds the manual uses to gray things out.
 GRAY_TEXT = {"#b2b2b2", "#999999", "#808080"}
@@ -78,11 +89,36 @@ class Frame:
         self.name, self.blocks, self.obj = name, blocks, obj
 
 
+# Style attributes that don't change how text looks; LibreOffice adds and
+# drops them between saves.
+STYLE_NOISE = {"use-window-font-color", "opacity"}
+
+
+def style_hash(st):
+    """Hash of an automatic paragraph style's parent and properties."""
+    parts = [st.get(S + "parent-style-name") or ""]
+    for e in st.iter():
+        if e is not st:
+            parts.append(e.tag.split("}")[1] + ":" + ",".join(
+                f"{k.split('}')[1]}={v}" for k, v in sorted(e.attrib.items())
+                if k.split("}")[1] not in STYLE_NOISE))
+    return hashlib.sha1("|".join(parts).encode()).hexdigest()[:12]
+
+
 class Parser:
     def __init__(self, odt):
         self.zip = zipfile.ZipFile(odt)
         root = ET.fromstring(self.zip.read("content.xml"))
         self.color, self.bg, self.border = {}, {}, {}
+        # Automatic paragraph style name -> role (see STYLE_ROLES). A style
+        # with no known role keeps its name with an "auto:" prefix, so it
+        # never matches a role by accident.
+        self.role = {}
+        auto = root.find(O + "automatic-styles")
+        for st in (auto if auto is not None else []):
+            if st.get(S + "family") == "paragraph":
+                self.role[st.get(S + "name")] = STYLE_ROLES.get(
+                    style_hash(st), "auto:" + st.get(S + "name"))
         for st in root.iter(S + "style"):
             name = st.get(S + "name")
             tp = st.find(S + "text-properties")
@@ -134,7 +170,9 @@ class Parser:
         text = "".join(t for t, _ in runs)
         visible = [g for t, g in runs if t.strip()]
         gray = bool(visible) and all(visible)
-        para = Para(p.get(T + "style-name"), text, gray, frames, any(visible))
+        style = p.get(T + "style-name")
+        para = Para(self.role.get(style, style), text, gray, frames,
+                    any(visible))
         para.runs = runs
         return para
 
@@ -537,7 +575,7 @@ def parse_page(title_para, blocks):
     i = 0
     # Full instruction name: the bold title lines right after the heading.
     while i < len(blocks) and isinstance(blocks[i], Para) and \
-            blocks[i].style in ("P14", "P33") and \
+            blocks[i].style == "name" and \
             not FIELD_RE.match(blocks[i].text.strip()):
         page["name"].append(clean(blocks[i].text))
         i += 1
@@ -1256,7 +1294,7 @@ def looks_like_asm(lines):
                for ln in lines)
 
 
-def prose(blocks, code_styles=("P47",)):
+def prose(blocks, code_styles=("code",)):
     """Generic renderer for overview pages: paragraphs become bullets, code
     lines become code blocks."""
     out, buf = [], []
@@ -1279,7 +1317,7 @@ def prose(blocks, code_styles=("P47",)):
             buf.append(b.text.rstrip())
             continue
         flush()
-        if b.style in ("P13",) and s.endswith(":"):
+        if b.style == "subheading" and s.endswith(":"):
             out.extend(["", f"### {md(s.rstrip(':'))}", ""])
             continue
         line = link_pages(md(re.sub(r"^[–-]\s+", "", s)))
@@ -1657,7 +1695,7 @@ def render_index(entries, cover, lists):
                         ["core/cpu-68080/index.md"])
     tools, update = [], []
     for b in cover:
-        if isinstance(b, Para) and b.style == "P19":
+        if isinstance(b, Para) and b.style == "cover-tools":
             cols = split_cols(b.text)
             tools.append(f"{cols[0]}: {cols[1]}")
             update += cols[2:]

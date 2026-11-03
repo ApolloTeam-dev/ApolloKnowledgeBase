@@ -13,7 +13,7 @@ tags: [68080, integer, moveh]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -66,7 +66,7 @@ dn d3: .. .. .. .. 12 34 56 78
 Result:
 ```
 
-- ea (a1) memory content where a0 points to
+- ea (a1) memory content where a1 points to
 
 ```text
 12 34 .. .. .. .. .. ..

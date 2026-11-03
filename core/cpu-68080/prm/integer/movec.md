@@ -2,7 +2,7 @@
 title: "MOVEC: Move Control register"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -13,7 +13,7 @@ tags: [68080, integer, movec]
 related:
   - core/cpu-68080/prm/index.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
@@ -45,6 +45,7 @@ generated_from: sources/official/AC68080PRM.odt
 
 - a=1: address register else data register
 - direction d=0: Rc to Rn else Rn to Rc
+- Greyed out are not present in recent cores.
 
 ### Control registers
 

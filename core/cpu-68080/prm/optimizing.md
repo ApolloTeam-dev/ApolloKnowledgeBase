@@ -15,7 +15,7 @@ related:
   - core/cpu-68080/prm/integer/movec.md
   - core/cpu-68080/prm/integer/touch.md
 sources:
-  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update okt 2026)"
+  - "Apollo 68080 Programmer's Reference Manual, AC68080PRM.odt (update nov 2026)"
 generated_from: sources/official/AC68080PRM.odt
 ---
 
