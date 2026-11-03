@@ -19,7 +19,8 @@ without it.
 - **What it is:** <one or two sentences, e.g. "the ApolloOS kernel and core
   libraries" or "a 2D platform game">
 - **Kind:** <OS component | application | tool | game | library>
-- **Target:** core revision <...>
+- **Target core:** <e.g. Core 12841+>
+- **Target model:** <any V4 model | one or more: V4 Standalone (SA), V4 UniCorn (UNI, A6000), V4 IceDrake (ICE), V4 Manticore (MC), V4 Firebird (FB)>
 - **Target OS:** <one or more: ApolloOS R10, AmigaOS 3.9, AmigaOS 3.2>
 - **Execution mode:** <os-friendly | os-takeover>
 - **Languages:** <one or more: C, C++, 68080 assembly>
@@ -53,3 +54,9 @@ Build and fix all errors and warnings before presenting code.
 When you find something missing or wrong in ApolloKnowledgeBase while working
 here, tell the user and offer to draft a change following
 `ApolloKnowledgeBase/CONTRIBUTING.md`.
+
+Offer a lesson when the user says the project, a release or a milestone is
+done, and right away when an assumption turns out wrong. Follow
+`ApolloKnowledgeBase/AGENTS.md` section 8: draft it from the lesson template,
+show it to the user, and only submit it (as a pull request from the
+`ApolloKnowledgeBase/` submodule) with their approval.

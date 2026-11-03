@@ -13,12 +13,13 @@ the platform correctly and to its full potential.
 
 ## What's inside
 
-Three pillars of knowledge, each with reference files, best practices and
+Four pillars of knowledge, each with reference files, best practices and
 pitfalls:
 
 | Pillar | Contents |
 |---|---|
 | `core/` | 68080 CPU and the SAGA chips: Isabelle (video), Arne (audio), Anni (DMA), Maggie (3D) |
+| `hardware/` | The V4 boards: shared knowledge in `v4-generic/`, and per model: Standalone (SA), UniCorn (UNI, A6000), IceDrake (ICE), Manticore (MC), Firebird (FB) |
 | `os/` | Running on V4 under ApolloOS R10, AmigaOS 3.9 and 3.2; OS takeover; ApolloOS internals (libraries, devs, filesys, commands, datatypes) |
 | `toolchain/` | ApolloCrossDev setup, options and syntax |
 
@@ -39,8 +40,9 @@ repositories and seed content), `sources/` (original official documents),
 `tools/` (CI scripts), and later `skills/` and `evals/`.
 
 Each file shows its owner, its status (`draft`, `reviewed`, `verified`,
-`deprecated`) and which core revision, target OS and execution mode
-(`os-friendly` or `os-takeover`) it applies to.
+`deprecated`), where its facts come from (the core developer, measurements,
+official documentation or source code) and which core revision, target OS,
+execution mode (`os-friendly` or `os-takeover`) and V4 model it applies to.
 
 ---
 
@@ -75,5 +77,7 @@ the file format and review process. The most valuable contributions are:
   AI models) expect
 - Measured optimization techniques, for the pillars' `best-practices/`
 - Bugs you hit and how you fixed them, for the pillars' `pitfalls/`
+- Lessons from your projects: AI agents offer to draft one at the end of a
+  project and submit it as a pull request (see `CONTRIBUTING.md` section 7)
 
 AI agents: start with `AGENTS.md`.

@@ -1052,7 +1052,8 @@ def storem3_frame(f, blocks, i):
 def frontmatter(title, tags, related, extra_sources=()):
     quoted = '"' + title.replace('\\', '\\\\').replace('"', '\\"') + '"'
     lines = ["---", f"title: {quoted}", "type: reference", f"owner: {OWNER}",
-             "status: draft", "origin: official", "components: [cpu-68080]",
+             "status: draft", "origin: official", "basis: [official]",
+             "components: [cpu-68080]",
              "applies_to:", '  core: "any"', "  os: [any]",
              f"tags: [{', '.join(tags)}]"]
     if related:
@@ -1729,9 +1730,28 @@ def build():
     return files
 
 
+STATUS_RE = re.compile(r"^(status|last_verified):.*\n", re.M)
+
+
 def without_status(text):
     """The text without the status fields a maintainer may set."""
-    return re.sub(r"^(status|last_verified):.*\n", "", text, flags=re.M)
+    return STATUS_RE.sub("", text)
+
+
+def body(text):
+    """The text after the frontmatter."""
+    return text.split("\n---\n", 1)[-1]
+
+
+def keep_status(old, new):
+    """New text with the status fields of the old text, when the body is
+    unchanged. A file keeps the status a maintainer gave it until its body
+    changes; then it is generated as draft again."""
+    if old is None or body(old) != body(new):
+        return new
+    fields = "".join(m.group(0) for m in STATUS_RE.finditer(old))
+    return STATUS_RE.sub("", new, count=1).replace(
+        "origin: ", fields + "origin: ", 1) if fields else new
 
 
 def main():
@@ -1745,9 +1765,8 @@ def main():
     for rel, text in files.items():
         p = os.path.join(out, rel)
         old = open(p, encoding="utf-8").read() if os.path.isfile(p) else None
-        # A file keeps the status a maintainer gave it until its content
-        # changes; then it is generated as draft again.
-        if old is None or without_status(old) != without_status(text):
+        files[rel] = text = keep_status(old, text)
+        if old != text:
             stale.append(rel)
     extra = sorted(existing - set(files))
     if "--check" in sys.argv:

@@ -16,9 +16,17 @@ STATUSES = {"draft", "reviewed", "verified", "deprecated"}
 ORIGINS = {"human", "ai-assisted", "official"}
 COMPONENTS = {"cpu-68080", "saga-video-isabelle", "saga-audio-arne",
               "saga-dma-anni", "saga-3d-maggie", "libraries", "devs",
-              "filesys", "commands", "datatypes", "toolchain", "general"}
+              "filesys", "commands", "datatypes", "toolchain", "hardware",
+              "general"}
 OSES = {"any", "apolloos-r10", "amigaos-3.9", "amigaos-3.2"}
 MODES = {"any", "os-friendly", "os-takeover"}
+BOARDS = {"any", "v4-standalone", "v4-unicorn", "v4-icedrake", "v4-manticore",
+          "v4-firebird"}
+# Kinds of source, highest rank first (CONTRIBUTING.md section 4).
+BASES = ["core-developer", "measured", "official", "source-code", "other"]
+# "any", one core ("Core 12841"), a range ("Core 12830-12840") or a minimum
+# ("Core 12841+").
+CORE_RE = re.compile(r"^(any|Core \d+(\+|-\d+)?)$")
 REQUIRED = ["title", "type", "owner", "status", "origin", "components",
             "applies_to"]
 NEEDS_SOURCES = {"reference", "best-practice"}
@@ -133,6 +141,24 @@ def check(path):
             errs += check_values(at, "os", OSES)
             if "mode" in at:
                 errs += check_values(at, "mode", MODES)
+            if "board" in at:
+                errs += check_values(at, "board", BOARDS)
+            core = at.get("core")
+            if not (isinstance(core, str) and CORE_RE.match(core)):
+                errs.append(f"invalid core '{core}': use \"any\", "
+                            "\"Core 12841\", \"Core 12830-12840\" or "
+                            "\"Core 12841+\"")
+            else:
+                m = re.match(r"^Core (\d+)-(\d+)$", core)
+                if m and int(m.group(1)) >= int(m.group(2)):
+                    errs.append(f"core range '{core}' must go from low to high")
+
+    basis = fm.get("basis")
+    if basis is not None:
+        if not isinstance(basis, list) or not basis:
+            errs.append("basis must be a non-empty list")
+        else:
+            errs += [f"invalid basis '{b}'" for b in basis if b not in BASES]
 
     lv = fm.get("last_verified")
     if status == "verified" and not lv:
