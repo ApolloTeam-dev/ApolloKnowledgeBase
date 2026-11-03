@@ -17,6 +17,8 @@ related:
 sources:
   - "Apollo team diagram \"APOLLO 68080 CPU Architecture\", 2026-10-23"
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 1.1"
+  - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03)"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Summary
@@ -44,7 +46,7 @@ cycle, the ALU-to-EA bubble, and why FPU and AMMX run in pipe 1 only.
 | 10 | 3 data-register reads, **D-cache read**, FP register read, vector register read |
 | 11 | **3 ALUs (A, B, C)**, FPU (64-bit), AMMX (drawn as 128-bit: a beta unit not in released cores) |
 | 12 | **Write stage** (G): all registers are written here (address, data, FP, vector), plus the **D-cache write**. The diagram labels the address boxes "ADDR REG RE", but they are writes |
-| 13 | Write combine |
+| 13 | Write combining |
 | 14 | Write FIFO → memory (can stall) |
 
 The stall points are the I-cache read, decoder 1, the schedule unit, the
@@ -52,9 +54,10 @@ hazard unit, the D-cache read and the write FIFO.
 
 ### What the diagram explains
 
-- **One memory access per cycle.** There is one EAMEM and one D-cache
-  read/write port, shared by all pipes. Two loads in one cycle are impossible
-  by design.
+- **One memory address per cycle.** There is one EAMEM, shared by all
+  pipes. Two loads in one cycle are impossible by design. The data cache does
+  one read and one write per cycle, so a read-modify-write such as
+  `add.l #1,mem` runs at about 1 per cycle (G, 2026-11-03).
 - **The ALU-to-EA bubble.** Addresses are computed at stage 8; an ALU result
   arrives at stage 11/12. A Dn produced by the ALU and used for an address by
   a following instruction arrives 3–4 stages too late (M: write it about 4
@@ -67,8 +70,11 @@ hazard unit, the D-cache read and the write FIFO.
   matches the counters: every FPU instruction counts in IEP1 (M).
 - **Three ALUs, three EA units.** The hardware for 3 pipes is drawn; Core
   12798–12841 enables 2 (IEP3 = 0, M).
-- **Stores are combined.** Writes go through write-combine and a write FIFO,
-  which fits quad-store fusing and aligned, contiguous writes.
+- **Write-through cache with write combining** (G). Writes go to memory
+  through write combining and a write FIFO: for a few cycles the CPU collects
+  writes, then commits them to the memory controller. That makes loops such
+  as memclr and memcopy efficient, and fits quad-store fusing and contiguous
+  writes.
 - **Branches are checked after the ALU** (G). There the CPU redirects the PC
   when a Bcc or an RTS was mispredicted, and feeds the outcome back to the
   BTC.
@@ -86,8 +92,9 @@ hazard unit, the D-cache read and the write FIFO.
 ## Differences from AmigaOS / AROS / 68060
 
 - The PRM ([prm/pipeline.md](prm/pipeline.md)) lists 7 stages and a 2-cycle
-  ALU-to-EA bubble. The diagram and measurements show 15 stages and about 4
-  cycles (G says "more than 2").
+  ALU-to-EA bubble. The diagram shows 15 stages. Gunnar counts the bubble as
+  2 cycles and says it may grow in future cores (G, 2026-11-03); to hide it
+  fully, the measurements needed the Dn written about 4 cycles earlier (M).
 - The 68060's pipelines are not a model for the 68080: its EA and ALU stages
   and its memory port differ.
 

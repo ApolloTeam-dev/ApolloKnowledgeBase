@@ -16,6 +16,8 @@ related:
   - core/best-practices/close-loops-with-dbra.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rules 2-3) and 2.5"
+  - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03)"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Symptom
@@ -60,6 +62,9 @@ loop:
 
 Other fixes:
 
+- Keep every register of an indexed mode `(d8,An,Xn)` updated by the EA
+  unit: then the mode is safe and good (G). Use an address register as the
+  index counter and step it with `addq`, `adda` or `lea`.
 - Write `clr.l (a0)+`, or use `(a0,a1)` + `addq.l #4,a1`.
 - Compute offsets at least 4 cycles (about 8 paired instructions) before
   use, or have the caller pass ready-made pointers loaded straight into An.
@@ -76,7 +81,8 @@ that costs 3 or more cycles per link instead of 1 points here.
 | Claim | Source | Core | Method |
 |---|---|---|---|
 | ALU to EA costs a bubble of 2 cycles | (official) PRM pipeline page | any | Manual |
-| The bubble is "more than 2" | (G) | Core 12841 | Statement |
+| A Dn written 3 cycles before the EA use gives a 2-cycle bubble; future cores may make it longer, so always avoid it | (G) | any | Statement, 2026-11-03 |
+| An indexed mode is safe when the ALU last changed its registers 2 cycles ago (up to 12 instructions on a core with 3 pipes and fusing) | (G) | any | Coding guidelines draft |
 | Adjacent: +2 to 3 cycles; 4 paired fillers: +2; 6: +1; 8 or more: 0 | (M) | Core 12841 | Producer + consumer with fillers, CCC |
 | add → `(a,d0)` load → add: 3 cycles per link | (M) | Core 12841 | Chain, CCC |
 | load → indexed load: 4 cycles per link | (M) | Core 12841 | Chain, CCC |

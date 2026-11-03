@@ -17,6 +17,7 @@ related:
   - core/cpu-68080/prm/specs.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 1"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Summary
@@ -33,8 +34,8 @@ statement wins.
 | Pipeline | The PRM summarizes it in 7 steps (I-fetch, decode, register fetch, EA, D-cache, ALU, write back). The real depth is 15 stages, see [pipeline-15-stages.md](pipeline-15-stages.md) |
 | Pipes | PRM: 3 (Anton, Bruno, Cesar). **2 enabled on Core 12798-12841** (M): IEP3 always reads 0. A third pipe comes in a future core (G) |
 | Decoders | 3. Only the first takes multi-cycle instructions (mul, div, movem, bitfields, FPU) and addx/subx/negx, which need the flags of the previous instruction |
-| I-cache | 32 KB, **64-byte line** (G, 2026-10-29), 32 bytes fetched per cycle. Few ways on Core 12841 (G); the number of ways is a build option: 4, 2 or 1 (G, 2026-10-30). Note the core build with every measurement |
-| D-cache | 128 KB, **64-byte line** (G, 2026-10-29; M). 3-ported, but in practice **1 access of 8 bytes per cycle**: 1 read, or 1 write, or 1 read-modify-write |
+| I-cache | 32 KB, **64-byte line** (G, 2026-10-29). Feeds the decoders **16 bytes per cycle**; a group of instructions that run together is at most 16 bytes (some I-cache variants: 18) (G, 2026-11-03), see [execution-units.md](execution-units.md). Few ways on Core 12841 (G); the number of ways is a build option: 4, 2 or 1 (G, 2026-10-30). Note the core build with every measurement |
+| D-cache | 128 KB, **64-byte line** (G, 2026-10-29; M). **1 read and 1 write per cycle** (G, 2026-11-03): `add.l #1,mem` runs at about 1 per cycle. One memory address per cycle, so an instruction with two memory operands needs more than one |
 | Bus and memory | 64-bit, 64-byte bursts (one cache line), about 12 cycles latency, automatic prefetch of sequential streams |
 | Branch cache | 1024-entry BTC, a loop predictor, and a return cache for rts/rtd/rtr |
 | MMU | None. PMMU and cp4–cp6 opcodes are illegal (`lpstop` remains) |
