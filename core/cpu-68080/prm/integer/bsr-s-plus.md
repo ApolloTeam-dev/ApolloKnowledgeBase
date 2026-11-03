@@ -2,7 +2,7 @@
 title: "BSR: Branch to Sub Routine"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -38,8 +38,7 @@ generated_from: sources/official/AC68080PRM.odt
 | Word | Bits | Content |
 |---|---|---|
 | 1 | 15–8 | `01100001` |
-| 1 | 7 | (empty in the original) |
-| 1 | 6–1 | Short Extended Displacement |
+| 1 | 7–1 | Short Extended Displacement |
 | 1 | 0 | `1` |
 
 - Range bra.s : –128 .. +126

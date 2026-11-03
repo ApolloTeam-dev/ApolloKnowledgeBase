@@ -2,7 +2,7 @@
 title: "DBcc: Test, Decrement & Branch Conditional"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -41,8 +41,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 11–8 | Condition |
 | 1 | 7–3 | `11001` |
 | 1 | 2–0 | Register |
-| 2 | 15 | (empty in the original) |
-| 2 | 14–1 | 16 bit Displacement |
+| 2 | 15–1 | 16 bit Displacement |
 | 2 | 0 | `1` |
 
 ### Notes

@@ -2,7 +2,7 @@
 title: "FDBcc: Floating-point Test Decrement & Branch Conditional"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -41,8 +41,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 2–0 | Count Register |
 | 2 | 15–6 | `0000000000` |
 | 2 | 5–0 | Conditional predicate |
-| 3 | 15 | (empty in the original) |
-| 3 | 14–1 | 16 bit Displacement |
+| 3 | 15–1 | 16 bit Displacement |
 | 3 | 0 | `1` |
 
 ### Notes

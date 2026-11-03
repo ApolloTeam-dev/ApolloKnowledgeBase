@@ -2,7 +2,7 @@
 title: "UNPACK1632: Unpack 16 bit color to 32 bit color"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -46,8 +46,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 5–3 | Mode |
 | 1 | 2–0 | Register |
 | 2 | 15–12 | `0000` |
-| 2 | 11 | (empty in the original) |
-| 2 | 10–9 | d |
+| 2 | 11–9 | d |
 | 2 | 8–0 | `000011110` |
 
 ### Example

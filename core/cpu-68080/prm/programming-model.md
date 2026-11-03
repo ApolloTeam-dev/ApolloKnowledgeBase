@@ -2,7 +2,7 @@
 title: "68080 user programming model"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -33,11 +33,13 @@ The original draws the user programming model as register boxes, with the captio
 |---|---|---|---|
 | D0–D7 data registers | 8 | 64 bits (columns 64, 32, 16, 8 bit) | lower 32 bits |
 | A0–A7 address registers (A7 = SP) | 8 | 64 bits (columns 64, 32 bit) | lower 32 bits |
-| PC | 1 | 64 bits | lower 32 bits |
-| CC | 1 | 64 bits | lower 16 bits |
+| PC | 1 | 32 bits (drawn as 64) | lower 32 bits |
+| CC | 1 | 8 bits (drawn as 64): the condition codes, the low byte of SR | lower 16 bits |
 | FP0–FP7 floating point registers | 8 | 64 bits | all |
 | B0–B7 address registers | 8 | 64 bits | none (new) |
 | E0–E23 general purpose registers for integer and float | 24 | 64 bits (three columns: E0–E7, E8–E15, E16–E23) | none (new) |
+
+The document owner adds (2026-11-03): the PC is 32 bits wide. CC is the 8-bit condition-code part of the 16-bit SR; SR itself is not part of the user programming model.
 
 ## Differences from AmigaOS / AROS / 68060
 

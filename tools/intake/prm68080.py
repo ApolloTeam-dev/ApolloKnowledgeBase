@@ -58,9 +58,11 @@ class Para:
 
 
 class Cell:
-    def __init__(self, text, span=1, covered=False, shaded=None):
+    def __init__(self, text, span=1, covered=False, shaded=None,
+                 left=True, right=True):
         self.text, self.span, self.covered, self.shaded = \
             text, span, covered, shaded
+        self.left, self.right = left, right  # border drawn on that side
 
 
 class Table:
@@ -80,7 +82,7 @@ class Parser:
     def __init__(self, odt):
         self.zip = zipfile.ZipFile(odt)
         root = ET.fromstring(self.zip.read("content.xml"))
-        self.color, self.bg = {}, {}
+        self.color, self.bg, self.border = {}, {}, {}
         for st in root.iter(S + "style"):
             name = st.get(S + "name")
             tp = st.find(S + "text-properties")
@@ -89,6 +91,10 @@ class Parser:
             cp = st.find(S + "table-cell-properties")
             if cp is not None and cp.get(FO + "background-color"):
                 self.bg[name] = cp.get(FO + "background-color").lower()
+            if cp is not None:
+                self.border[name] = tuple(
+                    (cp.get(FO + "border-" + side) or cp.get(FO + "border")
+                     or "none") != "none" for side in ("left", "right"))
         self.blocks = self.walk(root.find(O + "body").find(O + "text"))
 
     def is_gray(self, e):
@@ -144,8 +150,11 @@ class Parser:
                                       if p.text.strip())
                     span = int(c.get(TB + "number-columns-spanned", "1"))
                     shaded = self.bg.get(c.get(TB + "style-name"))
+                    left, right = self.border.get(c.get(TB + "style-name"),
+                                                  (True, True))
                     for _ in range(min(rep, 64)):
-                        row.append(Cell(text, span, False, shaded))
+                        row.append(Cell(text, span, False, shaded,
+                                        left, right))
                 elif c.tag == TB + "covered-table-cell":
                     for _ in range(min(rep, 64)):
                         row.append(Cell("", 1, True))
@@ -278,7 +287,8 @@ def encoding_rows(t, word_offset=0):
                 pos += 1
                 continue
             if c.span > 1:
-                segs.append([hi, hi - c.span + 1, c.text, False, False])
+                segs.append([hi, hi - c.span + 1, c.text, False, False,
+                             c.left, c.right])
                 pos += c.span
                 continue
             v = c.text
@@ -287,14 +297,17 @@ def encoding_rows(t, word_offset=0):
             if last and last[3] and const:
                 last[1] = hi
                 last[2] += v
+                last[6] = c.right
             elif last and not const and not last[3] and last[2] == v \
                     and last[1] == hi + 1 and last[4]:
                 # One field drawn as several one-bit boxes (c c c, S S).
                 last[1] = hi
+                last[6] = c.right
             else:
-                segs.append([hi, hi, v, const, True])
+                segs.append([hi, hi, v, const, True, c.left, c.right])
             pos += 1
-        for hi, lo, v, const, _ in segs:
+        segs = merge_open_boxes(segs)
+        for hi, lo, v, const, *_ in segs:
             bits = f"{hi}" if hi == lo else f"{hi}–{lo}"
             if const:
                 content = f"`{v}`"
@@ -303,6 +316,39 @@ def encoding_rows(t, word_offset=0):
             else:
                 content = md(v)
             out.append((w, bits, content))
+    return out
+
+
+def merge_open_boxes(segs):
+    """An empty box drawn without a border towards one named field belongs
+    to that field: the original leaves boxes unmerged to center the field
+    name (Bcc bit 7, the B field of MOVE2). Confirmed by the document owner,
+    2026-11-03."""
+    def is_field(sg):
+        return sg[2] != "" and not sg[3]
+
+    def open_between(a, b):  # a is left of b
+        return not (a[6] or b[5])
+
+    out = list(segs)
+    i = 0
+    while i < len(out):
+        sg = out[i]
+        if sg[2] != "" or sg[3]:
+            i += 1
+            continue
+        left = out[i - 1] if i > 0 and is_field(out[i - 1]) \
+            and open_between(out[i - 1], sg) else None
+        right = out[i + 1] if i + 1 < len(out) and is_field(out[i + 1]) \
+            and open_between(sg, out[i + 1]) else None
+        if (left is None) == (right is None):
+            i += 1  # no field, or two: leave the box as it is
+            continue
+        if left is not None:
+            left[1], left[6] = sg[1], sg[6]
+        else:
+            right[0], right[5] = sg[0], sg[5]
+        del out[i]
     return out
 
 
@@ -917,6 +963,7 @@ RULES = {
     "STOREILM": ["DON'T use an immediate <vea>."],
     "STOREM": ["DON'T use an immediate <vea>."],
     "STOREM3": ["DON'T use an immediate <vea>."],
+    "PEOR": ["DON'T write PNOT: it is not an instruction (document owner, 2026-11-03). For its function use PEOR with #-1, as the note shows: `peor.w #-1,d1,d2`."],
     "PCMPccB": ["DON'T use PCMPHS/PCMPLO: unsigned higher-or-same is not implemented. Combine PCMPEQ and PCMPHI with POR (see PCMPccW)."],
     "PCMPccW": ["DON'T use PCMPHSW: it is not implemented. Combine PCMPEQW and PCMPHIW with POR."],
     "REX": ["DON'T use B registers.", "DO check the core: REX is available from core 12540."],
@@ -1266,11 +1313,15 @@ def render_front(front, parser):
         "|---|---|---|---|",
         "| D0–D7 data registers | 8 | 64 bits (columns 64, 32, 16, 8 bit) | lower 32 bits |",
         "| A0–A7 address registers (A7 = SP) | 8 | 64 bits (columns 64, 32 bit) | lower 32 bits |",
-        "| PC | 1 | 64 bits | lower 32 bits |",
-        "| CC | 1 | 64 bits | lower 16 bits |",
+        "| PC | 1 | 32 bits (drawn as 64) | lower 32 bits |",
+        "| CC | 1 | 8 bits (drawn as 64): the condition codes, the low byte of SR | lower 16 bits |",
         "| FP0–FP7 floating point registers | 8 | 64 bits | all |",
         "| B0–B7 address registers | 8 | 64 bits | none (new) |",
         "| E0–E23 general purpose registers for integer and float | 24 | 64 bits (three columns: E0–E7, E8–E15, E16–E23) | none (new) |",
+        "",
+        "The document owner adds (2026-11-03): the PC is 32 bits wide. CC is "
+        "the 8-bit condition-code part of the 16-bit SR; SR itself is not "
+        "part of the user programming model.",
         "",
     ]
     files.update([build_section(
@@ -1641,6 +1692,9 @@ def render_index(entries, cover, lists):
         "most significant first, as the original draws them in boxes of one "
         "hex digit. `.` is a box left empty in the original. The prefix "
         "names the operand role (`ea`, `vea`, `a`, `b`, `d`) and register.",
+        "- **Grayed out**: the original grays out what is less relevant, "
+        "removed or unused (document owner, 2026-11-03). Each place says "
+        "\"grayed out in the original\".",
         "- Every file ends with the differences from the 68000–68060 and "
         "DO/DON'T rules taken from the page.", "",
         "### Overview files", "",

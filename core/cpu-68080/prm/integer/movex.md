@@ -2,7 +2,7 @@
 title: "MOVEX: Move convert source to destination"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -47,9 +47,7 @@ generated_from: sources/official/AC68080PRM.odt
 | 1 | 7–6 | Size |
 | 1 | 5–3 | Mode |
 | 1 | 2–0 | Register |
-| 2 | 15 | (empty in the original) |
-| 2 | 14–13 | B |
-| 2 | 12 | (empty in the original) |
+| 2 | 15–12 | B |
 | 2 | 11 | d |
 | 2 | 10–0 | `00000010000` |
 

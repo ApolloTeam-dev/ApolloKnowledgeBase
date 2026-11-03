@@ -2,7 +2,7 @@
 title: "Apollo 68080 Programmer's Reference Manual"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
 basis: [official]
 components: [cpu-68080]
@@ -38,6 +38,7 @@ The Apollo 68080 Programmer's Reference Manual (PRM), converted for AI agents. I
 - **Condition codes**: as in the Motorola manuals: `*` = set according to the result, `–` = not affected, `0`/`1` = always cleared/set.
 - **Encoding**: one row per bit field. Word 1 is the opcode word; words 2 and up are extension words. Constant bits are in backticks.
 - **Example**: register and memory contents are written as bytes, most significant first, as the original draws them in boxes of one hex digit. `.` is a box left empty in the original. The prefix names the operand role (`ea`, `vea`, `a`, `b`, `d`) and register.
+- **Grayed out**: the original grays out what is less relevant, removed or unused (document owner, 2026-11-03). Each place says "grayed out in the original".
 - Every file ends with the differences from the 68000–68060 and DO/DON'T rules taken from the page.
 
 ### Overview files
