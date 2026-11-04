@@ -11,6 +11,7 @@ applies_to:
 tags: [v4, boards, models, standalone, unicorn, icedrake, manticore, firebird]
 sources:
   - "WDrijver (maintainer), V4 models and abbreviations, 2026-11-03"
+  - "WDrijver (maintainer), same core on every V4 model, 2026-11-04"
 ---
 
 ## Summary
@@ -32,6 +33,17 @@ connectors, headers, memory and model differences.
 | V4 Firebird | FB | `hardware/v4-firebird/` | `v4-firebird` |
 
 The V4 Standalone and the V4 UniCorn are different models.
+
+### One core architecture for all models (rule)
+
+All V4 boards share the same core architecture. A core number has exactly
+the same features and architecture on every model: Core 12600 on the V4
+UniCorn is the same as Core 12600 on the V4 IceDrake, including the 68080,
+SAGA and the memory controller. Models differ only in small physical
+properties, for example: the V4 IceDrake has no second SPI port.
+
+So a fact about the core (`core/`) holds for every model; give the core
+number, not the model. Put a physical difference in `hardware/`.
 
 ### Where things go
 

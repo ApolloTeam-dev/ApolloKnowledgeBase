@@ -19,8 +19,11 @@ relative to the knowledge base root.
   `saga-dma-anni` (DMA), `saga-3d-maggie` (3D).
 - **V4 models**: V4 Standalone (SA), V4 UniCorn (UNI, A6000), V4 IceDrake
   (ICE), V4 Manticore (MC) and V4 Firebird (FB). They share the FPGA core
-  (68080 and SAGA) but differ as boards. The project's own AGENTS.md states
-  the target model(s), if it depends on one.
+  (68080 and SAGA) but differ as boards. A core number has exactly the same
+  features and architecture on every model; the boards differ only in small
+  physical properties (for example, the V4 IceDrake has no second SPI
+  port). The project's own AGENTS.md states the target model(s), if it
+  depends on one.
 - **Target OS**: Apollo V4 software runs on one or more of **ApolloOS R10**
   (fork of AROS, optimized for Apollo V4), **AmigaOS 3.9** and
   **AmigaOS 3.2**. The project's own AGENTS.md states which. Hardware
