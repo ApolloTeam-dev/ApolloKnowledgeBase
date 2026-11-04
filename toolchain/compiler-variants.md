@@ -17,6 +17,8 @@ sources:
   - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Base-Linux.sh, GCC-6.50-Stable-Linux.sh, GCC-6.50-Dev-Linux.sh, GCC-13.3.sh, GCC-15.2.sh"
   - "WDrijver (ApolloCrossDev maintainer), 2026-11-02"
   - "github.com/WDrijver/ApolloCrossDev pull requests #5 to #10, #12 and #13 (merged on 2026-11-03)"
+  - "github.com/WDrijver/ApolloCrossDev pull request #15 (removes double-indirect-fix.patch) and issue #14"
+  - "WDrijver (ApolloCrossDev maintainer), 2026-11-04"
 ---
 
 ## Summary
@@ -31,7 +33,7 @@ and differ mainly in which Apollo 68080 patches they apply. Use GCC-6.50-Dev.
 
 | Variant | Script | Apollo patches applied | Use |
 |---|---|---|---|
-| GCC-6.50-Dev | `GCC-6.50-Dev-Linux.sh`, `-MacOS.sh` | 13 (see below) | Default, latest |
+| GCC-6.50-Dev | `GCC-6.50-Dev-Linux.sh`, `-MacOS.sh` | 12 (see below) | Default, latest |
 | GCC-6.50-Stable | `GCC-6.50-Stable-Linux.sh`, `-MacOS.sh` | 5 | Fallback if GCC-6.50-Dev gives problems |
 | GCC-6.50-Base | `GCC-6.50-Base-Linux.sh`, `-MacOS.sh` | none | Original baseline (November 2024) |
 
@@ -39,7 +41,8 @@ Each variant installs into its own folder `Compilers/<variant>`, so several
 can be installed side by side. All three set `MUIMASTER_VMIN` to 19 in
 `mui.h`, so MUI programs also open on MUI 3.8 (from 2026-11-03).
 
-Patches applied by GCC-6.50-Dev on 2026-11-03, from
+Patches applied by GCC-6.50-Dev from ApolloCrossDev pull request #15
+(2026-11-04), from
 `Compilers/_archives/patches/`:
 
 | Patch | Author |
@@ -50,13 +53,18 @@ Patches applied by GCC-6.50-Dev on 2026-11-03, from
 | `opt-pipeline-cc0-fix.patch` | Morten |
 | `opt-shift-lsr-signext-fix.patch` | Morten |
 | `postinc-size-fix.patch` | Morten |
-| `double-indirect-fix.patch` | Marcel (RedBug) |
 | `bbb-autoinc-direct-add-fix.patch` | TuKo1982 |
 | `opt-shift-jump-fix.patch` | TuKo1982 |
 | `opt-elim-shift-count-fix.patch` | TuKo1982 |
 | `m68k-mrtd-call-pop.patch` | TuKo1982 |
 | `m68k-sincos-constraint-fix.patch` | TuKo1982 |
 | `m68k-dbra-hi-addrreg-fix.patch` | TuKo1982 |
+
+Until then GCC-6.50-Dev also applied `double-indirect-fix.patch` by Marcel
+(r3dbug). It stopped GCC from generating memory indirect addressing, and
+made GCC crash on computed gotos through a table (`jmp ([table,dN.l*4])`,
+for example in Lua's `lvm.c`). It was removed because the 68080 has full
+double indirect addressing (WDrijver, 2026-11-04).
 
 GCC-6.50-Stable applies `q2g-stable.patch` and the four patches by Morten,
 none by TuKo1982.
@@ -70,6 +78,7 @@ none by TuKo1982.
 | ICE with `-mrtd` | [gcc-mrtd-calling-convention.md](pitfalls/gcc-mrtd-calling-convention.md) | Fixed | Not fixed | Not fixed |
 | ICE on `sinf`/`cosf` with `-ffast-math` | [gcc-fsincos-ice.md](pitfalls/gcc-fsincos-ice.md) | Fixed | Not fixed | Not fixed |
 | 16-bit loop counter in an address register runs away | [gcc-dbra-address-register-loop.md](pitfalls/gcc-dbra-address-register-loop.md) | Fixed | Not fixed | Not fixed |
+| ICE in `print_operand_address2` on computed gotos (Dev builds of 2026-11-03 only) | [double-memory-indirect.md](../core/pitfalls/double-memory-indirect.md) | Fixed (patch removed) | Not affected | Not affected |
 
 "Fixed" means the install script applies the patch on 2026-11-03. A fix only
 reaches you when you reinstall the variant; an older install still has the

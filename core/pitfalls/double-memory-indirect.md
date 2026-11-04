@@ -4,7 +4,7 @@ type: pitfall
 owner: WDrijver
 status: draft
 origin: ai-assisted
-basis: [core-developer, measured]
+basis: [core-developer, measured, source-code]
 components: [cpu-68080]
 applies_to:
   core: "any"
@@ -19,6 +19,8 @@ sources:
   - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03), coding rules 2 and 6"
   - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 2.1"
+  - "WDrijver (ApolloCrossDev maintainer), 2026-11-04"
+  - "lvm.c compiled to assembly with GCC 6.5 (GCC-6.50-Patched, June 2026 build), -O2, 2026-11-04"
 ---
 
 ## Symptom
@@ -66,10 +68,16 @@ A jump table may keep the mode:
 Search the assembly for `([`. Every hit outside `jmp` and `jsr` is a
 candidate.
 
-GCC-6.50-Dev applies `double-indirect-fix.patch`, which stops GCC from
-generating this mode. On 2026-11-03 that patch is suspected of a compiler
-crash on computed gotos (`goto *disptab[i]`), which are exactly the allowed
-`jmp` form; Gunnar confirms GCC may keep that form (see
+GCC generates this mode. Compiled with GCC 6.5 at `-O2`, Lua's `lvm.c`
+contains 110 memory indirect operands (118 with `-m68080`): 82 are the
+allowed `jmp ([disptab,d0.l*4])`, the others are data accesses such as
+`move.l ([12,a4],164),-(sp)` (2026-11-04). In hot code, check the
+generated assembly and rewrite such accesses.
+
+The 68080 has full double indirect addressing, so the code is correct; the
+cost is speed. GCC-6.50-Dev briefly applied `double-indirect-fix.patch`,
+which stopped GCC from generating the mode but crashed on computed gotos.
+It was removed on 2026-11-04 (see
 [compiler-variants.md](../../toolchain/compiler-variants.md)).
 
 ## Evidence
@@ -79,4 +87,5 @@ crash on computed gotos (`goto *disptab[i]`), which are exactly the allowed
 | Memory indirect is slow and blocks the core; don't use it | (G) | any | Statement |
 | In instructions other than `jmp`/`jsr` it is an ALU-to-EA stall by definition | (G) | any | Statement, 2026-11-03 |
 | `jmp`/`jsr` through it are fine; GCC may generate them | (G) | any | Statement, 2026-11-03 |
+| GCC 6.5 `-O2` emits it in data accesses (28 of 110 in Lua's `lvm.c`) | (SRC) | any | Generated assembly, 2026-11-04 |
 | `jmp`/`jsr ([An])` costs about +7 cycles against an absolute or PC-relative target | (M) | Core 12841 | CCC, see superscalar-issue.md |
