@@ -88,7 +88,10 @@ checked width `APOLLO_PICTURE_H_ERROR`. Before ApolloLib 639e195 the
   any other alpha semi-transparent (50 %). Colours are gathered into a
   palette of up to 255 entries.
 
-`ApolloMouse` (see [input.md](input.md)) moves the pointer.
+`ApolloMouse` (see [input.md](input.md)) moves the pointer. A complete,
+checked use of both functions is in
+[the pointer example](../../examples/saga-pointer-sprite.md):
+`ApolloLoadPointer` returns nothing and doesn't free the BMP it loads.
 
 ### Example
 
