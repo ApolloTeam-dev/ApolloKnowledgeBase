@@ -99,7 +99,8 @@ Many bugs were fixed on 2026-11-04 (commit 639e195): use that version or
 later. An older copy has the bugs listed in
 [apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md), among them
 broken 320-pixel modes and no way to undo `ApolloTakeOver` or
-`ApolloTimer`.
+`ApolloTimer`. From commit a9a994f, `ApolloShowPiP1/2` also load the
+palette of an 8-bit picture.
 
 ## Differences from AmigaOS / AROS / 68060
 

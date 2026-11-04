@@ -18,6 +18,7 @@ related:
 sources:
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit ce1fcbf (2026-11-04), read on 2026-11-04"
   - "ApolloCrossDev pull requests #17 and #18 (merged 2026-11-04), fixed in commit 639e195"
+  - "ApolloCrossDev pull request #19 (merged 2026-11-04), PiP palette, commit a9a994f"
 ---
 
 ## Symptom
@@ -50,6 +51,7 @@ hardware yet.
 | `ApolloLoadFile`/`Sound`/`Picture` | Left the file open on errors; BMP palette read from a fixed offset |
 | `ApolloShowPattern` | Wrote only the first byte of each pixel |
 | `ApolloCrossDev_Lib.h` | Declared `ApolloShowPiP`/`ApolloHidePiP`, which don't exist, and not `ApolloShowPiP1/2`/`ApolloHidePiP1/2` |
+| PiP palette (a9a994f, #19) | From 789cbcc (2026-06-16) to a9a994f nothing loaded an 8-bit PiP palette: `ApolloLoadPicture` had stopped writing it into the port chosen by `picture->target`. Now `ApolloShowPiP1/2` load it. |
 | Five functions (#17) | Wrong DMACON2R bit for channels 4–15, a write through an uninitialized pointer, missing return values, an always-on keyboard print |
 
 ### Limits that remain
@@ -61,7 +63,6 @@ hardware yet.
 | `ApolloPlaySound` | The free-channel search starts at channel 1 |
 | `ApolloPlay`, `ApolloPlayFile` | Subtract 32 sample pairs from the length, without an explanation |
 | `ApolloLoadPicture` | Keeps its file state in `static` variables: not reentrant |
-| `ApolloShowPiP1/2` | Don't load the palette of an 8-bit picture into the PIP colour port. Until commit 789cbcc (2026-06-16) `ApolloLoadPicture` wrote it straight into the chunky, PIP 1, PIP 2 or sprite colour port, chosen by `picture->target`. Since then it only fills `picture->palette`: `ApolloShowPicture` loads the chunky palette from it and `ApolloShowPointer` the sprite palette, but nothing loads a PIP palette, and `target` is not read. |
 | `ApolloRelease` | Restores the priority saved by `ApolloTakeOver`; called without it, it sets priority 0 |
 
 ## Wrong

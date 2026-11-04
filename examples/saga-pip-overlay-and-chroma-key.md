@@ -16,8 +16,8 @@ related:
   - toolchain/apollolib/picture.md
   - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
-  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit 5ad4035 (2026-11-04)"
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit 639e195 (2026-11-04)"
+  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit a9a994f (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit a9a994f (2026-11-04)"
 ---
 
 ## Purpose
@@ -55,23 +55,16 @@ The full example builds in ApolloCrossDev with `make` in
 ```c
 // kb:compile
 /* SAGA PIP with ApolloLib: overlay and chroma-key mode, after the SAGAPiP
-   example in ApolloCrossDev Projects/SAGAPiP. Needs ApolloLib 639e195+. */
+   example in ApolloCrossDev Projects/SAGAPiP. Needs ApolloLib a9a994f+:
+   from there ApolloShowPiP1 also loads the palette of an 8-bit picture. */
 #include "ApolloCrossDev_Lib.h"
 
 #define PIP1_REG(a) (*(volatile UWORD *)(a))
-
-/* Load the palette of an 8-bit picture into PIP 1's colour port. */
-static void LoadPiP1Palette(const struct ApolloPicture *pic)
-{
-    for (ULONG i = 0; i < pic->palettesize; i++)
-        *(volatile ULONG *)APOLLO_SAGA_PIP1CHK_COL = (i << 24) | (pic->palette[i] & 0xFFFFFF);
-}
 
 /* Overlay mode: PIP 1 lies in front of the screen at (left, top). With the
    transparency bit, palette index $FF is transparent. */
 void ShowPiP1Overlay(struct ApolloPicture *pic, WORD left, WORD top)
 {
-    LoadPiP1Palette(pic);
     *(volatile ULONG *)APOLLO_SAGA_PIP1_POINTER = (ULONG)(pic->buffer + pic->position);
     PIP1_REG(APOLLO_SAGA_PIP1_X_START) = left + 16;             /* +16 and -1: as in SAGAPiP */
     PIP1_REG(APOLLO_SAGA_PIP1_X_STOP)  = left + pic->width + 16;
@@ -80,7 +73,7 @@ void ShowPiP1Overlay(struct ApolloPicture *pic, WORD left, WORD top)
     PIP1_REG(APOLLO_SAGA_PIP1_GFXMODE) = APOLLO_SAGA_PIP_TRANSON | APOLLO_SAGA_8_INDEX;
     PIP1_REG(APOLLO_SAGA_PIP1_MODULO)  = 0;
     PIP1_REG(APOLLO_SAGA_PIP1_CLRKEY)  = 0x0000;                /* 0 = overlay mode */
-    ApolloShowPiP1(pic);                                        /* DMA row length last: PIP on */
+    ApolloShowPiP1(pic);                                        /* palette, then DMA row length: PIP on */
 }
 
 /* Chroma-key mode: PIP 1 lies behind the screen and shows only where the
@@ -120,19 +113,24 @@ overlay, a 16-bit DDS (R5G6B5) for the background.
 
 ## The full example
 
-`Projects/SAGAPiP/SAGAPiP.c` (ApolloCrossDev commit 5ad4035) shows more than
-the code above, but has these problems. Keep them out of your own code:
+`Projects/SAGAPiP/SAGAPiP.c` (ApolloCrossDev commit a9a994f) does more than
+the code above: soundtrack, background picture, a Workbench window with
+PIP 1 and PIP 2 on it that follow the window, and a click that punches a
+transparent square into the overlay.
 
-| Problem | Effect | Do instead |
+ApolloCrossDev pull request #19 (2026-11-04) fixed these problems of the
+earlier version. Keep them out of your own code:
+
+| Earlier problem | Effect | Now |
 |---|---|---|
-| It never loads the PIP palettes | The 8-bit overlays show whatever palette was in the PIP colour ports. The example dates from 2026-06-03, when `ApolloLoadPicture` still wrote the palette into the colour port chosen by `picture->target`; ApolloLib commit 789cbcc (2026-06-16) dropped that. | Write the palette to `$DFF38C` (PIP 1) or `$DFF37C` (PIP 2), as `LoadPiP1Palette` does |
-| `if (!&pipwindow)` | Tests the address of the variable, which is never NULL: a failed `OpenWindowTags` goes unnoticed | `if (!pipwindow)` |
-| `AllocBitMap(..., BMF_DISPLAYABLE \| BMB_CLEAR \| BMB_HIJACKED \| ...)` | `BMB_…` are bit numbers (0, 7, 2, 9), not flags: ORed with `BMF_DISPLAYABLE` (2) they give `$F` = CLEAR, DISPLAYABLE, INTERLEAVED and STANDARD, not the HIJACKED and RTGCHECK the code names | Use only `BMF_…` flags |
-| Restores the Workbench as GFXMODE `$0A04` | Works only on a 1280x720, 24-bit Workbench | Save GFXMODE and the pointer from `$DFE1F4`/`$DFE1EC` first, restore those |
-| `struct ApolloSound soundtrack;` not cleared | `fadeout` is read uninitialized at exit | `struct ApolloSound soundtrack = {0};` |
-| `goto exit4` from early errors | Frees picture buffers that were never loaded | Clear the structures first, or free only what was loaded |
-| cybergraphics.library and the "Workbench" screen lock are never released | Resource leak | `CloseLibrary`, `UnlockPubScreen` |
-| `ApolloCPUDelay(2000)` in a Workbench program | Busy-waits two seconds | `Delay()` from dos.library |
+| No PIP palette loaded | 8-bit overlays in the wrong colours, since ApolloLib 789cbcc (2026-06-16) dropped the palette preload in `ApolloLoadPicture` | `ApolloShowPiP1/2` load it |
+| Positional initializers for `struct ApolloPicture` | Since `palette` is an array, the last value went into `palette[2]`, not `target` | Fields set by name |
+| Workbench restored as GFXMODE `$0A04` | Worked only on a 1280x720, 24-bit Workbench | Mode, pointer and modulo saved from `$DFE1F4`/`$DFE1EC`/`$DFE1E6` and restored |
+| `if (!&pipwindow)` | A failed `OpenWindowTags` went unnoticed | `if (!pipwindow)` |
+| `BMF_DISPLAYABLE \| BMB_CLEAR \| BMB_HIJACKED \| …` | `BMB_` are bit numbers: the flags became `$F` | `BMF_DISPLAYABLE \| BMF_CLEAR \| BMF_INTERLEAVED` |
+| Five exit labels, uninitialized structures | Freed buffers that were never loaded; read uninitialized fields | Everything starts cleared; one exit path frees only what was acquired |
+| cybergraphics.library never closed | Leak | Closed |
+| `ApolloCPUDelay` under Workbench | Busy waits | `Delay()` |
 
 The +16 (X) and −1 (Y) corrections place the PIP exactly over a Workbench
 window in SAGAPiP; they are not documented elsewhere.
