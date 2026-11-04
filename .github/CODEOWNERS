@@ -26,6 +26,7 @@
 /core/best-practices/interleave-dependency-chains.md @TuKo1982
 /core/best-practices/memory-access-patterns.md @TuKo1982
 /core/best-practices/predicated-bcc-over-one-instruction.md @TuKo1982
+/core/best-practices/prefer-library-calls-for-saga-chips.md @WDrijver
 /core/best-practices/use-fusable-pairs.md @TuKo1982
 /core/cpu-68080/bank-prefix.md @TuKo1982
 /core/cpu-68080/branches-and-prediction.md @TuKo1982

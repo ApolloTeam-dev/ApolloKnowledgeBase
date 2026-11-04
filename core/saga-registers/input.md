@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, input, joypad, usb, mouse, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -93,5 +94,6 @@ The "vanilla" DB9 ports, with the layout of JOY0DAT/JOY1DAT. The original's inde
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO test bit 0 (connected) before you trust a joypad register.
 - DO treat the wheel counter as signed and use the difference between two reads.

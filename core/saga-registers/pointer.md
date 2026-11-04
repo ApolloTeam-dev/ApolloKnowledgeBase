@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, isabelle, pointer, sprite, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -84,6 +85,7 @@ These rows have no page in the original. An older ApolloLib copy adds colour 0 a
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO write the palette through `$DFF3A8` (index) and `$DFF3AA` (colour).
 - DO keep colour index 0 for transparent pixels.
 - DON'T expect real alpha blending: a pixel is opaque or 50 % semi-transparent.

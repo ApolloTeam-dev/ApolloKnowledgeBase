@@ -13,6 +13,7 @@ tags: [saga, arne, audio, dma, interrupts, ethernet, registers]
 related:
   - core/saga-registers/index.md
   - core/saga-registers/arne-channels.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
 generated_from: sources/official/saga-registers/index.htm
@@ -96,5 +97,6 @@ Whether `$48` and `$50` are vector offsets or vector numbers, and at which inter
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO use bit 15 as SET/CLR, as in the classic registers.
 - DO map channel n (4–15) to bit n − 4.

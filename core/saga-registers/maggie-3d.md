@@ -13,6 +13,7 @@ tags: [saga, maggie, 3d, texture, registers]
 related:
   - core/saga-registers/index.md
   - core/saga-3d-maggie/registers.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
 generated_from: sources/official/saga-registers/index.htm
@@ -78,5 +79,6 @@ Offsets from `$DFF250`, for comparison with the measured layout in [registers.md
 
 ## Do / Don't
 
+- DO prefer the library calls (maggie.library) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO write TEXSTRT (`$DFF25E`) last: it starts the span.
 - DO check core/saga-3d-maggie/registers.md and its pitfalls for the measured behaviour.

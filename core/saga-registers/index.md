@@ -10,6 +10,8 @@ applies_to:
   core: "Core 12000+"
   os: [any]
 tags: [saga, registers, index]
+related:
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -22,7 +24,7 @@ generated_from: sources/official/saga-registers/index.htm
 
 ## Summary
 
-The SAGA-specific chipset registers of the Apollo V4, converted from the official SAGA register documentation: video (chunky plane, colour ports, PIP, pointer), Arne audio, Maggie 3D, input and system registers. Classic OCS/ECS/AGA registers are not repeated here.
+The SAGA-specific chipset registers of the Apollo V4, converted from the official SAGA register documentation: video (chunky plane, colour ports, PIP, pointer), Arne audio, Maggie 3D, input and system registers. Classic OCS/ECS/AGA registers are not repeated here. For Arne, Isabelle and Maggie, prefer the library calls (ApolloLib, maggie.library) to direct register access: a best practice, not a forced rule.
 
 ## Details
 
@@ -185,5 +187,6 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib and maggie.library) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO look up a classic register in the HRM, and its SAGA-specific registers here.
 - DON'T use a register listed under the open questions without checking it on real hardware.

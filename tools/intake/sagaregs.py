@@ -289,9 +289,30 @@ def tidy(lines):
     return "\n".join(out) + "\n"
 
 
+BEST_PRACTICE = "core/best-practices/prefer-library-calls-for-saga-chips.md"
+LIBRARY = {"saga-audio-arne": "ApolloLib", "saga-video-isabelle": "ApolloLib",
+           "saga-3d-maggie": "maggie.library"}
+
+
+def library_rule(name, components):
+    """The best practice of library calls, for the files of the SAGA chips."""
+    libs = sorted({LIBRARY[c] for c in components if c in LIBRARY})
+    if name == "input.md":
+        libs = ["ApolloLib"]
+    if not libs:
+        return []
+    return [f"DO prefer the library calls ({' and '.join(libs)}) to direct access "
+            "to these registers: a best practice, not a forced rule (see "
+            "[prefer-library-calls-for-saga-chips.md]"
+            "(../best-practices/prefer-library-calls-for-saga-chips.md))."]
+
+
 def doc(name, title, components, tags, summary, details, diff, rules,
         sources=(), basis=("official",), related=()):
+    rules = library_rule(name, components) + list(rules)
     rel = ([] if name == "index.md" else [f"{OUTDIR}/index.md"]) + list(related)
+    if library_rule(name, components):
+        rel.append(BEST_PRACTICE)
     lines = frontmatter(title, components, tags, rel, list(sources), basis)
     lines += ["## Summary", "", summary, "", "## Details", ""] + details
     lines += ["", "## Differences from AmigaOS / AROS / 68060", ""] + diff
@@ -915,7 +936,10 @@ def index(rows, keep, applied):
                "The SAGA-specific chipset registers of the Apollo V4, converted from the "
                "official SAGA register documentation: video (chunky plane, colour "
                "ports, PIP, pointer), Arne audio, Maggie 3D, input and system "
-               "registers. Classic OCS/ECS/AGA registers are not repeated here.",
+               "registers. Classic OCS/ECS/AGA registers are not repeated here. "
+               "For Arne, Isabelle and Maggie, prefer the library calls (ApolloLib, "
+               "maggie.library) to direct register access: a best practice, not a "
+               "forced rule.",
                details,
                ["- SAGA contains the classic chipset at its classic addresses. The "
                 "registers here are added on top of it, mostly at `$DFF1E6`–`$DFF1F4`, "

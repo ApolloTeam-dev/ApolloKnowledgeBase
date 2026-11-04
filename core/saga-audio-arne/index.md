@@ -41,5 +41,8 @@ No content yet.
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct register access: a best
+  practice, not a forced rule (see
+  [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DON'T invent register addresses, bit meanings or instruction behavior for
   the SAGA audio (Arne). Say that the knowledge base does not cover it.

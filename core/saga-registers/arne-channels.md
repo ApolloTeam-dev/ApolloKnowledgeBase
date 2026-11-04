@@ -14,6 +14,7 @@ related:
   - core/saga-registers/index.md
   - core/saga-audio-arne/registers.md
   - core/saga-registers/arne-dma-and-interrupts.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -86,6 +87,7 @@ With the PAL clock of 3546895 Hz (ApolloLib), period 65 gives 3546895 / 65 = 54.
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO keep the period at 65 or higher.
 - DO give AUDxLEN in sample pairs.
 - DO start channels 0–3 with DMACON and channels 4–15 with DMACON2.

@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, isabelle, sprites, collision, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
@@ -68,5 +69,6 @@ SAGA has the 8 classic sprites, as on the classic Amiga (WDrijver, 2026-11-04). 
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO read the register of the sprite you are interested in.
 - DON'T use bits 8–15: SAGA has 8 sprites.

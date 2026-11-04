@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, isabelle, gfxmode, chunky, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -108,6 +109,7 @@ Every write-only register at `$DFF000`–`$DFF1FF` reads back at the same offset
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO write GFXMODE as one word, resolution in the high byte.
 - DO set the pointer and modulo before you switch the mode.
 - DON'T rely on GFXMODE `$00` or pixel format `$07`: the original describes neither.

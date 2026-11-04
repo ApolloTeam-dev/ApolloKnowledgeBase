@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, isabelle, scanlines, zoom, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
@@ -93,6 +94,7 @@ The original's example on this page is the one of the planar colour port (it set
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO set bit 15 to set bits and clear it to clear them.
 - DON'T read `$DFF3EC`: it is write-only, although the original's Access column says R.
 - DO give the zoom shift in `$DFF3EE` as positive pixel counts.

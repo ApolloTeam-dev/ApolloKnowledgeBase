@@ -12,6 +12,7 @@ applies_to:
 tags: [saga, isabelle, palette, colour, registers]
 related:
   - core/saga-registers/index.md
+  - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
@@ -84,6 +85,7 @@ A classic Copper MOVE is two words (register, 16-bit value). Read the classic wa
 
 ## Do / Don't
 
+- DO prefer the library calls (ApolloLib) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO write the port with one `move.l`.
 - DO set FMODE bit 4 (SAGA) before a Copper list writes a colour port.
 - DO set bit 15 in the first word of a 32-bit Copper MOVE.
