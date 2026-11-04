@@ -15,6 +15,7 @@ related:
   - toolchain/vasm-assembler.md
   - toolchain/target-os-headers.md
   - toolchain/project-makefile.md
+  - toolchain/apollolib/index.md
 sources:
   - "github.com/WDrijver/ApolloCrossDev README.md"
   - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Dev-Linux.sh"
@@ -62,6 +63,9 @@ C and C++: `-O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer`. Details in
 - DevPac includes for assembly, in `<prefix>/m68k-amigaos/DevPac`
 - ApolloExplorer (`acp`) to upload files to an Apollo V4 over the network
 - bgdbserver, a GDB server that runs on the Apollo V4 for remote debugging
+- ApolloLib in `Projects/ApolloLib`: sound, picture, PIP, pointer, input,
+  copy and blit routines and serial debug output for SAGA and the 68080,
+  see [toolchain/apollolib/](apollolib/index.md)
 
 ### Host requirements
 

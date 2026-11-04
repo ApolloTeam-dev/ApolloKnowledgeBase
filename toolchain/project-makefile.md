@@ -50,7 +50,8 @@ project folder must be two levels below the ApolloCrossDev root.
 | `C_LIBS_SDL`, `C_LIBS_MUI`, `C_LIBS_MATH` | off | Extra libraries, enable by removing `#` |
 
 The template only collects `.c` and `.s` files (`C_FILES`, `S_FILES`). It
-also links every `.o` file in `Projects/ApolloLib`.
+also links every `.o` file in `Projects/ApolloLib` (see
+[apollolib/index.md](apollolib/index.md)).
 
 ### Targets
 

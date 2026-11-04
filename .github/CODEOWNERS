@@ -186,7 +186,15 @@
 /toolchain/project-makefile.md @WDrijver
 /toolchain/target-os-headers.md @WDrijver
 /toolchain/vasm-assembler.md @WDrijver
+/toolchain/apollolib/debug.md @WDrijver
+/toolchain/apollolib/index.md @WDrijver
+/toolchain/apollolib/input.md @WDrijver
+/toolchain/apollolib/memory-and-blit.md @WDrijver
+/toolchain/apollolib/picture.md @WDrijver
+/toolchain/apollolib/sound.md @WDrijver
+/toolchain/apollolib/system-and-timing.md @WDrijver
 /toolchain/best-practices/gcc-code-generation-for-68080.md @TuKo1982
+/toolchain/pitfalls/apollolib-known-bugs.md @WDrijver
 /toolchain/pitfalls/calling-assembler-from-gcc.md @TuKo1982
 /toolchain/pitfalls/float-settings-mismatch.md @TuKo1982
 /toolchain/pitfalls/gcc-bbb-autoinc.md @TuKo1982
