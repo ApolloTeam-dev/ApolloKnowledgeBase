@@ -17,6 +17,7 @@ sources:
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
   - "ApolloLib, older copy in ApolloClaude docs/toolchain/_ApolloLib (ApolloCrossDev_Defines.h), 2026-11-04"
   - "Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev Projects/ApolloPointer, commit 2dfaa5c (2026-09-02)"
+  - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -24,9 +25,18 @@ generated_from: sources/official/saga-registers/index.htm
 
 ## Summary
 
-SAGA has a hardware mouse pointer: a 32x32 sprite with a 256-colour palette and alpha, positioned through `$DFF1D0`/`$DFF1D2`. The original documents only the position and three 12-bit colours; the sprite image and palette come from ApolloLib.
+SAGA has a hardware mouse pointer, positioned through `$DFF1D0`/`$DFF1D2`. From Core 12500 it is a 32x32 sprite with an 8-bit colour index, a 256-colour palette and 50 % semi-transparency; before that it was a 16x16 planar pointer. The original documents only the position and the old pointer's colours; the 32x32 sprite comes from ApolloLib.
 
 ## Details
+
+### Two pointer generations
+
+| Cores | Pointer |
+|---|---|
+| Core 12500 and later | 32x32, 8-bit colour index, 256-colour palette, 50 % semi-transparency |
+| Before Core 12500 | 16x16 planar, 12-bit colours |
+
+From Core 12500 the 32x32 sprite replaces the 16x16 pointer (WDrijver, 2026-11-04). The position registers are the same for both.
 
 ### Position (original and SRC)
 
@@ -41,20 +51,23 @@ SAGA has a hardware mouse pointer: a 32x32 sprite with a 256-colour palette and 
 - Write X to `$DFF1D0` and Y to `$DFF1D2`; read them back at `$DFE1D0` and `$DFE1D2` (ApolloLib, SRC).
 - ApolloLib writes the mouse position + 16 (X) and + 8 (Y) (SRC).
 
-### 32x32 pointer sprite (SRC, not in the original)
+### 32x32 pointer sprite, Core 12500 and later (SRC, not in the original)
 
 From the current ApolloLib and the ApolloPointer example:
 
 | Address | Use |
 |---|---|
-| `$DFD000` | Image: 32 x 32 pixels, 2 bytes per pixel (colour index, alpha), 2048 bytes, row by row |
+| `$DFD000` | Image: 32 x 32 pixels, 2 bytes per pixel (colour index, transparency byte), 2048 bytes, row by row |
 | `$DFF3A8` | Palette index (word): write the entry number first |
 | `$DFF3AA` | Palette colour (long, R8G8B8) for the entry selected at `$DFF3A8` |
 
-- Index 0 is transparent. ApolloLib writes alpha `$FF` for opaque pixels and `$00` for semi-transparent ones; the example's usage text says colour 1 is semi-transparent.
+- Colour index 0 is fully transparent.
+- The second byte is not a real alpha: a pixel is either opaque or 50 % semi-transparent (WDrijver, 2026-11-04). ApolloLib writes `$FF` for opaque and `$00` for semi-transparent (SRC).
 - To set the palette, write the index to `$DFF3A8`, then the colour to `$DFF3AA`, for each of the 256 entries.
 
-### 12-bit pointer colours (original)
+### 16x16 pointer, before Core 12500
+
+The original lists three 12-bit colours of this pointer:
 
 | Address | Name | Access | Description (original) |
 |---|---|---|---|
@@ -62,7 +75,7 @@ From the current ApolloLib and the ApolloPointer example:
 | `$DFF3A4` | Sprite Col2 | W | Word register RGB (11..0) |
 | `$DFF3A6` | Sprite Col3 | W | Word register RGB (11..0) |
 
-These rows have no page in the original. An older ApolloLib copy adds colour 0 at `$DFF3A0` and a 16x16 planar pointer image at `$DFF800` (SRC). Which cores have this 16x16 pointer next to, or instead of, the 32x32 sprite is an open question (see [index.md](index.md)).
+These rows have no page in the original. An older ApolloLib copy adds colour 0 at `$DFF3A0` and the 16x16 planar image at `$DFF800` (SRC).
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -73,4 +86,5 @@ These rows have no page in the original. An older ApolloLib copy adds colour 0 a
 
 - DO write the palette through `$DFF3A8` (index) and `$DFF3AA` (colour).
 - DO keep colour index 0 for transparent pixels.
-- DON'T use `$DFF800` or `$DFF3A0`–`$DFF3A6` until the open question is settled.
+- DON'T expect real alpha blending: a pixel is opaque or 50 % semi-transparent.
+- DON'T use `$DFF800` or `$DFF3A0`–`$DFF3A6` on Core 12500 and later: they belong to the old 16x16 pointer.
