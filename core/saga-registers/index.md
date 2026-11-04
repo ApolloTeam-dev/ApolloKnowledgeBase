@@ -36,7 +36,7 @@ The SAGA-specific chipset registers of the Apollo V4, converted from the officia
 
 Every one of the 419 rows of the original is marked SAGA, because SAGA contains the classic chipset. These files cover the 188 SAGA-specific rows: the rows where OCS, ECS and AGA are empty, plus the SAGA addresses that the original also marks as classic.
 
-For every other register, the Amiga Hardware Reference Manual applies, with one difference: **on SAGA, all classic pointer registers (BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and reach all RAM** (WDrijver, 2026-11-04). Their pages in the original still say 18 bits. FMODE (`$DFF1FC`) bit 4 "SAGA" enables the SAGA features (original).
+For every other register, the Amiga Hardware Reference Manual applies, with one difference: **on SAGA, all classic pointer registers (BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and reach all RAM** (WDrijver, 2026-11-04). Their pages in the original still say 18 bits. FMODE (`$DFF1FC`) bit 4 "SAGA" enables the SAGA features (original); among them, it lets the Copper write above `$DFF1FF` and do 32-bit moves (BigGun, 2026-11-04, see [colour-ports.md](colour-ports.md)).
 
 ### Reading back write-only registers
 
@@ -174,7 +174,7 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 
 ### Open questions
 
-1. The Copper form `dc.w $8380,$00FF,$0000` in the colour port pages: how the SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.
+1. Copper in SAGA mode: does it reach every SAGA register, including Arne at `$DFF400`–`$DFF4FF` (that needs register bit 10)? Can it also do 16-bit moves above `$DFF1FF`, and does COPCON's danger bit still apply?
 2. "IRQ $48" (Ethernet) and "IRQ $50" (Arne channels 4–15): vector offsets or vector numbers, and at which interrupt level.
 3. Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read back at `$DFE000`–`$DFE1FF`. Is there a read-back for the write-only registers from `$DFF200` up (Maggie, DMACON2, colour ports, PIP, Arne)?
 

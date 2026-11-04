@@ -30,6 +30,8 @@ CORE = "Core 12000+"
 SOURCE_NAME = "SAGA register documentation, sources/official/saga-registers/ (HTML)"
 WD = "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 WDS = "WDrijver, 2026-11-04"
+BIGGUN = "BigGun, Apollo chat, 2026-11-04 (relayed by WDrijver)"
+BGS = "BigGun, 2026-11-04"
 APOLLOLIB = ("ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib "
              "(ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)")
 APOLLOLIB_OLD = ("ApolloLib, older copy in ApolloClaude docs/toolchain/_ApolloLib "
@@ -383,11 +385,20 @@ def colour_ports(rows):
                 "    move.l  #$00FF0000,$DFF380   ; colour 0 = red",
                 "    move.l  #$01FFFF00,$DFF380   ; colour 1 = yellow",
                 "```", "",
-                "The original also shows a Copper form, `dc.w $8380,$00FF,$0000` "
-                "(\"set color0 = RED\"). This is three words, while a classic Copper "
-                "MOVE has two. How the SAGA Copper encodes a 32-bit MOVE is an open "
-                "question (see [index.md](index.md)); don't use the form until it is "
-                "documented."]
+                "### Copper: 32-bit MOVE", "", "```asm",
+                "    dc.w    $8380,$00FF,$0000    ; colour 0 = red (original)",
+                "```", "",
+                f"- The SAGA Copper can do 32-bit moves ({BGS}).",
+                f"- A 32-bit MOVE has the high bit of its first word set ({BGS}): "
+                "`$8380` = bit 15 + register `$380`. The two words after it are the "
+                "32-bit value, high word first, as in the original's example.",
+                f"- It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) "
+                f"first ({BGS}).",
+                f"- Without the SAGA bit, the Copper can write only `$DFF0xx` and "
+                f"`$DFF1xx` ({BGS}), so it can't reach the colour ports at `$DFF3xx`.", "",
+                "A classic Copper MOVE is two words (register, 16-bit value). Read the "
+                "classic way, `$8380` would be COLOR00 (`$180`), and the third word the "
+                "start of the next instruction."]
     return doc("colour-ports.md", "SAGA colour ports (24-bit palettes)",
                ["saga-video-isabelle"], ["saga", "isabelle", "palette", "colour", "registers"],
                "SAGA sets 24-bit palette entries through 32-bit colour ports: one "
@@ -398,8 +409,9 @@ def colour_ports(rows):
                 "reaches 256 through banks and BPLCON3. A SAGA port writes any of 256 "
                 "entries in one 32-bit write."],
                ["DO write the port with one `move.l`.",
-                "DON'T use the three-word Copper form from the original yet."],
-               sources=[APOLLOLIB], basis=["official", "source-code"])
+                "DO set FMODE bit 4 (SAGA) before a Copper list writes a colour port.",
+                "DO set bit 15 in the first word of a 32-bit Copper MOVE."],
+               sources=[APOLLOLIB, BIGGUN], basis=["official", "source-code", "other"])
 
 
 PIP2 = [("DFF3B0", "PIP2 X start"), ("DFF3B2", "PIP2 Y start"),
@@ -802,8 +814,9 @@ FILES = [("chunky-plane.md", "Chunky plane: GFXMODE, pointer, modulo"),
          ("system.md", "Board ID, core revision, chip ID, SPI")]
 
 OPEN = [
-    "The Copper form `dc.w $8380,$00FF,$0000` in the colour port pages: how the "
-    "SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.",
+    "Copper in SAGA mode: does it reach every SAGA register, including Arne at "
+    "`$DFF400`–`$DFF4FF` (that needs register bit 10)? Can it also do 16-bit moves "
+    "above `$DFF1FF`, and does COPCON's danger bit still apply?",
     "\"IRQ $48\" (Ethernet) and \"IRQ $50\" (Arne channels 4–15): vector offsets or "
     "vector numbers, and at which interrupt level.",
     "Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read "
@@ -857,7 +870,9 @@ def index(rows, keep, applied):
                "(BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and "
                f"reach all RAM** ({WDS}). Their pages in the "
                "original still say 18 bits. FMODE (`$DFF1FC`) bit 4 \"SAGA\" enables "
-               "the SAGA features (original).", "",
+               "the SAGA features (original); among them, it lets the Copper write "
+               f"above `$DFF1FF` and do 32-bit moves ({BGS}, see "
+               "[colour-ports.md](colour-ports.md)).", "",
                "### Reading back write-only registers", "",
                "Every write-only register at `$DFF000`–`$DFF1FF` reads back at the "
                f"same offset in `$DFE000`–`$DFE1FF` ({WDS}). This holds for the "

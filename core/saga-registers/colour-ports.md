@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: draft
 origin: official
-basis: [official, source-code]
+basis: [official, source-code, other]
 components: [saga-video-isabelle]
 applies_to:
   core: "Core 12000+"
@@ -15,6 +15,7 @@ related:
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
+  - "BigGun, Apollo chat, 2026-11-04 (relayed by WDrijver)"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -63,7 +64,18 @@ Each port is one 32-bit register (the original lists its high and low word, H an
     move.l  #$01FFFF00,$DFF380   ; colour 1 = yellow
 ```
 
-The original also shows a Copper form, `dc.w $8380,$00FF,$0000` ("set color0 = RED"). This is three words, while a classic Copper MOVE has two. How the SAGA Copper encodes a 32-bit MOVE is an open question (see [index.md](index.md)); don't use the form until it is documented.
+### Copper: 32-bit MOVE
+
+```asm
+    dc.w    $8380,$00FF,$0000    ; colour 0 = red (original)
+```
+
+- The SAGA Copper can do 32-bit moves (BigGun, 2026-11-04).
+- A 32-bit MOVE has the high bit of its first word set (BigGun, 2026-11-04): `$8380` = bit 15 + register `$380`. The two words after it are the 32-bit value, high word first, as in the original's example.
+- It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) first (BigGun, 2026-11-04).
+- Without the SAGA bit, the Copper can write only `$DFF0xx` and `$DFF1xx` (BigGun, 2026-11-04), so it can't reach the colour ports at `$DFF3xx`.
+
+A classic Copper MOVE is two words (register, 16-bit value). Read the classic way, `$8380` would be COLOR00 (`$180`), and the third word the start of the next instruction.
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -72,4 +84,5 @@ The original also shows a Copper form, `dc.w $8380,$00FF,$0000` ("set color0 = R
 ## Do / Don't
 
 - DO write the port with one `move.l`.
-- DON'T use the three-word Copper form from the original yet.
+- DO set FMODE bit 4 (SAGA) before a Copper list writes a colour port.
+- DO set bit 15 in the first word of a 32-bit Copper MOVE.
