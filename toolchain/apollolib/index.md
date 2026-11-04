@@ -35,7 +35,7 @@ are released, ApolloLib is the preferred way to use them (see
 ### Using it in a project
 
 ApolloLib is not a link library: a project compiles its sources. The
-example Makefiles (ApolloPointer, SAGAPiP) set
+example Makefiles (ApolloPointer, ApolloPiP) set
 `APOLLOLIB = $(PWD)/../../Projects/ApolloLib`, add `-I$(APOLLOLIB)`,
 and compile every `.c` and `.s` file there into the program (see
 [project-makefile.md](../project-makefile.md)).
@@ -99,7 +99,8 @@ Many bugs were fixed on 2026-11-04 (commit 639e195): use that version or
 later. An older copy has the bugs listed in
 [apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md), among them
 broken 320-pixel modes and no way to undo `ApolloTakeOver` or
-`ApolloTimer`.
+`ApolloTimer`. From commit a9a994f, `ApolloShowPiP1/2` also load the
+palette of an 8-bit picture.
 
 ## Differences from AmigaOS / AROS / 68060
 

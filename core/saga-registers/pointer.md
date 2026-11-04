@@ -15,9 +15,9 @@ related:
   - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit ad7f0b4 (2026-11-04)"
   - "ApolloLib, older copy in ApolloClaude docs/toolchain/_ApolloLib (ApolloCrossDev_Defines.h), 2026-11-04"
-  - "Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev Projects/ApolloPointer, commit 2dfaa5c (2026-09-02)"
+  - "Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev Projects/ApolloPointer, commit ad7f0b4 (2026-11-04)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---

@@ -4,7 +4,9 @@
 # Snippets are compiled to object files, not linked, so each one must be a
 # complete translation unit. Flags follow the ApolloCrossDev Makefile template
 # (Projects/_makefiles/Makefile). PREFIX is the ApolloCrossDev compiler folder,
-# e.g. ~/ApolloCrossDev/Compilers/GCC-6.50-Dev.
+# e.g. ~/ApolloCrossDev/Compilers/GCC-6.50-Dev. When APOLLOLIB is set to an
+# ApolloLib folder (ApolloCrossDev Projects/ApolloLib), snippets can include
+# "ApolloCrossDev_Lib.h".
 #
 #   compile-snippets.sh [dir]   compile all .c/.cpp/.s files in dir
 #                               (default: build/snippets)
@@ -19,6 +21,7 @@ AS="${AS:-$PREFIX/bin/vasmm68k_mot}"
 
 OPTS="-O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer"
 INCL="-I$PREFIX/$TARGET/libnix/include -I$PREFIX/$TARGET/sys-include -I$PREFIX/$TARGET/ndk32-include/Include_H"
+[ -n "$APOLLOLIB" ] && INCL="$INCL -I$APOLLOLIB"
 CFLAGS="${CFLAGS:--noixemul $OPTS -Wall $INCL}"
 CXXFLAGS="${CXXFLAGS:--noixemul $OPTS -Wall $INCL}"
 ASFLAGS="${ASFLAGS:--quiet -Fhunk -m68080 -m68881 -opt-speed -I$PREFIX/$TARGET/DevPac/Include}"

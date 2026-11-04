@@ -33,13 +33,13 @@ WDS = "WDrijver, 2026-11-04"
 BIGGUN = "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver)"
 BGS = "G, 2026-11-04"
 APOLLOLIB = ("ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib "
-             "(ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)")
+             "(ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit ad7f0b4 (2026-11-04)")
 APOLLOLIB_OLD = ("ApolloLib, older copy in ApolloClaude docs/toolchain/_ApolloLib "
                  "(ApolloCrossDev_Defines.h), 2026-11-04")
-EX_PIP = ("Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, "
-          "commit 2dfaa5c (2026-09-02)")
+EX_PIP = ("Example ApolloPiP.c (formerly SAGAPiP), github.com/WDrijver/ApolloCrossDev "
+          "Projects/ApolloPiP, commit ad7f0b4 (2026-11-04)")
 EX_POINTER = ("Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev "
-              "Projects/ApolloPointer, commit 2dfaa5c (2026-09-02)")
+              "Projects/ApolloPointer, commit ad7f0b4 (2026-11-04)")
 APOLLOOS = ("ApolloOS source, github.com/ApolloTeam-dev/ApolloOS.R10 "
             "arch/m68k-amiga/hidd/sagagfx/sagagfx_hw.h, commit ca5ef46 (2025-06-10)")
 MAGGIE = "maggie.library samples, see os/libraries/maggie-library.md"
@@ -448,13 +448,13 @@ def pip(rows):
     p1 = pick(rows, 0xDFF3D0, 0xDFF3E2)
     details = ["### PIP 1 registers (original)", ""] + reg_table(p1)
     details += ["", "The original links these rows to a page that doesn't exist; the "
-                "facts below come from ApolloLib and the SAGAPiP example (SRC).", "",
+                "facts below come from ApolloLib and the ApolloPiP example (SRC).", "",
                 "### PIP 2 registers (SRC, not in the original)", "",
                 "PIP 2 has the same layout as PIP 1, `$20` lower (ApolloLib):", "",
                 "| Address | Register | Same as PIP 1 |", "|---|---|---|"]
     details += [f"| `${a}` | {n} | `${addr(a) + 0x20:06X}` |" for a, n in PIP2]
     details += ["", "Its colour port is `$DFF37C` (see [colour-ports.md](colour-ports.md)). "
-                "The SAGAPiP example says two PIPs exist from Core 11900 (SRC).", "",
+                "The ApolloPiP example says two PIPs exist from Core 11900 (SRC).", "",
                 "### Register meanings (SRC)", "",
                 "| Register | Meaning |", "|---|---|",
                 "| X/Y start, X/Y stop | Window position in screen pixels. The example "
@@ -480,7 +480,7 @@ def pip(rows):
                 f"Formats and transparent colours: {WDS}. The transparent colour is "
                 "fixed per format. ApolloLib still marks YUV as not supported on PIP; "
                 "that is an error in ApolloLib, not in the hardware.", "",
-                "### Two modes (SAGAPiP example, SRC)", "",
+                "### Two modes (ApolloPiP example, SRC)", "",
                 "- **Overlay:** colour key 0. The PIP is in front of the main screen; "
                 "with format bit 8 set, pixels in the transparent colour of the "
                 "format are transparent.",
