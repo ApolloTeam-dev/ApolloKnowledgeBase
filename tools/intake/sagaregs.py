@@ -567,9 +567,9 @@ def collisions(rows):
     details = ["### Registers", ""] + reg_table(c)
     details += ["", "Bit layout (one register per sprite):", ""] + \
         bits_md(box_table(page("clxdatx.htm")))
-    details += ["", "The bits name sprites 0 to F (16 sprites), but the original lists "
-                "registers for sprites 0–7 only. Whether sprites 8–15 exist is not "
-                "documented."]
+    details += ["", f"SAGA has the 8 classic sprites, as on the classic Amiga ({WDS}). "
+                "The original's bit table names sprites 0 to F; since sprites 8–F "
+                "don't exist, only bits 0–7 refer to real sprites."]
     return doc("sprite-collision.md", "SAGA detailed sprite collision",
                ["saga-video-isabelle"], ["saga", "isabelle", "sprites", "collision", "registers"],
                "SAGA reports, per sprite, which other sprites it touches, in one "
@@ -578,7 +578,8 @@ def collisions(rows):
                ["- Classic CLXDAT (`$DFF00E`) reports collisions only between sprite "
                 "pairs and playfields, and clears on read."],
                ["DO read the register of the sprite you are interested in.",
-                "DON'T assume sprites 8–15 exist."])
+                "DON'T use bits 8–15: SAGA has 8 sprites."],
+               sources=[WD])
 
 
 ARNE_LAYOUT = [("+0", "AUDxL", "L", "W", "Pointer to the sample data (32-bit, any RAM)"),
@@ -807,7 +808,6 @@ OPEN = [
     "Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and "
     "`$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back "
     "there?",
-    "Sprites 8–15: the collision bits name them; the original documents 8 sprites.",
 ]
 
 

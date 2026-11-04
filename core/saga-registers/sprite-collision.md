@@ -14,6 +14,7 @@ related:
   - core/saga-registers/index.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
+  - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -59,7 +60,7 @@ Bit layout (one register per sprite):
 | 1 | HIT1 | Sprite to Sprite1 |
 | 0 | HIT0 | Sprite to Sprite0 |
 
-The bits name sprites 0 to F (16 sprites), but the original lists registers for sprites 0–7 only. Whether sprites 8–15 exist is not documented.
+SAGA has the 8 classic sprites, as on the classic Amiga (WDrijver, 2026-11-04). The original's bit table names sprites 0 to F; since sprites 8–F don't exist, only bits 0–7 refer to real sprites.
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -68,4 +69,4 @@ The bits name sprites 0 to F (16 sprites), but the original lists registers for 
 ## Do / Don't
 
 - DO read the register of the sprite you are interested in.
-- DON'T assume sprites 8–15 exist.
+- DON'T use bits 8–15: SAGA has 8 sprites.
