@@ -1,0 +1,29 @@
+<html>
+<body>
+<pre>
+
+SCREEN ADJUST PORT
+
+         This register allows adjusting the SAGA screenmodes
+
+
+         +-------+----------+-------------------------------------------+
+         | BIT#  | FUNCTION | DESCRIPTION                               |
+         +-------+----------+-------------------------------------------+
+         | 31-24 | Number  | 8bit Screenmode-ID                         |
+         | 23-16 | --      | 8bit 00 reserved                           |
+         | 15-08 | -Y      | 8bit 0Y more rows                          |
+         | 07-00 | -X      | 8bit 0X more widthX                        |
+         +-------+----------+-------------------------------------------+
+
+Example:
+
+ move.l #$00FF0000,$DFF380   -- set color0 = RED
+ move.l #$01FFFF00,$DFF380   -- set color1 = YELLOW
+
+Copper:
+ dc.w  $8380,$00FF,$0000     -- set color0 = RED
+
+</pre>
+</body>
+</html>

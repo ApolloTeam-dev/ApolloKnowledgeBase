@@ -78,6 +78,9 @@ Not content: `templates/` (file, repo and seed templates), `sources/`
 skills, step 2), `evals/` (AI benchmarks, step 5), `tools/` (CI scripts).
 
 Each chip folder keeps its register map in `registers.md` inside that folder.
+The official SAGA register documentation is generated into
+`core/saga-registers/` (document intake, section 11); the chip folders link
+to it.
 
 `core/` is the FPGA core, the same on every V4 model. `hardware/` is the
 board: connectors, headers, memory and what differs per model. Knowledge that

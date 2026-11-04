@@ -1,0 +1,27 @@
+<html>
+<body>
+<pre>
+
+FMODE
+
+         This register controls the fetch mechanism for different
+         types of Chip RAM accesses:
+
+
+         +-------+----------+-------------------------------------------+
+         | BIT#  | FUNCTION | DESCRIPTION                               |
+         +-------+----------+-------------------------------------------+
+         | 15    | SSCAN2   | Global enable for sprite scan-doubling.   |
+         | 14    | BSCAN2   | Enables the use of 2nd P/F modulus on an  |
+         |       |          | alternate line basis to support bitplane  |
+         |       |          | scan-doubling.                            |
+         | 13-05 | Unused   |                                           |
+         | 04    | SAGA     | Enable SAGA New features                  |
+         | 03    | SPAGEM   | Sprite page mode (double CAS)             |
+         | 02    | SPR32    | Sprite 32 bit wide mode                   |
+         | 01    | BPAGEM   | Bitplane Page Mode (double CAS)           |
+         | 00    | BLP32    | Bitplane 32 bit wide mode                 |
+         +-------+----------+-------------------------------------------+
+</pre>
+</body>
+</html>

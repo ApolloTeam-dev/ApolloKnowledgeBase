@@ -16,16 +16,21 @@ sources:
 
 Isabelle, the SAGA video chip: screen modes and video features.
 
-**This folder has no content yet.** If your task depends on it, tell the
-user that the knowledge base does not cover the SAGA video (Isabelle) yet. Do not fill the
-gap with classic Amiga or 68060 knowledge.
+**This folder has no content of its own yet.** The official register map
+is in `core/saga-registers/`: [chunky-plane.md](../saga-registers/chunky-plane.md)
+(GFXMODE, screen modes), [colour-ports.md](../saga-registers/colour-ports.md),
+[pip.md](../saga-registers/pip.md), [pointer.md](../saga-registers/pointer.md),
+[display-control.md](../saga-registers/display-control.md) and
+[sprite-collision.md](../saga-registers/sprite-collision.md). For anything
+else, tell the user that the knowledge base does not cover it yet. Do not
+fill the gap with classic Amiga or 68060 knowledge.
 
 ## Details
 
 ### Planned files
 
-- `registers.md`: register map with offsets, bits and access rules
-- One file per feature, for example screen modes or sprites
+- One file per feature, for example screen modes or sprites, built on the
+  register map in `core/saga-registers/`
 
 ### For contributors
 

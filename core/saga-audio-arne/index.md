@@ -16,17 +16,19 @@ sources:
 
 Arne, the SAGA audio chip.
 
-**This folder is only partly covered.** `registers.md` has the registers and
-values used in V4 audio driver work. For anything else, tell the user that
-the knowledge base does not cover it yet. Do not fill the gap with classic
-Amiga (Paula) or 68060 knowledge.
+**This folder is only partly covered.** The official register map is in
+[core/saga-registers/arne-channels.md](../saga-registers/arne-channels.md)
+and [arne-dma-and-interrupts.md](../saga-registers/arne-dma-and-interrupts.md).
+`registers.md` has the values measured in V4 audio driver work. For anything
+else, tell the user that the knowledge base does not cover it yet. Do not
+fill the gap with classic Amiga (Paula) or 68060 knowledge.
 
 ## Details
 
 ### Planned files
 
-- `registers.md`: partial register reference (exists; the full map is still
-  missing)
+- `registers.md`: values measured in driver work (exists); the official map
+  is in `core/saga-registers/`
 - One file per feature, for example channels or sample formats
 
 ### For contributors

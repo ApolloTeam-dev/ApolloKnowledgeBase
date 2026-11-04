@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+
+AUDCTRL
+
+         16bit Audio CONTROL Register
+
+         +-------+----------+-------------------------------------------+
+         | BIT# | FUNCTION | DESCRIPTION                               |
+         +-------+----------+-------------------------------------------+
+         | 2    | Stereo   | 16bit/16bit interleaved mode - 64bit align |
+         | 1    | OneShot  | Channel will turn itself off at sample end |
+         | 0    | 16bit    | 0=8bit, 1=16bit samples                    |
+         +-------+----------+-------------------------------------------+
+
+Supported format:
+
+8bit signed mono. Data stored in pairs, data aligment 16bit
+16bit signed mono, Data stored in pairs, data alignment 32bit
+Left/Rigth signed 16bit stereo, Data in memory in pairs, memory alignment 64bit 
+
+
+</pre>
+</body>
+</html>
