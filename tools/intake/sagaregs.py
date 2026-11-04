@@ -839,9 +839,6 @@ FILES = [("chunky-plane.md", "Chunky plane: GFXMODE, pointer, modulo"),
 OPEN = [
     "\"IRQ $48\" (Ethernet) and \"IRQ $50\" (Arne channels 4–15): vector offsets or "
     "vector numbers, and at which interrupt level.",
-    "Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read "
-    "back at `$DFE000`–`$DFE1FF`. Is there a read-back for the write-only registers "
-    "from `$DFF200` up (Maggie, DMACON2, colour ports, PIP, Arne)?",
 ]
 
 
@@ -899,6 +896,11 @@ def index(rows, keep, applied):
                "classic and the SAGA registers in that range, for example DMACON "
                "`$DFF096` at `$DFE096`, GFXMODE `$DFF1F4` at `$DFE1F4` and the pointer "
                "position `$DFF1D0` at `$DFE1D0`. The original doesn't mention it.", "",
+               f"Only `$DFF0xx` and `$DFF1xx` have these read-back shadows ({WDS}). The "
+               "write-only registers from `$DFF200` up (Maggie, the colour ports, PIP, "
+               "Arne) can't be read back: keep a copy in memory when you need the value. "
+               "DMACON2, INTENA2 and INTREQ2 have their own read registers at `$DFF202`, "
+               "`$DFF21C` and `$DFF21E`.", "",
                "### Access codes (original)", "",
                "| Code | Meaning |", "|---|---|"]
     details += [f"| {k} | {v} |" for k, v in ACCESS.items()]
@@ -948,6 +950,10 @@ def index(rows, keep, applied):
                 "are 32 bits."],
                ["DO look up a classic register in the HRM, and its SAGA-specific "
                 "registers here.",
+                "DO read a write-only register at `$DFF0xx`/`$DFF1xx` back at "
+                "`$DFE0xx`/`$DFE1xx`.",
+                "DON'T try to read back a write-only register from `$DFF200` up: keep "
+                "your own copy of the value.",
                 "DON'T use a register listed under the open questions without checking "
                 "it on real hardware."],
                sources=[APOLLOLIB, WD, BIGGUN],
