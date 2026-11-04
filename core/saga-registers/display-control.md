@@ -14,6 +14,7 @@ related:
   - core/saga-registers/index.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
+  - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -21,7 +22,7 @@ generated_from: sources/official/saga-registers/index.htm
 
 ## Summary
 
-SAGA CONTROL (`$DFF3EC`) switches scanlines, zoom and a forced OCS mode; SCREEN SHIFT (`$DFF3EE`) and SCREENMODE ADJUST (`$DFF390`) move and enlarge the SAGA screen modes.
+SAGA CONTROL (`$DFF3EC`, write-only) switches scanlines, zoom and a forced OCS mode; SCREEN SHIFT (`$DFF3EE`, read and write) shifts the zoomed screen in pixels; SCREENMODE ADJUST (`$DFF390`) enlarges the SAGA screen modes.
 
 ## Details
 
@@ -30,12 +31,17 @@ SAGA CONTROL (`$DFF3EC`) switches scanlines, zoom and a forced OCS mode; SCREEN 
 | Address | Name | Access | Description (original) |
 |---|---|---|---|
 | `$DFF390`, `$DFF392` | SCREENMODE ADJUST | W | Adjust Y/X for Screenmodes |
-| `$DFF3EC` | SAGA CONTROL REG | W | Reserved |
-| `$DFF3EE` | SCREEN SHIFT | R | Reserved |
+| `$DFF3EC` | SAGA CONTROL REG | W | SAGA Control 1: OCS mode, PAL zoom, zoom mode, scanlines |
+| `$DFF3EE` | SCREEN SHIFT | R/W | SAGA Control 2: zoom shift X and Y in pixels |
 
-- `$DFF3EC`: corrected: $DFF3EC is writable (WDrijver, 2026-11-04).
+- `$DFF3EC`: corrected: $DFF3EC is write-only (WDrijver, 2026-11-04).
+- `$DFF3EC`: corrected: the register's function (WDrijver, 2026-11-04).
+- `$DFF3EE`: corrected: $DFF3EE is read and write (WDrijver, 2026-11-04).
+- `$DFF3EE`: corrected: the register's function (WDrijver, 2026-11-04).
 
-### SAGA CONTROL (`$DFF3EC`, write)
+### SAGA CONTROL (`$DFF3EC`, write-only)
+
+SAGA Control 1: OCS mode, PAL zoom, zoom mode and scanlines (WDrijver, 2026-11-04).
 
 Bit 15 is SET/CLR, as in DMACON: bits written as 1 are set when bit 15 is 1, and cleared when it is 0.
 
@@ -59,7 +65,7 @@ ZOOM2 (NTSC+) = apoke $DFF3EC 2 $8020
 ZOOM3 (PAL) = apoke $DFF3EC 2 $8024
 ```
 
-### SCREEN SHIFT (`$DFF3EE`)
+### SCREEN SHIFT (`$DFF3EE`, read and write)
 
 The original's page has the title "SAGA CONTROL Register"; its content is the screen shift:
 
@@ -68,7 +74,7 @@ The original's page has the title "SAGA CONTROL Register"; its content is the sc
 | 15–8 | Y shift |  |
 | 7–0 | X shift |  |
 
-The original marks it R. Whether it is also writable is an open question.
+SAGA Control 2: the zoom shift. Read and write; X and Y are in pixels, positive integers (WDrijver, 2026-11-04). The original marks it R.
 
 ### SCREENMODE ADJUST (`$DFF390`)
 
@@ -88,4 +94,5 @@ The original's example on this page is the one of the planar colour port (it set
 ## Do / Don't
 
 - DO set bit 15 to set bits and clear it to clear them.
-- DON'T treat `$DFF3EC` as read-only: the original's Access column is wrong there.
+- DON'T read `$DFF3EC`: it is write-only, although the original's Access column says R.
+- DO give the zoom shift in `$DFF3EE` as positive pixel counts.

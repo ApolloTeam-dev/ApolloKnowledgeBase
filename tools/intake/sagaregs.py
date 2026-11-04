@@ -43,7 +43,9 @@ APOLLOOS = ("ApolloOS source, github.com/ApolloTeam-dev/ApolloOS.R10 "
 MAGGIE = "maggie.library samples, see os/libraries/maggie-library.md"
 
 ACCESS = {"R": "read", "W": "write", "S": "strobe (a write of any value "
-          "triggers the action)", "ER": "early read"}
+          "triggers the action)", "ER": "early read",
+          "R/W": "read and write (used in the original's Atari section, and here "
+          "for `$DFF3EE`)"}
 
 
 # ------------------------------------------------------------ the original
@@ -173,7 +175,14 @@ CORRECTIONS = [
     ("DFF1EC", "desc", "Chunky plane pointer (hi 15 bits)",
      "Chunky plane pointer (hi 16 bits)",
      "the high word of a 32-bit pointer has 16 bits"),
-    ("DFF3EC", "access", "R", "W", f"$DFF3EC is writable ({WDS})"),
+    ("DFF3EC", "access", "R", "W", f"$DFF3EC is write-only ({WDS})"),
+    ("DFF3EC", "desc", "Reserved",
+     "SAGA Control 1: OCS mode, PAL zoom, zoom mode, scanlines",
+     f"the register's function ({WDS})"),
+    ("DFF3EE", "access", "R", "R/W", f"$DFF3EE is read and write ({WDS})"),
+    ("DFF3EE", "desc", "Reserved",
+     "SAGA Control 2: zoom shift X and Y in pixels",
+     f"the register's function ({WDS})"),
     ("DFF1EE", "desc", "Chunky plane pointer (lo 15 bits)",
      "Chunky plane pointer (lo 16 bits)",
      "the low word of a 32-bit pointer has 16 bits"),
@@ -502,30 +511,34 @@ def display_control(rows):
           for ln in page("sagacontrol.htm") if "apoke" in ln]
     details = ["### Registers", ""] + reg_table(pick(rows, 0xDFF390, 0xDFF392) +
                                                 pick(rows, 0xDFF3EC, 0xDFF3EE))
-    details += ["", "### SAGA CONTROL (`$DFF3EC`, write)", "",
+    details += ["", "### SAGA CONTROL (`$DFF3EC`, write-only)", "",
+                f"SAGA Control 1: OCS mode, PAL zoom, zoom mode and scanlines ({WDS}).", "",
                 "Bit 15 is SET/CLR, as in DMACON: bits written as 1 are set when bit "
                 "15 is 1, and cleared when it is 0.", ""] + bits_md(sc)
     details += ["", "Examples from the original (`apoke address size value`):", "", "```text"]
     details += ex + ["```", "",
-                "### SCREEN SHIFT (`$DFF3EE`)", "",
+                "### SCREEN SHIFT (`$DFF3EE`, read and write)", "",
                 "The original's page has the title \"SAGA CONTROL Register\"; its "
                 "content is the screen shift:", ""] + bits_md(sh)
-    details += ["", "The original marks it R. Whether it is also writable is an open "
-                "question.", "",
+    details += ["", f"SAGA Control 2: the zoom shift. Read and write; X and Y are in "
+                f"pixels, positive integers ({WDS}). The original marks it R.", "",
                 "### SCREENMODE ADJUST (`$DFF390`)", ""] + bits_md(adj)
     details += ["", "The original's example on this page is the one of the planar "
                 "colour port (it sets colour 0 to red) and is left out."]
     return doc("display-control.md", "SAGA display control, screen shift and screen mode adjust",
                ["saga-video-isabelle"], ["saga", "isabelle", "scanlines", "zoom", "registers"],
-               "SAGA CONTROL (`$DFF3EC`) switches scanlines, zoom and a forced OCS mode; "
-               "SCREEN SHIFT (`$DFF3EE`) and SCREENMODE ADJUST (`$DFF390`) move and "
-               "enlarge the SAGA screen modes.",
+               "SAGA CONTROL (`$DFF3EC`, write-only) switches scanlines, zoom and a "
+               "forced OCS mode; SCREEN SHIFT (`$DFF3EE`, read and write) shifts the "
+               "zoomed screen in pixels; SCREENMODE ADJUST (`$DFF390`) enlarges the "
+               "SAGA screen modes.",
                details,
                ["- Classic Amiga chipsets have none of these registers: scanlines and "
                 "zoom are features of the SAGA video output."],
                ["DO set bit 15 to set bits and clear it to clear them.",
-                "DON'T treat `$DFF3EC` as read-only: the original's Access column is "
-                "wrong there."])
+                "DON'T read `$DFF3EC`: it is write-only, although the original's "
+                "Access column says R.",
+                "DO give the zoom shift in `$DFF3EE` as positive pixel counts."],
+               sources=[WD])
 
 
 def collisions(rows):
@@ -773,7 +786,6 @@ OPEN = [
     "Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and "
     "`$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back "
     "there?",
-    "SCREEN SHIFT (`$DFF3EE`): read only, as the original says, or also writable?",
     "Pointer: which cores have the 16x16 planar pointer (`$DFF800`, colours "
     "`$DFF3A0`–`$DFF3A6`) next to, or instead of, the 32x32 sprite at `$DFD000`?",
     "PIP format: the original lists YUV, ApolloLib supports only `$01`–`$03`.",

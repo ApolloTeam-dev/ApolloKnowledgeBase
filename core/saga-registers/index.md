@@ -46,6 +46,7 @@ For every other register, the Amiga Hardware Reference Manual applies, with one 
 | W | write |
 | S | strobe (a write of any value triggers the action) |
 | ER | early read |
+| R/W | read and write (used in the original's Atari section, and here for `$DFF3EE`) |
 
 ### Files
 
@@ -95,7 +96,7 @@ For every other register, the Amiga Hardware Reference Manual applies, with one 
 | `$DFF3A6` | Sprite Col3 | W | [pointer.md](pointer.md) |
 | `$DFF390/92` | SCREENMODE ADJUST | W | [display-control.md](display-control.md) |
 | `$DFF3EC` | SAGA CONTROL REG | W | [display-control.md](display-control.md) |
-| `$DFF3EE` | SCREEN SHIFT | R | [display-control.md](display-control.md) |
+| `$DFF3EE` | SCREEN SHIFT | R/W | [display-control.md](display-control.md) |
 | `$DFF230` | clxdat0 | R | [sprite-collision.md](sprite-collision.md) |
 | `$DFF232` | clxdat1 | R | [sprite-collision.md](sprite-collision.md) |
 | `$DFF234` | clxdat2 | R | [sprite-collision.md](sprite-collision.md) |
@@ -158,7 +159,10 @@ Applied by the converter; the original should be fixed the same way.
 | `$DFF21c` | addr | DFF21c | DFF21C | upper case, as everywhere else |
 | `$DFF430` | desc | Audio channel 1 location (32bit PTR) | Audio channel 3 location (32bit PTR) | typo in the original: this is channel 3 |
 | `$DFF1EC` | desc | Chunky plane pointer (hi 15 bits) | Chunky plane pointer (hi 16 bits) | the high word of a 32-bit pointer has 16 bits |
-| `$DFF3EC` | access | R | W | $DFF3EC is writable (WDrijver, 2026-11-04) |
+| `$DFF3EC` | access | R | W | $DFF3EC is write-only (WDrijver, 2026-11-04) |
+| `$DFF3EC` | desc | Reserved | SAGA Control 1: OCS mode, PAL zoom, zoom mode, scanlines | the register's function (WDrijver, 2026-11-04) |
+| `$DFF3EE` | access | R | R/W | $DFF3EE is read and write (WDrijver, 2026-11-04) |
+| `$DFF3EE` | desc | Reserved | SAGA Control 2: zoom shift X and Y in pixels | the register's function (WDrijver, 2026-11-04) |
 | `$DFF1EE` | desc | Chunky plane pointer (lo 15 bits) | Chunky plane pointer (lo 16 bits) | the low word of a 32-bit pointer has 16 bits |
 | `$DFF20C` | desc | Vaniall DB9 Joystick-mouse 1 data (vert, horiz) | Vanilla DB9 Joystick-mouse 1 data (vert, horiz) | typo in the original |
 
@@ -169,10 +173,9 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 1. The Copper form `dc.w $8380,$00FF,$0000` in the colour port pages: how the SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.
 2. "IRQ $48" (Ethernet) and "IRQ $50" (Arne channels 4–15): vector offsets or vector numbers, and at which interrupt level.
 3. Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and `$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back there?
-4. SCREEN SHIFT (`$DFF3EE`): read only, as the original says, or also writable?
-5. Pointer: which cores have the 16x16 planar pointer (`$DFF800`, colours `$DFF3A0`–`$DFF3A6`) next to, or instead of, the 32x32 sprite at `$DFD000`?
-6. PIP format: the original lists YUV, ApolloLib supports only `$01`–`$03`.
-7. Sprites 8–15: the collision bits name them; the original documents 8 sprites.
+4. Pointer: which cores have the 16x16 planar pointer (`$DFF800`, colours `$DFF3A0`–`$DFF3A6`) next to, or instead of, the 32x32 sprite at `$DFD000`?
+5. PIP format: the original lists YUV, ApolloLib supports only `$01`–`$03`.
+6. Sprites 8–15: the collision bits name them; the original documents 8 sprites.
 
 ## Differences from AmigaOS / AROS / 68060
 
