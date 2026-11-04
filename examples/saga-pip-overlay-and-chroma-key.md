@@ -125,7 +125,7 @@ the code above, but has these problems. Keep them out of your own code:
 
 | Problem | Effect | Do instead |
 |---|---|---|
-| It never loads the PIP palettes | The 8-bit overlays show whatever palette was in the PIP colour ports. ApolloLib's older version did this in `ApolloLoadPicture`; the current one only loads the chunky palette, in `ApolloShowPicture`. | Write the palette to `$DFF38C` (PIP 1) or `$DFF37C` (PIP 2), as `LoadPiP1Palette` does |
+| It never loads the PIP palettes | The 8-bit overlays show whatever palette was in the PIP colour ports. The example dates from 2026-06-03, when `ApolloLoadPicture` still wrote the palette into the colour port chosen by `picture->target`; ApolloLib commit 789cbcc (2026-06-16) dropped that. | Write the palette to `$DFF38C` (PIP 1) or `$DFF37C` (PIP 2), as `LoadPiP1Palette` does |
 | `if (!&pipwindow)` | Tests the address of the variable, which is never NULL: a failed `OpenWindowTags` goes unnoticed | `if (!pipwindow)` |
 | `AllocBitMap(..., BMF_DISPLAYABLE \| BMB_CLEAR \| BMB_HIJACKED \| ...)` | `BMB_…` are bit numbers (0, 7, 2, 9), not flags: ORed with `BMF_DISPLAYABLE` (2) they give `$F` = CLEAR, DISPLAYABLE, INTERLEAVED and STANDARD, not the HIJACKED and RTGCHECK the code names | Use only `BMF_…` flags |
 | Restores the Workbench as GFXMODE `$0A04` | Works only on a 1280x720, 24-bit Workbench | Save GFXMODE and the pointer from `$DFE1F4`/`$DFE1EC` first, restore those |
