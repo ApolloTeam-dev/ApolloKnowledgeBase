@@ -19,6 +19,7 @@ related:
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 5.1 and 5.2"
   - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
+  - "Gunnar (core developer), memory controller width, 2026-11-04"
 ---
 
 ## Summary
@@ -66,7 +67,8 @@ counter, median of 7, two identical runs (M, Core 12841, 2026-10-29):
 
 There is no single number. A miss loads a 64-byte burst: the memory
 latency plus the burst cycles, 4 on a 128-bit bus and 8 on a 64-bit bus.
-On top of that it depends on:
+The memory controller is 128-bit from Core 12600 and 64-bit on older cores
+(G, 2026-11-04). On top of that it depends on:
 
 - whether the access hits the same row, page or bank as the last one;
 - whether the last access was a read or a write;
@@ -78,6 +80,10 @@ On top of that it depends on:
 
 The 27 cycles above are one case: dependent random reads over 4 MB. When
 you measure a miss, state these conditions.
+
+Memory-bound measurements from a core before 12600 (64-bit controller) are
+not comparable with those from Core 12600 and later. All measurements in
+this knowledge base are from Core 12798 or later.
 
 ### Alignment
 
@@ -120,3 +126,5 @@ Copy of a 156 x 2464-byte shape (M):
   random.
 - DON'T use a table for anything you can compute in 16 cycles or less (G).
 - DON'T keep a loop counter in memory.
+- DON'T compare memory-bound timings across Core 12600: the memory
+  controller doubled from 64 to 128 bits there.

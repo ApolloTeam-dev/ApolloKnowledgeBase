@@ -18,6 +18,7 @@ related:
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 1"
   - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
+  - "Gunnar (core developer), memory controller width, 2026-11-04"
 ---
 
 ## Summary
@@ -36,7 +37,7 @@ statement wins.
 | Decoders | 3. Only the first takes multi-cycle instructions (mul, div, movem, bitfields, FPU) and addx/subx/negx, which need the flags of the previous instruction |
 | I-cache | 32 KB, **64-byte line** (G, 2026-10-29). Feeds the decoders **16 bytes per cycle**; a group of instructions that run together is at most 16 bytes (some I-cache variants: 18) (G, 2026-11-03), see [execution-units.md](execution-units.md). Few ways on Core 12841 (G); the number of ways is a build option: 4, 2 or 1 (G, 2026-10-30). Note the core build with every measurement |
 | D-cache | 128 KB, **64-byte line** (G, 2026-10-29; M). **1 read and 1 write per cycle** (G, 2026-11-03): `add.l #1,mem` runs at about 1 per cycle. One memory address per cycle, so an instruction with two memory operands needs more than one |
-| Bus and memory | 64-bit, 64-byte bursts (one cache line), about 12 cycles latency, automatic prefetch of sequential streams |
+| Bus and memory | Memory controller 128-bit from Core 12600, 64-bit before (G, 2026-11-04). 64-byte bursts (one cache line), about 12 cycles latency, automatic prefetch of sequential streams |
 | Branch cache | 1024-entry BTC, a loop predictor, and a return cache for rts/rtd/rtr |
 | MMU | None. PMMU and cp4–cp6 opcodes are illegal (`lpstop` remains) |
 | FPU | 64-bit (double) internally, pipelined. Microcoded functions (trig, log, exp, fmod, frem, fscale, fgetexp/fgetman) take 100–200+ cycles and clobber E23 |
