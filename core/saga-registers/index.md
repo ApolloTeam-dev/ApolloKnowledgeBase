@@ -173,8 +173,7 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 1. The Copper form `dc.w $8380,$00FF,$0000` in the colour port pages: how the SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.
 2. "IRQ $48" (Ethernet) and "IRQ $50" (Arne channels 4–15): vector offsets or vector numbers, and at which interrupt level.
 3. Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and `$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back there?
-4. PIP format: the original lists YUV, ApolloLib supports only `$01`–`$03`.
-5. Sprites 8–15: the collision bits name them; the original documents 8 sprites.
+4. Sprites 8–15: the collision bits name them; the original documents 8 sprites.
 
 ## Differences from AmigaOS / AROS / 68060
 

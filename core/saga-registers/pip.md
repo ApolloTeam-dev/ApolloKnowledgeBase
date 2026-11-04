@@ -18,6 +18,7 @@ sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
   - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit 2dfaa5c (2026-09-02)"
+  - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -69,19 +70,29 @@ Its colour port is `$DFF37C` (see [colour-ports.md](colour-ports.md)). The SAGAP
 |---|---|
 | X/Y start, X/Y stop | Window position in screen pixels. The example writes X + 16 and Y − 1 to place the PIP exactly over a window. |
 | Pointer | 32-bit address of the PIP bitmap |
-| Format | Bits 7–0: pixel format as in GFXMODE, only `$01` (8-bit), `$02` (R5G6B5) and `$03` (1R5G5B5). Bit 8: transparency on, key colour `$F81F` in 16-bit mode. |
+| Format | Bits 7–0: pixel format; bit 8: transparency on. See the table below. |
 | Modulo | Bytes skipped after each row |
 | Colour key | Bit 15 = enable, bits 11–8 red, 7–4 green, 3–0 blue |
 | DMA row length | Bytes fetched per row = width × bytes per pixel. **0 switches the PIP off.** |
 
+### Pixel formats and transparency
+
+| Format | Value | On PIP | Transparent colour (bit 8 set) |
+|---|---|---|---|
+| 8-bit indexed | `$01` | Yes | Index `$FF` |
+| 16-bit R5G6B5 | `$02` | Yes | `$F81F`: red and blue at maximum (purple) |
+| 15-bit 1R5G5B5 | `$03` | Yes | `$7C1F`: red and blue at maximum (purple) |
+| 24-bit R8G8B8 | `$04` | No | – |
+| 32-bit A8R8G8B8 | `$05` | No | – |
+| YUV888 | `$06` | Yes | Not documented |
+| YUV444 | `$0E` | Yes | Not documented |
+
+Formats and transparent colours: WDrijver, 2026-11-04. The transparent colour is fixed per format. ApolloLib still marks YUV as not supported on PIP; that is an error in ApolloLib, not in the hardware.
+
 ### Two modes (SAGAPiP example, SRC)
 
-- **Overlay:** colour key 0. The PIP is in front of the main screen; with format bit 8 set, pixels with `$F81F` are transparent.
+- **Overlay:** colour key 0. The PIP is in front of the main screen; with format bit 8 set, pixels in the transparent colour of the format are transparent.
 - **Chroma key:** colour key with bit 15 set, for example `$8F0F` (purple). The PIP is behind the main screen and shows only where the main screen has the key colour.
-
-### Conflict with the original
-
-The original describes PipFormat as "Colorformat (8bit/16bit/15bit/YUV)". ApolloLib marks YUV and the 24- and 32-bit formats as not supported on PIP. Until this is settled, use only `$01`–`$03`.
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -91,4 +102,5 @@ The original describes PipFormat as "Colorformat (8bit/16bit/15bit/YUV)". Apollo
 
 - DO set the DMA row length last: it switches the PIP on.
 - DO write 0 to the DMA row length to switch a PIP off.
-- DON'T use YUV, 24- or 32-bit formats for a PIP.
+- DON'T use the 24- or 32-bit formats (`$04`, `$05`) for a PIP.
+- DO keep the transparent colour (`$FF` in 8-bit, purple in 15- and 16-bit) out of the PIP image, except where it should be transparent.
