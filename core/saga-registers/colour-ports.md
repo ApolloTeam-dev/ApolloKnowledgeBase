@@ -73,7 +73,8 @@ Each port is one 32-bit register (the original lists its high and low word, H an
 - The SAGA Copper can do 32-bit moves (G, 2026-11-04).
 - A 32-bit MOVE has the high bit of its first word set (G, 2026-11-04): `$8380` = bit 15 + register `$380`. The two words after it are the 32-bit value, high word first, as in the original's example.
 - It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) first (G, 2026-11-04).
-- Without the SAGA bit, the Copper can write only `$DFF0xx` and `$DFF1xx` (G, 2026-11-04), so it can't reach the colour ports at `$DFF3xx`.
+- Without the SAGA bit, the Copper is gated to `$DFF0xx` and `$DFF1xx` (G, 2026-11-04), so it can't reach the colour ports at `$DFF3xx`.
+- With the SAGA bit set, the Copper can write every SAGA register, up to Arne at `$DFF4FF`, with 16-bit and 32-bit moves (G, 2026-11-04).
 
 A classic Copper MOVE is two words (register, 16-bit value). Read the classic way, `$8380` would be COLOR00 (`$180`), and the third word the start of the next instruction.
 

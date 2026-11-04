@@ -394,8 +394,10 @@ def colour_ports(rows):
                 "32-bit value, high word first, as in the original's example.",
                 f"- It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) "
                 f"first ({BGS}).",
-                f"- Without the SAGA bit, the Copper can write only `$DFF0xx` and "
-                f"`$DFF1xx` ({BGS}), so it can't reach the colour ports at `$DFF3xx`.", "",
+                f"- Without the SAGA bit, the Copper is gated to `$DFF0xx` and "
+                f"`$DFF1xx` ({BGS}), so it can't reach the colour ports at `$DFF3xx`.",
+                f"- With the SAGA bit set, the Copper can write every SAGA register, up "
+                f"to Arne at `$DFF4FF`, with 16-bit and 32-bit moves ({BGS}).", "",
                 "A classic Copper MOVE is two words (register, 16-bit value). Read the "
                 "classic way, `$8380` would be COLOR00 (`$180`), and the third word the "
                 "start of the next instruction."]
@@ -814,9 +816,6 @@ FILES = [("chunky-plane.md", "Chunky plane: GFXMODE, pointer, modulo"),
          ("system.md", "Board ID, core revision, chip ID, SPI")]
 
 OPEN = [
-    "Copper in SAGA mode: does it reach every SAGA register, including Arne at "
-    "`$DFF400`–`$DFF4FF` (that needs register bit 10)? Can it also do 16-bit moves "
-    "above `$DFF1FF`, and does COPCON's danger bit still apply?",
     "\"IRQ $48\" (Ethernet) and \"IRQ $50\" (Arne channels 4–15): vector offsets or "
     "vector numbers, and at which interrupt level.",
     "Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read "
@@ -871,7 +870,7 @@ def index(rows, keep, applied):
                f"reach all RAM** ({WDS}). Their pages in the "
                "original still say 18 bits. FMODE (`$DFF1FC`) bit 4 \"SAGA\" enables "
                "the SAGA features (original); among them, it lets the Copper write "
-               f"above `$DFF1FF` and do 32-bit moves ({BGS}, see "
+               f"every SAGA register up to `$DFF4FF` and do 32-bit moves ({BGS}, see "
                "[colour-ports.md](colour-ports.md)).", "",
                "### Reading back write-only registers", "",
                "Every write-only register at `$DFF000`–`$DFF1FF` reads back at the "
