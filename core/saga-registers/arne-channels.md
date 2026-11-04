@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: draft
 origin: official
-basis: [official, source-code]
+basis: [core-developer, official, source-code]
 components: [saga-audio-arne]
 applies_to:
   core: "Core 12000+"
@@ -19,6 +19,7 @@ sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
+  - "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver)"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -78,7 +79,9 @@ Bits 15–8 left volume, bits 7–0 right volume (original). Each side ranges fr
 
 16bit PERIOD COUNT This register contains the period (rate) of audio channel x DMA data transfer. The minimum period is 65 color clocks. This means that the smallest number that should be placed in this register is 65 decimal. This corresponds to a maximum sample frequency of 56 khz.
 
-With the PAL clock of 3546895 Hz (ApolloLib), period 65 gives 3546895 / 65 = 54.6 kHz, not the 56 kHz in the original.
+The period coding is compatible with Paula: Arne runs at the same clock as Paula (G, 2026-11-04), the PAL colour clock of 3546895 Hz. So period = 3546895 / sample rate (44.1 kHz gives 80), and period 65 gives 3546895 / 65 = 54.6 kHz, not the 56 kHz in the original.
+
+Whether Arne accepts periods below 65 is not documented: core/saga-audio-arne/registers.md states a rate of about 66 kHz, which would need period 54 (see [index.md](index.md)).
 
 ## Differences from AmigaOS / AROS / 68060
 
