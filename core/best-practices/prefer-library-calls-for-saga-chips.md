@@ -44,7 +44,8 @@ For the SAGA chips, prefer the library calls to direct register access
   released, ApolloLib is the best choice for library calls to Arne and
   Isabelle. It is described in
   [toolchain/apollolib/](../../toolchain/apollolib/index.md); check its
-  [known bugs](../../toolchain/pitfalls/apollolib-known-bugs.md) first.
+  [fixed bugs and remaining limits](../../toolchain/pitfalls/apollolib-known-bugs.md)
+  first.
 - maggie.library is described in
   [os/libraries/maggie-library.md](../../os/libraries/maggie-library.md).
   When you need more than that file covers, the author's repository is the

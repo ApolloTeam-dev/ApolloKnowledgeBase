@@ -16,7 +16,7 @@ related:
   - toolchain/project-makefile.md
   - toolchain/pitfalls/apollolib-known-bugs.md
 sources:
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit ce1fcbf (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit 639e195 (2026-11-04)"
   - "WDrijver (maintainer), library calls for the SAGA chips, 2026-11-04"
 ---
 
@@ -63,7 +63,7 @@ the macros `_A0(...)` … `_D7(...)` from `_Defines.h`.
 | Pictures, PIP, pointer | `ApolloLoadPicture`, `ApolloShowPicture`, `ApolloShowPiP1/2`, `ApolloHidePiP1/2`, `ApolloLoadPointer`, `ApolloShowPointer`, `ApolloShowFile` | [picture.md](picture.md) |
 | Input | `ApolloMouse`, `ApolloJoypad`, `ApolloKeyboard`, `ApolloKeyboardToUnicode`, `ApolloGetMouseDelta` | [input.md](input.md) |
 | Memory and blit | `ApolloCopyBlock`, `ApolloFillLongs`, `ApolloSwapLong`, `ApolloBlit…Loop` and others | [memory-and-blit.md](memory-and-blit.md) |
-| System and timing | `ApolloWaitVBL`, `ApolloCPUTick`, `ApolloCPUDelay`, `ApolloTimer`, `ApolloTakeOver`, `ApolloForbid`, `ApolloDisable` | [system-and-timing.md](system-and-timing.md) |
+| System and timing | `ApolloWaitVBL`, `ApolloCPUTick`, `ApolloCPUDelay`, `ApolloTimer`/`ApolloTimerStop`, `ApolloTakeOver`/`ApolloRelease`, `ApolloForbid`/`ApolloPermit`, `ApolloDisable`/`ApolloEnable` | [system-and-timing.md](system-and-timing.md) |
 | Debug | `ApolloDebugInit`, `ApolloDebugPutStr`, `AD()`, `Debug_Info()` … | [debug.md](debug.md) |
 | Files | `ApolloLoadFile`, `ApolloCacheFile` | this file |
 
@@ -93,13 +93,13 @@ does the same with plain arguments. Both use libnix `fopen`/`fread`.
 
 `ApolloLoadFile` returns the sound codes.
 
-### Header mismatch
+### Versions
 
-`ApolloCrossDev_Lib.h` declares `ApolloShowPiP()` and `ApolloHidePiP()`,
-which don't exist. The functions that exist, `ApolloShowPiP1/2` and
-`ApolloHidePiP1/2`, are not declared: declare them yourself until the
-header is fixed (see
-[apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md)).
+Many bugs were fixed on 2026-11-04 (commit 639e195): use that version or
+later. An older copy has the bugs listed in
+[apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md), among them
+broken 320-pixel modes and no way to undo `ApolloTakeOver` or
+`ApolloTimer`.
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -114,7 +114,8 @@ header is fixed (see
 
 - DO use ApolloLib for Arne and Isabelle instead of programming the
   registers yourself (a best practice, not a forced rule).
-- DO check the known bugs before you rely on a function:
+- DO build against ApolloLib 639e195 or later.
+- DO check the limits that remain before you rely on a function:
   [apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md).
-- DO declare `ApolloShowPiP1/2` and `ApolloHidePiP1/2` yourself.
-- DON'T call `ApolloShowPiP()` or `ApolloHidePiP()`: they don't exist.
+- DON'T copy an old ApolloLib into a project: compile the one in
+  `Projects/ApolloLib`.

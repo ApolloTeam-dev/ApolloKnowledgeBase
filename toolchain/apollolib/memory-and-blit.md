@@ -16,7 +16,7 @@ related:
   - core/best-practices/align-copy-destination.md
   - toolchain/pitfalls/apollolib-known-bugs.md
 sources:
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibASM.s, _Lib.h), commit ce1fcbf (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibASM.s, _Lib.h), commit 639e195 (2026-11-04)"
 ---
 
 ## Summary
@@ -51,7 +51,7 @@ aligned AMMX or quad moves (see
 |---|---|
 | `ApolloSwapWord(w)`, `ApolloSwapLong(l)`, `ApolloSwapOcta(q)` | Return the value with its bytes reversed (d0) |
 | `ApolloEndianSwapWordBuffer(s, length)` | Byte-swaps 16-bit words in place, 8 bytes per AMMX step; buffer ≥ 8 bytes, 2-byte aligned |
-| `ApolloEndianSwapLongBuffer(s, length)` | Meant to byte-swap 32-bit longs in place; see the known bugs |
+| `ApolloEndianSwapLongBuffer(s, length)` | Byte-swaps 32-bit longs in place, 8 bytes per AMMX step; buffer ≥ 8 bytes, 4-byte aligned. Before 639e195 it swapped words. |
 | `ApolloEndianSwap2Loop`, `ApolloEndianSwap8Loop` | Older swap loops, used by `ApolloShowFile` |
 
 ### Pixel rectangles
@@ -85,4 +85,5 @@ The blit routines work on R5G6B5 pixels (16-bit modes).
   or 4 (`ApolloCopyLongs`, `ApolloFillLongs`).
 - DO align the destination of large copies (see
   [align-copy-destination.md](../../core/best-practices/align-copy-destination.md)).
-- DON'T use `ApolloEndianSwapLongBuffer` until its known bug is fixed.
+- DON'T use `ApolloEndianSwapLongBuffer` from an ApolloLib older than
+  639e195: it swapped words, not bytes.

@@ -17,7 +17,7 @@ related:
   - core/saga-registers/pointer.md
   - toolchain/pitfalls/apollolib-known-bugs.md
 sources:
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibC.c, _LibASM.s, _Defines.h), commit ce1fcbf (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibC.c, _LibASM.s, _Defines.h), commit 639e195 (2026-11-04)"
 ---
 
 ## Summary
@@ -36,7 +36,7 @@ OS-takeover code.
 | X, Y counters | `$DFF00B`, `$DFF00A` (JOY0DAT) |
 | Left button | CIA-A `$BFE001` bit 6 (0 = pressed) |
 | Right button | POTINP `$DFF016` bit 10 (0 = pressed) |
-| "Middle" | Low byte of the wheel register `$DFF212` (see the known bugs) |
+| Middle button | POTINP `$DFF016` bit 8 (0 = pressed) |
 
 Each call:
 
@@ -95,4 +95,5 @@ code to a character.
   `ApolloMouse` call.
 - DO call these functions once per frame, for example after `ApolloWaitVBL`.
 - DON'T use them while Intuition owns the input.
-- DON'T rely on the middle-button flags (see the known bugs).
+- DON'T rely on the middle-button flags with an ApolloLib older than
+  639e195: there they followed the wheel counter.

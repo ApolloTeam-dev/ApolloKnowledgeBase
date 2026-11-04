@@ -17,9 +17,9 @@ related:
   - core/saga-registers/pointer.md
   - toolchain/pitfalls/apollolib-known-bugs.md
 sources:
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibC.c, _Lib.h, _Defines.h), commit ce1fcbf (2026-11-04)"
-  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit ce1fcbf"
-  - "Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev Projects/ApolloPointer, commit ce1fcbf"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_LibC.c, _Lib.h, _Defines.h), commit 639e195 (2026-11-04)"
+  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit 639e195"
+  - "Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev Projects/ApolloPointer, commit 639e195"
 ---
 
 ## Summary
@@ -73,8 +73,9 @@ Core 12500 and later.
 | 1440, 1920 | 900, 1080 (height not checked) |
 
 Another width returns `APOLLO_PICTURE_W_ERROR`, another height of a
-checked width `APOLLO_PICTURE_H_ERROR`. **The 320-pixel modes are broken**
-in this version (see [apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md)).
+checked width `APOLLO_PICTURE_H_ERROR`. Before ApolloLib 639e195 the
+320-pixel modes were broken (see
+[apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md)).
 
 ### Pointer
 
@@ -117,5 +118,5 @@ if (ApolloLoadPicture(&pic) == APOLLO_PICTURE_OK) {
   DMA row length.
 - DO restore GFXMODE and the chunky pointer before the program exits.
 - DON'T free a picture that is still shown.
-- DON'T use `ApolloShowPicture` for 320-pixel-wide or 8-bit pictures in
-  this version (see [apollolib-known-bugs.md](../pitfalls/apollolib-known-bugs.md)).
+- DON'T use `ApolloShowPicture` for 320-pixel-wide or 8-bit pictures with
+  an ApolloLib older than 639e195.

@@ -14,7 +14,7 @@ related:
   - toolchain/apollolib/index.md
   - toolchain/project-makefile.md
 sources:
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Debug.h, _Debug.c, _Defines.h), commit ce1fcbf (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Debug.h, _Debug.c, _Defines.h), commit 639e195 (2026-11-04)"
 ---
 
 ## Summary
