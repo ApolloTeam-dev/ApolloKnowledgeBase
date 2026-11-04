@@ -19,6 +19,7 @@ sources:
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit ce1fcbf (2026-11-04), read on 2026-11-04"
   - "ApolloCrossDev pull requests #17 and #18 (merged 2026-11-04), fixed in commit 639e195"
   - "ApolloCrossDev pull request #19 (merged 2026-11-04), PiP palette, commit a9a994f"
+  - "ApolloCrossDev pull request #21 (merged 2026-11-04), ApolloLoadPointer, commit b9891d9"
 ---
 
 ## Symptom
@@ -51,6 +52,7 @@ hardware yet.
 | `ApolloLoadFile`/`Sound`/`Picture` | Left the file open on errors; BMP palette read from a fixed offset |
 | `ApolloShowPattern` | Wrote only the first byte of each pixel |
 | `ApolloCrossDev_Lib.h` | Declared `ApolloShowPiP`/`ApolloHidePiP`, which don't exist, and not `ApolloShowPiP1/2`/`ApolloHidePiP1/2` |
+| `ApolloLoadPointer` (b9891d9, #21) | Returned nothing and never set `bLoaded`; accepted 24-bit BMPs without converting them (empty pointer); read 32-bit alpha correctly only with `endian` set; overwrote palette entry 255 when full; never freed the BMP it loaded. Now it returns an `APOLLO_PICTURE_…` code, converts 24-bit, reads BMP byte order, frees the BMP, and `ApolloShowPointer` does nothing without a loaded pointer. |
 | PiP palette (a9a994f, #19) | From 789cbcc (2026-06-16) to a9a994f nothing loaded an 8-bit PiP palette: `ApolloLoadPicture` had stopped writing it into the port chosen by `picture->target`. Now `ApolloShowPiP1/2` load it. |
 | Five functions (#17) | Wrong DMACON2R bit for channels 4–15, a write through an uninitialized pointer, missing return values, an always-on keyboard print |
 
@@ -99,5 +101,5 @@ return 0;
 | Claim | Source | Core | Method |
 |---|---|---|---|
 | The bugs before 639e195 | (SRC) | any | Code reading of commit ce1fcbf, 2026-11-04 |
-| Fixed in 639e195; builds without warnings | (SRC) | any | ApolloCrossDev #18: ApolloPointer, SAGAPiP and a link test build |
+| Fixed in 639e195; builds without warnings | (SRC) | any | ApolloCrossDev #18: ApolloPointer, ApolloPiP (then SAGAPiP) and a link test build |
 | None of the fixes is tested on V4 hardware | – | – | – |

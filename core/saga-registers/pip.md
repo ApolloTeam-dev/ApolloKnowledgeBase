@@ -17,8 +17,8 @@ related:
   - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
-  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit 2dfaa5c (2026-09-02)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit ad7f0b4 (2026-11-04)"
+  - "Example ApolloPiP.c (formerly SAGAPiP), github.com/WDrijver/ApolloCrossDev Projects/ApolloPiP, commit ad7f0b4 (2026-11-04)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 generated_from: sources/official/saga-registers/index.htm
 ---
@@ -45,7 +45,7 @@ SAGA overlays up to two picture-in-picture windows (PIP) on the main screen, eac
 | `$DFF3E0` | PipColorKey | W | ColorKey 1000,RRRR,GGGG,BBBB |
 | `$DFF3E2` | PipDMARowLen | W | PipDMARowLen |
 
-The original links these rows to a page that doesn't exist; the facts below come from ApolloLib and the SAGAPiP example (SRC).
+The original links these rows to a page that doesn't exist; the facts below come from ApolloLib and the ApolloPiP example (SRC).
 
 ### PIP 2 registers (SRC, not in the original)
 
@@ -63,7 +63,7 @@ PIP 2 has the same layout as PIP 1, `$20` lower (ApolloLib):
 | `$DFF3C0` | PIP2 colour key | `$DFF3E0` |
 | `$DFF3C2` | PIP2 DMA row length | `$DFF3E2` |
 
-Its colour port is `$DFF37C` (see [colour-ports.md](colour-ports.md)). The SAGAPiP example says two PIPs exist from Core 11900 (SRC).
+Its colour port is `$DFF37C` (see [colour-ports.md](colour-ports.md)). The ApolloPiP example says two PIPs exist from Core 11900 (SRC).
 
 ### Register meanings (SRC)
 
@@ -90,7 +90,7 @@ Its colour port is `$DFF37C` (see [colour-ports.md](colour-ports.md)). The SAGAP
 
 Formats and transparent colours: WDrijver, 2026-11-04. The transparent colour is fixed per format. ApolloLib still marks YUV as not supported on PIP; that is an error in ApolloLib, not in the hardware.
 
-### Two modes (SAGAPiP example, SRC)
+### Two modes (ApolloPiP example, SRC)
 
 - **Overlay:** colour key 0. The PIP is in front of the main screen; with format bit 8 set, pixels in the transparent colour of the format are transparent.
 - **Chroma key:** colour key with bit 15 set, for example `$8F0F` (purple). The PIP is behind the main screen and shows only where the main screen has the key colour.

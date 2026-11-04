@@ -35,7 +35,7 @@ are released, ApolloLib is the preferred way to use them (see
 ### Using it in a project
 
 ApolloLib is not a link library: a project compiles its sources. The
-example Makefiles (ApolloPointer, SAGAPiP) set
+example Makefiles (ApolloPointer, ApolloPiP) set
 `APOLLOLIB = $(PWD)/../../Projects/ApolloLib`, add `-I$(APOLLOLIB)`,
 and compile every `.c` and `.s` file there into the program (see
 [project-makefile.md](../project-makefile.md)).

@@ -1,5 +1,5 @@
 ---
-title: SAGA PIP in overlay and chroma-key mode (from the SAGAPiP example)
+title: SAGA PIP in overlay and chroma-key mode (from the ApolloPiP example)
 type: example
 owner: WDrijver
 status: draft
@@ -16,15 +16,15 @@ related:
   - toolchain/apollolib/picture.md
   - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
-  - "Example SAGAPiP.c, github.com/WDrijver/ApolloCrossDev Projects/SAGAPiP, commit a9a994f (2026-11-04)"
-  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit a9a994f (2026-11-04)"
+  - "Example ApolloPiP.c (formerly SAGAPiP), github.com/WDrijver/ApolloCrossDev Projects/ApolloPiP, commit ad7f0b4 (2026-11-04)"
+  - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib, commit ad7f0b4 (2026-11-04)"
 ---
 
 ## Purpose
 
 Show a picture-in-picture (PIP) window on top of the screen (overlay mode)
 and behind it (chroma-key mode), with ApolloLib. The code below is the PIP
-part of ApolloCrossDev's SAGAPiP example, in three functions:
+part of ApolloCrossDev's ApolloPiP example, in three functions:
 
 - `ShowPiP1Overlay`: an 8-bit PIP in front of the screen; palette index
   `$FF` is transparent.
@@ -32,7 +32,7 @@ part of ApolloCrossDev's SAGAPiP example, in three functions:
   screen is purple (the chroma key).
 - `HidePiP1`: PIP 1 off.
 
-The full SAGAPiP program does more: it plays a soundtrack, shows a
+The full ApolloPiP program does more: it plays a soundtrack, shows a
 1280x720 background, opens a Workbench window, lays PIP 1 and PIP 2 over
 it and follows the window when it moves (see "The full example" below).
 
@@ -47,15 +47,15 @@ m68k-amigaos-gcc -noixemul -O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer 
 ```
 
 The full example builds in ApolloCrossDev with `make` in
-`Projects/SAGAPiP` (which also uploads it to the Apollo V4), or
+`Projects/ApolloPiP` (which also uploads it to the Apollo V4), or
 `make cleanbefore build` to only build.
 
 ## Code
 
 ```c
 // kb:compile
-/* SAGA PIP with ApolloLib: overlay and chroma-key mode, after the SAGAPiP
-   example in ApolloCrossDev Projects/SAGAPiP. Needs ApolloLib a9a994f+:
+/* SAGA PIP with ApolloLib: overlay and chroma-key mode, after the ApolloPiP
+   example in ApolloCrossDev Projects/ApolloPiP. Needs ApolloLib a9a994f+:
    from there ApolloShowPiP1 also loads the palette of an 8-bit picture. */
 #include "ApolloCrossDev_Lib.h"
 
@@ -66,7 +66,7 @@ The full example builds in ApolloCrossDev with `make` in
 void ShowPiP1Overlay(struct ApolloPicture *pic, WORD left, WORD top)
 {
     *(volatile ULONG *)APOLLO_SAGA_PIP1_POINTER = (ULONG)(pic->buffer + pic->position);
-    PIP1_REG(APOLLO_SAGA_PIP1_X_START) = left + 16;             /* +16 and -1: as in SAGAPiP */
+    PIP1_REG(APOLLO_SAGA_PIP1_X_START) = left + 16;             /* +16 and -1: as in ApolloPiP */
     PIP1_REG(APOLLO_SAGA_PIP1_X_STOP)  = left + pic->width + 16;
     PIP1_REG(APOLLO_SAGA_PIP1_Y_START) = top - 1;
     PIP1_REG(APOLLO_SAGA_PIP1_Y_STOP)  = top + pic->height - 1;
@@ -108,12 +108,12 @@ overlay, a 16-bit DDS (R5G6B5) for the background.
   screen pixels. Pixels with palette index `$FF` show the screen behind.
 - **Chroma key:** after `ShowPiP1Behind(&bg, 1280, 720)` the screen looks
   unchanged, except where it is purple (`$F0F`): there the PIP shows
-  through. SAGAPiP fills a Workbench window with purple to look through it.
+  through. ApolloPiP fills a Workbench window with purple to look through it.
 - **Off:** after `HidePiP1()` the PIP is gone.
 
 ## The full example
 
-`Projects/SAGAPiP/SAGAPiP.c` (ApolloCrossDev commit a9a994f) does more than
+`Projects/ApolloPiP/ApolloPiP.c` (ApolloCrossDev commit ad7f0b4; called SAGAPiP before 2026-11-04) does more than
 the code above: soundtrack, background picture, a Workbench window with
 PIP 1 and PIP 2 on it that follow the window, and a click that punches a
 transparent square into the overlay.
@@ -133,4 +133,4 @@ earlier version. Keep them out of your own code:
 | `ApolloCPUDelay` under Workbench | Busy waits | `Delay()` |
 
 The +16 (X) and −1 (Y) corrections place the PIP exactly over a Workbench
-window in SAGAPiP; they are not documented elsewhere.
+window in ApolloPiP; they are not documented elsewhere.
