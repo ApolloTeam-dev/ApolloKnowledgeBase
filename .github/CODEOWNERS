@@ -26,6 +26,7 @@
 /core/best-practices/interleave-dependency-chains.md @TuKo1982
 /core/best-practices/memory-access-patterns.md @TuKo1982
 /core/best-practices/predicated-bcc-over-one-instruction.md @TuKo1982
+/core/best-practices/prefer-library-calls-for-saga-chips.md @WDrijver
 /core/best-practices/use-fusable-pairs.md @TuKo1982
 /core/cpu-68080/bank-prefix.md @TuKo1982
 /core/cpu-68080/branches-and-prediction.md @TuKo1982
@@ -155,6 +156,18 @@
 /core/saga-audio-arne/index.md @WDrijver
 /core/saga-audio-arne/registers.md @TuKo1982
 /core/saga-dma-anni/index.md @WDrijver
+/core/saga-registers/arne-channels.md @WDrijver
+/core/saga-registers/arne-dma-and-interrupts.md @WDrijver
+/core/saga-registers/chunky-plane.md @WDrijver
+/core/saga-registers/colour-ports.md @WDrijver
+/core/saga-registers/display-control.md @WDrijver
+/core/saga-registers/index.md @WDrijver
+/core/saga-registers/input.md @WDrijver
+/core/saga-registers/maggie-3d.md @WDrijver
+/core/saga-registers/pip.md @WDrijver
+/core/saga-registers/pointer.md @WDrijver
+/core/saga-registers/sprite-collision.md @WDrijver
+/core/saga-registers/system.md @WDrijver
 /core/saga-video-isabelle/index.md @WDrijver
 /hardware/index.md @WDrijver
 /os/apolloos-and-amigaos-on-v4.md @WDrijver

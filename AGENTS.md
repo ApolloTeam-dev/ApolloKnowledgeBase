@@ -85,10 +85,11 @@ you read.
 | Execution mode is `os-takeover` (games, demos) | `os/os-takeover.md`, `core/` |
 | Writing code at all | `conventions/`, `toolchain/` |
 | CPU-heavy or assembly code | `core/cpu-68080/`, `core/best-practices/`, `core/pitfalls/` |
-| Graphics, screens, video modes | `core/saga-video-isabelle/` |
-| Sound | `core/saga-audio-arne/` |
+| Graphics, screens, video modes | `core/saga-video-isabelle/`, `core/saga-registers/` |
+| Sound | `core/saga-audio-arne/`, `core/saga-registers/` |
 | Memory transfers, DMA | `core/saga-dma-anni/` |
-| 3D | `core/saga-3d-maggie/` |
+| SAGA input, board ID, other SAGA registers | `core/saga-registers/` |
+| 3D | `core/saga-3d-maggie/`, `core/saga-registers/` |
 | Board connectors, headers, memory, model differences | `hardware/v4-generic/`, the model's folder in `hardware/` |
 | Using or changing an ApolloOS library | `os/libraries/` |
 | Device drivers | `os/devs/`, plus the `core/` or `hardware/` folder of the hardware involved |

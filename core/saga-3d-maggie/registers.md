@@ -15,6 +15,7 @@ related:
   - core/pitfalls/maggie-depth-test-colour-write.md
   - core/pitfalls/maggie-span-tail.md
   - core/pitfalls/maggie-span-usage.md
+  - core/saga-registers/maggie-3d.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 15.7"
   - "maggie.library source, github.com/RMortenB/MaggieLibrary, commit 64c78ef (2026-08-17)"

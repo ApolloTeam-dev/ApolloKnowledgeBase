@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+
+INTREQ2
+
+This register contains interrupt request bits (or flags). These bits
+may be polled by the processor, and if enabled by the bits listed in
+the next register, they may cause processor interrupts. Both a set
+and clear operation are required to load arbitrary data into this register.
+
+
+         +-------+----------+-------------------------------------------+
+         | BIT#  | FUNCTION | DESCRIPTION                               |
+         +-------+----------+-------------------------------------------+
+         | 15    |         | SET/CLR                                    |
+         | 14    |         |                                            |
+         | 13    | ETH     | Ethernet                                   |
+         | 12    |         |                                            |
+         | 11    | AUD15   | Audio channel 15 block finished            |
+         | 10    | AUD14   | Audio channel 14 block finished            |
+         | 09    | AUD13   | Audio channel 13 block finished            |
+         | 08    | AUD12   | Audio channel 12 block finished            |
+         | 07    | AUD11   | Audio channel 11 block finished            |
+         | 06    | AUD10   | Audio channel 10 block finished            |
+         | 05    | AUD9    | Audio channel 9 block finished             |
+         | 04    | AUD8    | Audio channel 8 block finished             |
+         | 03    | AUD7    | Audio channel 7 block finished             |
+         | 02    | AUD6    | Audio channel 6 block finished             |
+         | 01    | AUD5    | Audio channel 5 block finished             |
+         | 00    | AUD4    | Audio channel 4 block finished             |
+         +-------+----------+-------------------------------------------+
+
+
+Ethernet will throw IRQ $48
+The new Audio channels will throw IRQ $50
+
+
+</pre>
+</body>
+</html>

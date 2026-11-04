@@ -1,0 +1,54 @@
+<html>
+<body>
+<pre>
+
+GFXMODE
+         16bit register selecting the screen size and the pixelformat for the Chunky plane.
+         
+
+       +-------+----------+-------------------------------------------+
+         | BIT#  | FUNCTION | DESCRIPTION                             |
+         +-------+----------+-----------------------------------------+
+         | 15.08 | Resolution  | $00                                  |
+         |       |               $01 = 320x200     60Hz  28Mhz x2 x2  |
+         |       |               $02 = 320x240     60Hz  28Mhz x2 x2  |
+         |       |               $03 = 320x256     60Hz  28Mhz x2 x2  |
+         |       |               $04 = 640x400     60Hz  28Mhz        |
+         |       |               $05 = 640x480     60Hz  28MHz        |
+         |       |               $06 = 640x512     50Hz  28MHz        |
+         |       |               $07 = 960x540     60Hz  42Mhz        |
+         |       |               $08 = 480x270     60Hz  42Mhz x2 x2  |
+         |       |               $09 = 304x224     60Hz  28Mhz x2 x2  |
+         |       |               $0A = 1280x720    50Hz  85Mhz        |
+         |       |               $0B = 640x360     50Hz  85Mhz x2 x2  |
+         |       |               $0C = 800x600     60Hz  42MHz        |
+         |       |               $0D = 1024x768    60Hz  85MHz        |
+         |       |               $0E = 720x576     50Hz  28Mhz        |
+         |       |               $0F = 848x480     60Hz  42MHz        |
+         |       |               $10 = 640x200     60Hz  28Mhz        |
+         |       |               $11 = 1920x1080   24Hz  85Mhz        |
+         |       |               $12 = 1280x1024   50Hz  85Mhz        |
+         |       |               $13 = 1280x800    60Hz  84Mhz        |
+         |       |               $14 = 1440x900    50Hz  85Mhz        |
+         |       |               $15 = 720x405     50Hz  28Mhz        |
+         +-------+----------+-----------------------------------------+ 
+         | 07.00 | Pixelformat | $00                                  |
+         |       |               $01 = 8bit CHUNKY (indexed)          |
+         |       |               $02 = 16bit R5G6B5                   |
+         |       |               $03 = 15bit 1R5G5B5                  |
+         |       |               $04 = 24bit R8G8B8                   |
+         |       |               $05 = 32bit A8R8G8B8                 |
+         |       |               $06 = YUV888                         |
+         |       |               $0E = YUV444                         |
+         |       |               $07 =                                |
+         |       |               $08 = PLANAR 1BIT ATARI              |
+         |       |               $09 = PLANAR 2BIT ATARI              |
+         |       |               $0A = PLANAR 4BIT ATARI              |
+         |       |               $0B = PLANAR 8BIT ATARI              |
+         +-------+----------+-----------------------------------------+ 
+
+	 
+</pre>
+</body>
+</html>	 
+

@@ -13,6 +13,7 @@ tags: [arne, audio, saga, registers, dma, interrupts]
 related:
   - core/saga-audio-arne/index.md
   - core/cpu-68080/core-at-a-glance.md
+  - core/saga-registers/arne-channels.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 1 and 13"
 ---
@@ -33,7 +34,8 @@ is not documented here yet.
 | LEN | 32-bit count of **sample pairs** |
 | VOL | Left volume in bits 15–8, right volume in bits 7–0 |
 
-The base addresses of the channel registers are not given in the source.
+The channel base addresses are in the official register map:
+[core/saga-registers/arne-channels.md](../saga-registers/arne-channels.md).
 
 ### Control and interrupt registers
 
@@ -63,5 +65,5 @@ The base addresses of the channel registers are not given in the source.
 
 - DO keep the period at 65 or higher.
 - DO give LEN in sample pairs, not words.
-- DON'T guess the remaining ARNE registers: the knowledge base does not
-  cover them yet.
+- DON'T guess ARNE registers: use the official map in
+  `core/saga-registers/`.

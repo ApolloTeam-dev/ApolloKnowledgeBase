@@ -1,0 +1,29 @@
+<html>
+<body>
+<pre>
+
+CHUNKY COLOR PORT
+
+         This register allows direct setting of 256 Chunky colors registers
+
+
+         +-------+----------+-------------------------------------------+
+         | BIT#  | FUNCTION | DESCRIPTION                               |
+         +-------+----------+-------------------------------------------+
+         | 31-24 | index   | 8bit Colornumber                           |
+         | 23-16 | RED     | 8bit Red                                   |
+         | 15-08 | GREEN   | 8bit Green                                 |
+         | 07-00 | BLUE    | 8bit Blue                                  |
+         +-------+----------+-------------------------------------------+
+
+Example:
+
+ move.l #$00FF0000,$DFF388   -- set color0 = RED
+ move.l #$01FFFF00,$DFF388   -- set color1 = YELLOW
+
+Copper:
+ dc.w  $8388,$00FF,$0000     -- set color0 = RED
+
+</pre>
+</body>
+</html>

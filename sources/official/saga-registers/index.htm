@@ -1,0 +1,3386 @@
+<html>
+<head>
+   <title>Hardware SAGA Chipset Amiga Development</title>
+</head>
+
+<body>
+<table border=1>
+<tr>
+<th>Address</th>
+<th>Name</th>
+<th>Access</th>
+<th>OCS</th> <th>ECS</th> <th>AGA</th> <th>SAGA</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>DFF000</td>
+<td><a href="bltddat.htm">BLTDDAT</a></td>
+<td>ER</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter dest. early read (dummy address)</td>
+</tr>
+<tr>
+<td>DFF002</td>
+<td><a href="dmaconr.htm">DMACONR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Dma control (and blitter status) read</td>
+</tr>
+<tr>
+<td>DFF004</td>
+<td><a href="vposr.htm">VPOSR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Read vertical most sig. bits (and frame flop)</td>
+</tr>
+<tr>
+<td>DFF006</td>
+<td><a href="vhposr.htm">VHPOSR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Read vert and horiz position of beam</td>
+</tr>
+<tr>
+<td>DFF008</td>
+<td><a href="dskdatr.htm">DSKDATR</a></td>
+<td>ER</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk data early read (dummy address)</td>
+</tr>
+<tr>
+<td>DFF00A</td>
+<td><a href="joy0dat.htm">JOY0DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Joystick-mouse 0 data (vert, horiz)</td>
+</tr>
+<tr>
+<td>DFF00C</td>
+<td><a href="joy0dat.htm">JOY1DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Joystick-mouse 1 data (vert, horiz)</td>
+</tr>
+<tr>
+<td>DFF00E</td>
+<td><a href="clxdat.htm">CLXDAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Collision data reg. (read and clear)</td>
+</tr>
+<tr>
+<td>DFF010</td>
+<td><a href="adkconr.htm">ADKCONR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio,disk control register read</td>
+</tr>
+<tr>
+<td>DFF012</td>
+<td><a href="pot0dat.htm">POT0DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Pot counter data left pair (vert, horiz)</td>
+</tr>
+<tr>
+<td>DFF014</td>
+<td><a href="pot0dat.htm">POT1DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Pot counter data right pair (vert, horiz)</td>
+</tr>
+<tr>
+<td>DFF016</td>
+<td><a href="potinp.htm">POTINP</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Pot pin data read</td>
+</tr>
+<tr>
+<td>DFF018</td>
+<td><a href="serdatr.htm">SERDATR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Serial port data and status read</td>
+</tr>
+<tr>
+<td>DFF01A</td>
+<td><a href="dskbytr.htm">DSKBYTR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk data byte and status read</td>
+</tr>
+<tr>
+<td>DFF01C</td>
+<td><a href="intenar.htm">INTENAR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Interrupt enable bits read</td>
+</tr>
+<tr>
+<td>DFF01E</td>
+<td><a href="intreqr.htm">INTREQR</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Interrupt request bits read</td>
+</tr>
+<tr>
+<td>DFF020</td>
+<td><a href="dskpth.htm">DSKPTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk pointer (high 5 bits, was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF022</td>
+<td><a href="dskpth.htm">DSKPTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk pointer (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF024</td>
+<td><a href="dsklen.htm">DSKLEN</a></td>
+<td>W</td>
+<td>*</td>
+<td>*</td> <td>*</td> <td>*</td>
+<td>Disk length</td>
+</tr>
+<tr>
+<td>DFF026</td>
+<td><a href="dskdatr.htm">DSKDAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk DMA data write</td>
+</tr>
+<tr>
+<td>DFF028</td>
+<td><a href="refptr.htm">REFPTR</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Refresh pointer</td>
+</tr>
+<tr>
+<td>DFF02A</td>
+<td><a href="vposr.htm">VPOSW</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Write vert most sig. bits (and frame flop)</td>
+</tr>
+<tr>
+<td>DFF02C</td>
+<td><a href="vhposr.htm">VHPOSW</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Write vert and horiz pos of beam</td>
+</tr>
+<tr>
+<td>DFF02E</td>
+<td><a href="copcon.htm">COPCON</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor control</td>
+</tr>
+<tr>
+<td>DFF030</td>
+<td><a href="serdat.htm">SERDAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Serial port data and stop bits write</td>
+</tr>
+<tr>
+<td>DFF032</td>
+<td><a href="serper.htm">SERPER</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Serial port period and control</td>
+</tr>
+<tr>
+<td>DFF034</td>
+<td><a href="potgo.htm">POTGO</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Pot count start,pot pin drive enable data</td>
+</tr>
+<tr>
+<td>DFF036</td>
+<td><a href="joytest.htm">JOYTEST</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Write to all 4 joystick-mouse counters at once</td>
+</tr>
+<tr>
+<td>DFF038</td>
+<td><a href="strequ.htm">STREQU</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Strobe for horiz sync with VB and EQU</td>
+</tr>
+<tr>
+<td>DFF03A</td>
+<td><a href="strequ.htm">STRVBL</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Strobe for horiz sync with VB (vert blank)</td>
+</tr>
+<tr>
+<td>DFF03C</td>
+<td><a href="strequ.htm">STRHOR</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Strobe for horiz sync</td>
+</tr>
+<tr>
+<td>DFF03E</td>
+<td><a href="strequ.htm">STRLONG</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Strobe for identification of long horiz line</td>
+</tr>
+<tr>
+<td>DFF040</td>
+<td><a href="bltcon0.htm">BLTCON0</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter control register 0</td>
+</tr>
+<tr>
+<td>DFF042</td>
+<td><a href="bltcon0.htm">BLTCON1</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter control register 1</td>
+</tr>
+<tr>
+<td>DFF044</td>
+<td><a href="bltafwm.htm">BLTAFWM</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter first word mask for source A</td>
+</tr>
+<tr>
+<td>DFF046</td>
+<td><a href="bltafwm.htm">BLTALWM</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter last word mask for source A</td>
+</tr>
+<tr>
+<td>DFF048</td>
+<td><a href="bltxpth.htm">BLTCPTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source C (high 5 bits, was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF04A</td>
+<td><a href="bltxpth.htm">BLTCPTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source C (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF04C</td>
+<td><a href="bltxpth.htm">BLTBPTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source B (high 5 bits, was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF04E</td>
+<td><a href="bltxpth.htm">BLTBPTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source B (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF050</td>
+<td><a href="bltxpth.htm">BLTAPTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source A (high 5 bits, was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF052</td>
+<td><a href="bltxpth.htm">BLTAPTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to source A (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF054</td>
+<td><a href="bltxpth.htm">BLTDPTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to dest D (high 5 bits, was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF056</td>
+<td><a href="bltxpth.htm">BLTDPTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter pointer to dest D (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF058</td>
+<td><a href="bltsize.htm">BLTSIZE</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter start and size (win/width,height)</td>
+</tr>
+<tr>
+<td>DFF05A</td>
+<td><a href="bltcon0.htm">BLTCON0L</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter control 0, lower 8 bits (minterms)</td>
+</tr>
+<tr>
+<td>DFF05C</td>
+<td><a href="bltsizv.htm">BLTSIZV</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter V size (for 15 bit vertical size)</td>
+</tr>
+<tr>
+<td>DFF05E</td>
+<td><a href="bltsizh.htm">BLTSIZH</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter H size and start (for 11 bit H size)</td>
+</tr>
+<tr>
+<td>DFF060</td>
+<td><a href="bltxmod.htm">BLTCMOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter modulo for source C</td>
+</tr>
+<tr>
+<td>DFF062</td>
+<td><a href="bltxmod.htm">BLTBMOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter modulo for source B</td>
+</tr>
+<tr>
+<td>DFF064</td>
+<td><a href="bltxmod.htm">BLTAMOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter modulo for source A</td>
+</tr>
+<tr>
+<td>DFF066</td>
+<td><a href="bltxmod.htm">BLTDMOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter modulo for dest D</td>
+</tr>
+<tr>
+<td>DFF070</td>
+<td><a href="bltxdat.htm">BLTCDAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter source C data register</td>
+</tr>
+<tr>
+<td>DFF072</td>
+<td><a href="bltxdat.htm">BLTBDAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter source B data register</td>
+</tr>
+<tr>
+<td>DFF074</td>
+<td><a href="bltxdat.htm">BLTADAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Blitter source A data register</td>
+</tr>
+<tr>
+<td>DFF078</td>
+<td><a href="sprhdat.htm">SPRHDAT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Ext. logic UHRES sprite pointer and data identifier</td>
+</tr>
+<tr>
+<td>DFF07A</td>
+<td><a href="bplhmod.htm">BPLHDAT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Ext. logic UHRES bit plane identifier</td>
+</tr>
+<tr>
+<td>DFF07C</td>
+<td><a href="deniseid.htm">DENISEID</a></td>
+<td>R</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Chip revision level for Denise/Lisa (video out chip)</td>
+</tr>
+<tr>
+<td>DFF07E</td>
+<td><a href="dsksync.htm">DSKSYNC</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Disk sync pattern reg for disk read</td>
+</tr>
+<tr>
+<td>DFF080</td>
+<td><a href="cop1lch.htm">COP1LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor 1st location (high 5 bits,was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF082</td>
+<td><a href="cop1lch.htm">COP1LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor 1st location (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF084</td>
+<td><a href="cop2lch.htm">COP2LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor 2nd location(high 5 bits,was 3 bits)</td>
+</tr>
+<tr>
+<td>DFF086</td>
+<td><a href="cop2lch.htm">COP2LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor 2nd location (low 15 bits)</td>
+</tr>
+<tr>
+<td>DFF088</td>
+<td><a href="copjmp.htm">COPJMP1</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor restart at 1st location</td>
+</tr>
+<tr>
+<td>DFF08A</td>
+<td><a href="copjmp.htm">COPJMP2</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor restart at 2nd location</td>
+</tr>
+<tr>
+<td>DFF08C</td>
+<td><a href="copins.htm">COPINS</a></td>
+<td>S</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Coprocessor inst fetch identify</td>
+</tr>
+<tr>
+<td>DFF08E</td>
+<td><a href="diwstrt.htm">DIWSTRT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Display window start (upper left vert,horiz pos)</td>
+</tr>
+<tr>
+<td>DFF090</td>
+<td><a href="diwstrt.htm">DIWSTOP</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Display window stop (lower right vert,horiz pos)</td>
+</tr>
+<tr>
+<td>DFF092</td>
+<td><a href="ddfstrt.htm">DDFSTRT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Display bit plane data fetch start,horiz pos</td>
+</tr>
+<tr>
+<td>DFF094</td>
+<td><a href="ddfstrt.htm">DDFSTOP</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Display bit plane data fetch stop,horiz pos</td>
+</tr>
+<tr>
+<td>DFF096</td>
+<td><a href="dmaconr.htm">DMACON</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>DMA control write (clear or set)</td>
+</tr>
+<tr>
+<td>DFF098</td>
+<td><a href="clxcon.htm">CLXCON</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Collision control</td>
+</tr>
+<tr>
+<td>DFF09A</td>
+<td><a href="intenar.htm">INTENA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Interrupt enable bits (clear or set bits)</td>
+</tr>
+<tr>
+<td>DFF09C</td>
+<td><a href="intreqr.htm">INTREQ</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Interrupt request bits (clear or set bits)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF09E</td>
+<td><a href="adkcon.html">ADKCON</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio,disk,UART control</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0A0</td>
+<td><a href="audxl.htm">AUD0LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 location (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0A2</td>
+<td><a href="audxl.htm">AUD0LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 location (low 15 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0A4</td>
+<td><a href="audxlen.htm">AUD0LEN</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 length</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0A6</td>
+<td><a href="audxper.htm">AUD0PER</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 period</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0A8</td>
+<td><a href="audxvol.htm">AUD0VOL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 volume</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0AA</td>
+<td><a href="audxdat.htm">AUD0DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 0 data</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF0B0</td>
+<td><a href="audxlch.htm">AUD1LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 location (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0B2</td>
+<td><a href="audxlch.htm">AUD1LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 location (low 15 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0B4</td>
+<td><a href="audxlen.htm">AUD1LEN</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 length</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0B6</td>
+<td><a href="audxper.htm">AUD1PER</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 period</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0B8</td>
+<td><a href="audxvol.htm">AUD1VOL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 volume</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0BA</td>
+<td><a href="audxdat.htm">AUD1DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 1 data</td>
+</tr>
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF0C0</td>
+<td><a href="audxlch.htm">AUD2LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 location (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0C2</td>
+<td><a href="audxlch.htm">AUD2LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 location (low 15 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0C4</td>
+<td><a href="audxlen.htm">AUD2LEN</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 length</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0C6</td>
+<td><a href="audxper.htm">AUD2PER</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 period</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0C8</td>
+<td><a href="audxvol.htm">AUD2VOL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 volume</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0CA</td>
+<td><a href="audxdat.htm">AUD2DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 2 data</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF0D0</td>
+<td><a href="audxlch.htm">AUD3LCH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 location (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0D2</td>
+<td><a href="audxlch.htm">AUD3LCL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 location (low 15 bits)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0D4</td>
+<td><a href="audxlen.htm">AUD3LEN</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 length</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0D6</td>
+<td><a href="audxper.htm">AUD3PER</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 period</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0D8</td>
+<td><a href="audxvol.htm">AUD3VOL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 volume</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF0DA</td>
+<td><a href="audxdat.htm">AUD3DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Audio channel 3 data</td>
+</tr>
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFF0E0</td>
+<td><a href="bplxpth.htm">BPL1PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 1 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0E2</td>
+<td><a href="bplxpth.htm">BPL1PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 1 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0E4</td>
+<td><a href="bplxpth.htm">BPL2PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 2 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0E6</td>
+<td><a href="bplxpth.htm">BPL2PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 2 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0E8</td>
+<td><a href="bplxpth.htm">BPL3PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 3 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0EA</td>
+<td><a href="bplxpth.htm">BPL3PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 3 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0EC</td>
+<td><a href="bplxpth.htm">BPL4PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 4 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0EE</td>
+<td><a href="bplxpth.htm">BPL4PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 4 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0F0</td>
+<td><a href="bplxpth.htm">BPL5PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 5 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0F2</td>
+<td><a href="bplxpth.htm">BPL5PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 5 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0F4</td>
+<td><a href="bplxpth.htm">BPL6PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 6 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0F6</td>
+<td><a href="bplxpth.htm">BPL6PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 6 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0F8</td>
+<td><a href="bplxpth.htm">BPL7PTH</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 7 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0FA</td>
+<td><a href="bplxpth.htm">BPL7PTL</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 7 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0FC</td>
+<td><a href="bplxpth.htm">BPL8PTH</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 8 (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF0FE</td>
+<td><a href="bplxpth.htm">BPL8PTL</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane pointer 8 (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF100</td>
+<td><a href="bplcon0.htm">BPLCON0</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane control (miscellaneous control bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF102</td>
+<td><a href="bplcon1.htm">BPLCON1</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane control (scroll value)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF104</td>
+<td><a href="bplcon2.htm">BPLCON2</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane control (video priority control)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF106</td>
+<td><a href="bplcon3.htm">BPLCON3</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane control (enhanced features)</td>
+</tr>
+<tr bgcolor="#FFccc">
+<td>DFF108</td>
+<td><a href="bplxmod.htm">BPL1MOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane modulo (odd planes)</td>
+</tr>
+<tr bgcolor="#FFccc">
+<td>DFF10A</td>
+<td><a href="bplxmod.htm">BPL2MOD</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane modulo (even planes)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF10C</td>
+<td><a href="bplcon4.htm">BPLCON4</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane control (bitplane and sprite-masks)</td>
+</tr>
+<tr>
+<td>DFF10E</td>
+<td><a href="clxcon2.htm">CLXCON2</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Extended collision control</td>
+</tr>
+<tr>
+<td>DFF110</td>
+<td><a href="bplxdat.htm">BPL1DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 1 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF112</td>
+<td><a href="bplxdat.htm">BPL2DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 2 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF114</td>
+<td><a href="bplxdat.htm">BPL3DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 3 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF116</td>
+<td><a href="bplxdat.htm">BPL4DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 4 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF118</td>
+<td><a href="bplxdat.htm">BPL5DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 5 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF11A</td>
+<td><a href="bplxdat.htm">BPL6DAT</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Bitplane 6 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF11C</td>
+<td><a href="bplxdat.htm">BPL7DAT</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane 7 data (parallel to serial convert)</td>
+</tr>
+<tr>
+<td>DFF11E</td>
+<td><a href="bplxdat.htm">BPL8DAT</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Bitplane 8 data (parallel to serial convert)</td>
+</tr>
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr bgcolor="#FFFFcc">
+<td>DFF120</td>
+<td><a href="sprxpth.htm">SPR0PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF122</td>
+<td><a href="sprxpth.htm">SPR0PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF124</td>
+<td><a href="sprxpth.htm">SPR1PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF126</td>
+<td><a href="sprxpth.htm">SPR1PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF128</td>
+<td><a href="sprxpth.htm">SPR2PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF12A</td>
+<td><a href="sprxpth.htm">SPR2PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF12C</td>
+<td><a href="sprxpth.htm">SPR3PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF12E</td>
+<td><a href="sprxpth.htm">SPR3PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF130</td>
+<td><a href="sprxpth.htm">SPR4PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF132</td>
+<td><a href="sprxpth.htm">SPR4PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF134</td>
+<td><a href="sprxpth.htm">SPR5PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF136</td>
+<td><a href="sprxpth.htm">SPR5PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF138</td>
+<td><a href="sprxpth.htm">SPR6PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF13A</td>
+<td><a href="sprxpth.htm">SPR6PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF13C</td>
+<td><a href="sprxpth.htm">SPR7PTH</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 pointer (high 5 bits was 3 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF13E</td>
+<td><a href="sprxpth.htm">SPR7PTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF140</td>
+<td><a href="sprxpos.htm">SPR0POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF142</td>
+<td><a href="sprxctl.htm">SPR0CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF144</td>
+<td><a href="sprxdata.htm">SPR0DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF146</td>
+<td><a href="sprxdata.htm">SPR0DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 0 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF148</td>
+<td><a href="sprxpos.htm">SPR1POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF14A</td>
+<td><a href="sprxctl.htm">SPR1CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF14C</td>
+<td><a href="sprxdata.htm">SPR1DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF14E</td>
+<td><a href="sprxdata.htm">SPR1DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 1 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF150</td>
+<td><a href="sprxpos.htm">SPR2POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF152</td>
+<td><a href="sprxctl.htm">SPR2CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF154</td>
+<td><a href="sprxdata.htm">SPR2DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF156</td>
+<td><a href="sprxdata.htm">SPR2DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 2 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF158</td>
+<td><a href="sprxpos.htm">SPR3POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF15A</td>
+<td><a href="sprxctl.htm">SPR3CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF15C</td>
+<td><a href="sprxdata.htm">SPR3DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF15E</td>
+<td><a href="sprxdata.htm">SPR3DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 3 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF160</td>
+<td><a href="sprxpos.htm">SPR4POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF162</td>
+<td><a href="sprxctl.htm">SPR4CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF164</td>
+<td><a href="sprxdata.htm">SPR4DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF166</td>
+<td><a href="sprxdata.htm">SPR4DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 4 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF168</td>
+<td><a href="sprxpos.htm">SPR5POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF16A</td>
+<td><a href="sprxctl.htm">SPR5CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF16C</td>
+<td><a href="sprxdata.htm">SPR5DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF16E</td>
+<td><a href="sprxdata.htm">SPR5DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 5 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF170</td>
+<td><a href="sprxpos.htm">SPR6POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF172</td>
+<td><a href="sprxctl.htm">SPR6CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF174</td>
+<td><a href="sprxdata.htm">SPR6DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF176</td>
+<td><a href="sprxdata.htm">SPR6DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 6 image data register B</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF178</td>
+<td><a href="sprxpos.htm">SPR7POS</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 vert,horiz start pos data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF17A</td>
+<td><a href="sprxctl.htm">SPR7CTL</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 position and control data</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF17C</td>
+<td><a href="sprxdata.htm">SPR7DATA</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 image data register A</td>
+</tr>
+<tr bgcolor="#FFFFcc">
+<td>DFF17E</td>
+<td><a href="sprxdata.htm">SPR7DATB</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Sprite 7 image data register B</td>
+</tr>
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr>
+<td>DFF180</td>
+<td><a href="colorx.htm">COLOR00</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 0</td>
+</tr>
+<tr>
+<td>DFF182</td>
+<td><a href="colorx.htm">COLOR01</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 1</td>
+</tr>
+<tr>
+<td>DFF184</td>
+<td><a href="colorx.htm">COLOR02</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 2</td>
+</tr>
+<tr>
+<td>DFF186</td>
+<td><a href="colorx.htm">COLOR03</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 3</td>
+</tr>
+<tr>
+<td>DFF188</td>
+<td><a href="colorx.htm">COLOR04</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 4</td>
+</tr>
+<tr>
+<td>DFF18A</td>
+<td><a href="colorx.htm">COLOR05</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 5</td>
+</tr>
+<tr>
+<td>DFF18C</td>
+<td><a href="colorx.htm">COLOR06</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 6</td>
+</tr>
+<tr>
+<td>DFF18E</td>
+<td><a href="colorx.htm">COLOR07</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 7</td>
+</tr>
+<tr>
+<td>DFF190</td>
+<td><a href="colorx.htm">COLOR08</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 8</td>
+</tr>
+<tr>
+<td>DFF192</td>
+<td><a href="colorx.htm">COLOR09</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 9</td>
+</tr>
+<tr>
+<td>DFF194</td>
+<td><a href="colorx.htm">COLOR10</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 10</td>
+</tr>
+<tr>
+<td>DFF196</td>
+<td><a href="colorx.htm">COLOR11</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 11</td>
+</tr>
+<tr>
+<td>DFF198</td>
+<td><a href="colorx.htm">COLOR12</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 12</td>
+</tr>
+<tr>
+<td>DFF19A</td>
+<td><a href="colorx.htm">COLOR13</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 13</td>
+</tr>
+<tr>
+<td>DFF19C</td>
+<td><a href="colorx.htm">COLOR14</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 14</td>
+</tr>
+<tr>
+<td>DFF19E</td>
+<td><a href="colorx.htm">COLOR15</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 15</td>
+</tr>
+<tr>
+<td>DFF1A0</td>
+<td><a href="colorx.htm">COLOR16</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 16</td>
+</tr>
+<tr>
+<td>DFF1A2</td>
+<td><a href="colorx.htm">COLOR17</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 17</td>
+</tr>
+<tr>
+<td>DFF1A4</td>
+<td><a href="colorx.htm">COLOR18</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 18</td>
+</tr>
+<tr>
+<td>DFF1A6</td>
+<td><a href="colorx.htm">COLOR19</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 19</td>
+</tr>
+<tr>
+<td>DFF1A8</td>
+<td><a href="colorx.htm">COLOR20</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 20</td>
+</tr>
+<tr>
+<td>DFF1AA</td>
+<td><a href="colorx.htm">COLOR21</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 21</td>
+</tr>
+<tr>
+<td>DFF1AC</td>
+<td><a href="colorx.htm">COLOR22</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 22</td>
+</tr>
+<tr>
+<td>DFF1AE</td>
+<td><a href="colorx.htm">COLOR23</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 23</td>
+</tr>
+<tr>
+<td>DFF1B0</td>
+<td><a href="colorx.htm">COLOR24</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 24</td>
+</tr>
+<tr>
+<td>DFF1B2</td>
+<td><a href="colorx.htm">COLOR25</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 25</td>
+</tr>
+<tr>
+<td>DFF1B4</td>
+<td><a href="colorx.htm">COLOR26</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 26</td>
+</tr>
+<tr>
+<td>DFF1B6</td>
+<td><a href="colorx.htm">COLOR27</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 27</td>
+</tr>
+<tr>
+<td>DFF1B8</td>
+<td><a href="colorx.htm">COLOR28</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 28</td>
+</tr>
+<tr>
+<td>DFF1BA</td>
+<td><a href="colorx.htm">COLOR29</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 29</td>
+</tr>
+<tr>
+<td>DFF1BC</td>
+<td><a href="colorx.htm">COLOR30</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 30</td>
+</tr>
+<tr>
+<td>DFF1BE</td>
+<td><a href="colorx.htm">COLOR31</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Color table 31</td>
+</tr>
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr>
+<td>DFF1C0</td>
+<td><a href="htotal.htm">HTOTAL</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Highest number count, horiz line (VARBEAMEN=1)</td>
+</tr>
+<tr>
+<td>DFF1C2</td>
+<td><a href="hsstop.htm">HSSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Horizontal line position for HSYNC stop</td>
+</tr>
+<tr>
+<td>DFF1C4</td>
+<td><a href="hbstrt.htm">HBSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Horizontal line position for HBLANK start</td>
+</tr>
+<tr>
+<td>DFF1C6</td>
+<td><a href="hbstrt.htm">HBSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Horizontal line position for HBLANK stop</td>
+</tr>
+<tr>
+<td>DFF1C8</td>
+<td><a href="vtotal.htm">VTOTAL</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Highest numbered vertical line (VARBEAMEN=1)</td>
+</tr>
+<tr>
+<td>DFF1CA</td>
+<td><a href="vtotal.htm">VSSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vertical line position for VSYNC stop</td>
+</tr>
+<tr>
+<td>DFF1CC</td>
+<td><a href="vbstrt.htm">VBSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vertical line for VBLANK start</td>
+</tr>
+<tr>
+<td>DFF1CE</td>
+<td><a href="vbstrt.htm">VBSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vertical line for VBLANK stop</td>
+</tr>
+<tr>
+<td>DFF1D0</td>
+<td><a href="sprhstrt.htm">SPRHSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>CHUNKY SPRITE X Pos</td>
+</tr>
+<tr>
+<td>DFF1D2</td>
+<td><a href="sprhstop.htm">SPRHSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>CHUNKY SPRITE Y POS</td>
+</tr>
+<tr>
+<td>DFF1D4</td>
+<td><a href="bplhstrt.htm">BPLHSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>UHRES bit plane vertical start</td>
+</tr>
+<tr>
+<td>DFF1D6</td>
+<td><a href="bplhstop.htm">BPLHSTOP</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>UHRES bit plane vertical stop</td>
+</tr>
+<tr>
+<td>DFF1D8</td>
+<td><a href="hhposw.htm">HHPOSW</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>DUAL mode hires H beam counter write</td>
+</tr>
+<tr>
+<td>DFF1DA</td>
+<td><a href="hhposw.htm">HHPOSR</a></td>
+<td>R</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>DUAL mode hires H beam counter read</td>
+</tr>
+<tr>
+<td>DFF1DC</td>
+<td><a href="beamcon0.htm">BEAMCON0</a></td>
+<td>W</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Beam counter control register (SHRES,UHRES,PAL)</td>
+</tr>
+<tr>
+<td>DFF1DE</td>
+<td><a href="hsstrt.htm">HSSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Horizontal sync start (VARHSY)</td>
+</tr>
+<tr>
+<td>DFF1E0</td>
+<td><a href="vsstrt.htm">VSSTRT</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vertical sync start (VARVSY)</td>
+</tr>
+<tr>
+<td>DFF1E2</td>
+<td><a href="hcenter.htm">HCENTER</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Horizontal position for Vsync on interlace</td>
+</tr>
+<tr>
+<td>DFF1E4</td>
+<td><a href="diwhigh.htm">DIWHIGH</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>Display window - upper bits for start/stop</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF1E6</td>
+<td><a href="bplhmod.htm">BPLHMOD</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Chunky plane modulo</td>
+</tr>
+<tr>
+<td>DFF1E8</td>
+<td><a href="sprhpth.htm">SPRHPTH</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>UHRES sprite pointer (high 5 bits)</td>
+</tr>
+<tr>
+<td>DFF1EA</td>
+<td><a href="sprhpth.htm">SPRHPTL</a></td>
+<td>W</td>
+<td></td> <td>*</td> <td>*</td> <td>*</td>
+<td>UHRES sprite pointer (low 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF1EC</td>
+<td><a href="bplhpth.htm">BPLHPTH</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Chunky plane pointer (hi 15 bits)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF1EE</td>
+<td><a href="bplhpth.htm">BPLHPTL</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Chunky plane pointer (lo 15 bits)</td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFF1F4</td>
+<td><a href="gfxmode.htm">GFXMODE</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Set Resolution and Pixformat</td>
+</tr>
+
+<tr>
+<td>DFF1FC</td>
+<td><a href="fmode.htm">FMODE</a></td>
+<td>W</td>
+<td></td> <td></td> <td>*</td> <td>*</td>
+<td>Fetch mode register</td>
+</tr>
+
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr>
+<th>Address</th>
+<th>Name</th>
+<th>Access</th>
+<th>OCS</th> <th>ECS</th> <th>AGA</th> <th>SAGA</th>
+<th>Description</th>
+</tr>
+
+
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF202</td>
+<td><a href="dmacon2.htm">DMACON2 Read</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>DFF20A</td>
+<td><a href="joy0dat.htm">JOY0DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vanilla DB9 Joystick-mouse 0 data (vert, horiz)</td>
+</tr>
+<tr>
+<td>DFF20C</td>
+<td><a href="joy0dat.htm">JOY1DAT</a></td>
+<td>R</td>
+<td>*</td> <td>*</td> <td>*</td> <td>*</td>
+<td>Vaniall DB9 Joystick-mouse 1 data (vert, horiz)</td>
+</tr>
+
+<tr bgcolor="#FFFFCC">
+<td>DFF212</td>
+<td><a href="mousewheel.htm">Mouse Wheel</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Mouse Wheel read register</td>
+</tr>
+
+<tr bgcolor="#FFFFCC">
+<td>DFF21c</td>
+<td><a href="intena2.htm">INTENA2 Read</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#FFFFCC">
+<td>DFF21E</td>
+<td><a href="intreq2.htm">INTREQ2 Read</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF220</td>
+<td><a href="joybuttons.htm">joy0buttons</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit USB Joy Buttons  (0)=active</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF222</td>
+<td><a href="joybuttons.htm">joy1buttons</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit USB Joy Buttons  (0)=active</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF224</td>
+<td><a href="joybuttons.htm">joy2buttons</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit USB Joy Buttons  (0)=active</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF226</td>
+<td><a href="joybuttons.htm">joy3buttons</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit USB Joy Buttons  (0)=active</td>
+</tr>
+
+
+
+<tr><td colspan=8>&nbsp;</td></tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF230</td>
+<td><a href="clxdatx.htm">clxdat0</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite0 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF232</td>
+<td><a href="clxdatx.htm">clxdat1</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite1 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF234</td>
+<td><a href="clxdatx.htm">clxdat2</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite2 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF236</td>
+<td><a href="clxdatx.htm">clxdat3</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite3 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF238</td>
+<td><a href="clxdatx.htm">clxdat4</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite4 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF23A</td>
+<td><a href="clxdatx.htm">clxdat5</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite5 Detailed Collision</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF23C</td>
+<td><a href="clxdatx.htm">clxdat6</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite6 Detailed Collision</td>
+</tr>
+
+<tr bgcolor="#FFFFCC">
+<td>DFF23E</td>
+<td><a href="clxdatx.htm">clxdat7</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Sprite7 Detailed Collision</td>
+</tr>
+
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+
+<tr bgcolor="#FFCCFF">
+<td>DFF250</td>
+<td>TEXTPT</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 32bit texture source</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF254</td>
+<td>TEXDPT</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 32bit Destination Screen Addr</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF258</td>
+<td>TEXZPT</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D ZBuffer Addr</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF25E</td>
+<td>TEXSTRT</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit LEN and START<br>
+Bit15=0 = Start new job<br>
+Bit15=1 = Continue previous job<br>
+Bit10..0 = length in pixel<br>
+</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF260</td>
+<td>TEXMIP</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit MIP texture size bit(3..0) ($A=1024/9=512/8=256/7=128/6=64/5=32)
+<br>Bit4='1' = AutoMipMapMode  with Bit3-0 define max mip</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF262</td>
+<td>TEXMODE</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit MODE
+<br> (Bit0=use Bilienar) <br>
+(Bit1=use Zbuffer) 
+(Bit2=select 16bit output)<br>
+(Bit3=inhibit Zbuffer write)<br>
+(Bit4=select 24bit output)<br>
+(Bit5=quadratic-mode)<br>
+(Bit7-6= BLENDMode "00" =COPY)
+(Bit7-6= BLENDMode "01" =ADD)
+(Bit7-6= BLENDMode "10" =MUL)
+</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF266</td>
+<td>TEXDMOD</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit signed Destination Step</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF268</td>
+<td>TEXddUUuuuu</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit ddUUuuuu (quadratic)</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF26C</td>
+<td>TEXddVVvvvv</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit ddVVvvvv (quadratic)</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF270</td>
+<td>TEXUUuuuu</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit UUuuuu</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF274</td>
+<td>TEXVVvvvv</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit VVvvvv</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF278</td>
+<td>TEXdUUuuuu</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit dUUuuuu</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF27C</td>
+<td>TEXdVVvvvv</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 24bit dVVvvvv</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF280</td>
+<td>TEXLight</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit Light Ll</td>
+</tr>
+<tr bgcolor="#FFCCFF">
+<td>DFF282</td>
+<td>TEXdLight</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 16bit Light dLl</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF284</td>
+<td>TEXLightcolor</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 32bit Light color</td>
+</tr>
+
+
+<tr bgcolor="#FFCCFF">
+<td>DFF288</td>
+<td>TEXZZzz</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 32bit ZZZZzzzz</td>
+</tr>
+
+<tr bgcolor="#FFCCFF">
+<td>DFF28C</td>
+<td>TEXdZZzz</td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>3D 32bit Delta ZZZZzzzz</td>
+</tr>
+
+
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF296</td>
+<td><a href="dmacon2.htm">DMACON2</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>DMACON2</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF29A</td>
+<td><a href="intena2.htm">INTENA2</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>INTENA2</td>
+</tr>
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF29C</td>
+<td><a href="intreq2.htm">INTREQ2</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>INTREQ2</td>
+</tr>
+
+
+
+
+
+
+
+
+<tr bgcolor="#FFcccc">
+<td>DFF380</td>
+<td><a href="planarcol.htm">PlanarCOLH</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>32bit Planar COLOR Port register</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF382</td>
+<td><a href="planarcol.htm">PlanarCOLL</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>256 Color Register, Format [ID,RR,GG,BB] </td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFF384</td>
+<td><a href="spritecol.htm">SpriteCOLH</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>32bit Sprite COLOR Port register</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF386</td>
+<td><a href="spritecol.htm">SpriteCOLL</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>256 Color Register, Format [ID,RR,GG,BB] </td>
+</tr>
+
+
+
+<tr bgcolor="#FFcccc">
+<td>DFF388</td>
+<td><a href="chunkycol.htm">ChunkyCOLH</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>32bit Chunky COLOR Port register</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF38A</td>
+<td><a href="chunkycol.htm">ChunkyCOLL</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>256 Color Register, Format [ID,RR,GG,BB] </td>
+</tr>
+
+
+
+
+<tr bgcolor="#FFcccc">
+<td>DFF38C</td>
+<td><a href="pipcol.htm">PIPCOLH</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>32bit PIP COLOR Port register</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF38E</td>
+<td><a href="pipcol.htm">PIPCOLL</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>256 Color Register, Format [ID,RR,GG,BB] </td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF390/92</td>
+<td><a href="screenadjust.htm">SCREENMODE ADJUST</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Adjust Y/X for Screenmodes</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFF3A2</td>
+<td><a>Sprite Col1</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Word register RGB (11..0)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3A4</td>
+<td><a>Sprite Col2</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Word register RGB (11..0)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3A6</td>
+<td><a>Sprite Col3</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Word register RGB (11..0)</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFF3D0</td>
+<td><a href="sprhpth">PipXStrt</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>X start</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3D2</td>
+<td><a href="sprhpth">PipYStrt</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Y start</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3D4</td>
+<td><a href="sprhpth">PipXStop</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>X stop</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3D6</td>
+<td><a href="sprhpth">PipYStop</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Y stop</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3D8</td>
+<td><a href="sprhpth">PipPtr</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>32 bit Ptr</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3DC</td>
+<td><a href="sprhpth">PipFormat</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Colorformat (8bit/16bit/15bit/YUV)</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3DE</td>
+<td><a href="sprhpth">PipModulo</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Modulo</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3E0</td>
+<td><a href="sprhpth">PipColorKey</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>ColorKey 1000,RRRR,GGGG,BBBB</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFF3E2</td>
+<td><a href="sprhpth">PipDMARowLen</a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>PipDMARowLen</td>
+</tr>
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF3EA</td>
+<td><a href="">CORE REVISION</td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Reserved</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF3EC</td>
+<td><a href="sagacontrol.htm">SAGA CONTROL REG</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Reserved</td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF3EE</td>
+<td><a href="shiftdown.htm">SCREEN SHIFT</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Reserved</td>
+</tr>
+
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF3F0</td>
+<td><a href="">CHIP ID</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF3F2</td>
+<td><a href="">CHIP ID</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF3F4</td>
+<td><a href="">CHIP ID</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#FFFFCC">
+<td>DFF3F6</td>
+<td><a href="">CHIP ID</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF3F8</td>
+<td><a href="vampversion.htm">SPI WRITE</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Reserved</td>
+</tr>
+
+<tr bgcolor="#FFFFCC">
+<td>DFF3FA</td>
+<td><a href="vampversion.htm">SPI read</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Reserved</td>
+</tr>
+
+
+<tr bgcolor="#FFFFCC">
+<td>DFF3FC</td>
+<td><a href="vampversion.htm">VAMPIRE VERSION</a></td>
+<td>R</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>8bit Card Version / 8bit clock multiplier</td>
+</tr>
+
+
+
+
+<tr><td colspan=8>&nbsp;</td></tr>
+
+<tr>
+<th>Address</th>
+<th>Name</th>
+<th>Access</th>
+<th>OCS</th> <th>ECS</th> <th>AGA</th> <th>SAGA</th>
+<th>Description</th>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF400</td>
+<td><a href="audxl.htm">AUD0L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 0 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF402</td>
+<td><a href="audxl.htm">AUD0L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF404</td>
+<td><a href="audxlen.htm">AUD0LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 0 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF406</td>
+<td><a href="audxlen.htm">AUD0LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF408</td>
+<td><a href="audnvol.htm">AUD0VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF40A</td>
+<td><a href="audxctrl.htm">AUD0CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF40C</td>
+<td><a href="audxper.htm">AUD0PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF410</td>
+<td><a href="audxlch.htm">AUD1L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 1 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF412</td>
+<td><a href="audxlch.htm">AUD1L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF414</td>
+<td><a href="audxlen.htm">AUD1LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 1 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF416</td>
+<td><a href="audxlen.htm">AUD1LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF418</td>
+<td><a href="audnvol.htm">AUD1VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF41A</td>
+<td><a href="audxvol.htm">AUD1CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF41C</td>
+<td><a href="audxdat.htm">AUD1PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF420</td>
+<td><a href="audxlch.htm">AUD2L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 2 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF422</td>
+<td><a href="audxlch.htm">AUD2L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF424</td>
+<td><a href="audxlen.htm">AUD2LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 2 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF426</td>
+<td><a href="audxlen.htm">AUD2LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF428</td>
+<td><a href="audnvol.htm">AUD2VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF42A</td>
+<td><a href="audxvol.htm">AUD2CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF42C</td>
+<td><a href="audxdat.htm">AUD2PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF430</td>
+<td><a href="audxlch.htm">AUD3L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 1 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF432</td>
+<td><a href="audxlch.htm">AUD3L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF434</td>
+<td><a href="audxlen.htm">AUD3LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 3 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF436</td>
+<td><a href="audxlen.htm">AUD3LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF438</td>
+<td><a href="audnvol.htm">AUD3VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF43A</td>
+<td><a href="audxvol.htm">AUD3CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF43C</td>
+<td><a href="audxdat.htm">AUD3PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF440</td>
+<td><a href="audxlch.htm">AUD4L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 4 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF442</td>
+<td><a href="audxlch.htm">AUD4L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF444</td>
+<td><a href="audxlen.htm">AUD4LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 4 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF446</td>
+<td><a href="audxlen.htm">AUD4LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF448</td>
+<td><a href="audnvol.htm">AUD4VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF44A</td>
+<td><a href="audxvol.htm">AUD4CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF44C</td>
+<td><a href="audxdat.htm">AUD4PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF450</td>
+<td><a href="audxlch.htm">AUD5L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 5 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF452</td>
+<td><a href="audxlch.htm">AUD5L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF454</td>
+<td><a href="audxlen.htm">AUD5LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 5 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF456</td>
+<td><a href="audxlen.htm">AUD5LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF458</td>
+<td><a href="audnvol.htm">AUD5VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF45A</td>
+<td><a href="audxvol.htm">AUD5CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF45C</td>
+<td><a href="audxdat.htm">AUD5PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF460</td>
+<td><a href="audxlch.htm">AUD6L </a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 6 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF462</td>
+<td><a href="audxlch.htm">AUD6L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF464</td>
+<td><a href="audxlen.htm">AUD6LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 6 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF466</td>
+<td><a href="audxlen.htm">AUD6LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF468</td>
+<td><a href="audnvol.htm">AUD6VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF46A</td>
+<td><a href="audxvol.htm">AUD6CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF46C</td>
+<td><a href="audxdat.htm">AUD6PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF470</td>
+<td><a href="audxlch.htm">AUD7L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 7 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF472</td>
+<td><a href="audxlch.htm">AUD7L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF474</td>
+<td><a href="audxlen.htm">AUD7LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 7 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF476</td>
+<td><a href="audxlen.htm">AUD7LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF478</td>
+<td><a href="audnvol.htm">AUD7VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF47A</td>
+<td><a href="audxvol.htm">AUD7CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF47C</td>
+<td><a href="audxdat.htm">AUD7PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF480</td>
+<td><a href="audxl.htm">AUD8L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 8 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF482</td>
+<td><a href="audxl.htm">AUD8L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF484</td>
+<td><a href="audxlen.htm">AUD8LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 8 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF486</td>
+<td><a href="audxlen.htm">AUD8LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF488</td>
+<td><a href="audnvol.htm">AUD8VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF48A</td>
+<td><a href="audxctrl.htm">AUD8CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF48C</td>
+<td><a href="audxper.htm">AUD8PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF490</td>
+<td><a href="audxlch.htm">AUD9L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 9 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF492</td>
+<td><a href="audxlch.htm">AUD9L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF494</td>
+<td><a href="audxlen.htm">AUD9LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 9 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF496</td>
+<td><a href="audxlen.htm">AUD9LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF498</td>
+<td><a href="audnvol.htm">AUD9VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF49A</td>
+<td><a href="audxvol.htm">AUD9CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF49C</td>
+<td><a href="audxdat.htm">AUD9PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFFAA0</td>
+<td><a href="audxlch.htm">AUD10L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 10 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4A2</td>
+<td><a href="audxlch.htm">AUD10L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4A4</td>
+<td><a href="audxlen.htm">AUD10LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 10 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4A6</td>
+<td><a href="audxlen.htm">AUD10LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4A8</td>
+<td><a href="audnvol.htm">AUD10VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4AA</td>
+<td><a href="audxvol.htm">AUD10CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4AC</td>
+<td><a href="audxdat.htm">AUD10PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF4B0</td>
+<td><a href="audxlch.htm">AUD11L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 11 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4B2</td>
+<td><a href="audxlch.htm">AUD11L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4B4</td>
+<td><a href="audxlen.htm">AUD11LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 11 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4B6</td>
+<td><a href="audxlen.htm">AUD11LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4B8</td>
+<td><a href="audnvol.htm">AUD11VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4BA</td>
+<td><a href="audxvol.htm">AUD11CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4BC</td>
+<td><a href="audxdat.htm">AUD11PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF4C0</td>
+<td><a href="audxlch.htm">AUD12L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 12 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4C2</td>
+<td><a href="audxlch.htm">AUD12L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4C4</td>
+<td><a href="audxlen.htm">AUD12LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 12 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4C6</td>
+<td><a href="audxlen.htm">AUD12LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4C8</td>
+<td><a href="audnvol.htm">AUD12VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4CA</td>
+<td><a href="audxvol.htm">AUD12CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4C4C</td>
+<td><a href="audxdat.htm">AUD12PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF4D0</td>
+<td><a href="audxlch.htm">AUD13L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 13 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4D2</td>
+<td><a href="audxlch.htm">AUD13L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4D4</td>
+<td><a href="audxlen.htm">AUD13LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 13 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4D6</td>
+<td><a href="audxlen.htm">AUD13LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4D8</td>
+<td><a href="audnvol.htm">AUD13VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4DA</td>
+<td><a href="audxvol.htm">AUD13CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4DC</td>
+<td><a href="audxdat.htm">AUD13PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF4E0</td>
+<td><a href="audxlch.htm">AUD14L </a></td>
+<td>W</td>
+<td></td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 14 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4E2</td>
+<td><a href="audxlch.htm">AUD14L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4E4</td>
+<td><a href="audxlen.htm">AUD14LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 14 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4E6</td>
+<td><a href="audxlen.htm">AUD14LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4E8</td>
+<td><a href="audnvol.htm">AUD14VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4EA</td>
+<td><a href="audxvol.htm">AUD14CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4EC</td>
+<td><a href="audxdat.htm">AUD14PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+
+<tr bgcolor="#ccccFF">
+<td>DFF4F0</td>
+<td><a href="audxlch.htm">AUD15L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 15 location (32bit PTR)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4F2</td>
+<td><a href="audxlch.htm">AUD15L </a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4F4</td>
+<td><a href="audxlen.htm">AUD15LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>Audio channel 15 length (32bit)</td>
+</tr>
+<tr bgcolor="#ccccFF">
+<td>DFF4F6</td>
+<td><a href="audxlen.htm">AUD15LEN</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td></td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4F8</td>
+<td><a href="audnvol.htm">AUD15VOL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>2x8bit VOL (LEFT/RIGHT)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4FA</td>
+<td><a href="audxvol.htm">AUD15CTRL</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16 Control bits 
+2= Stereo
+1= Oneshot
+0= (8bit/16bit)</td>
+</tr>
+
+<tr bgcolor="#ccccFF">
+<td>DFF4FC</td>
+<td><a href="audxdat.htm">AUD15PER</a></td>
+<td>W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>16bit PERIOD</td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td colspan=8>ATARI CHIPSET</td>
+</tr>
+
+
+<tr bgcolor="#FFccFF">
+<td>DF8200</td> <td><a href="SHIFTER_R.htm">SHIFTER COLORS</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>SHIFTER COLORS</td>
+</tr>
+
+
+<tr bgcolor="#FFccFF">
+<td>DF8800</td> <td><a href="YAMAHA_R.htm">YAMAHA_R</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>YAMAHA AUDIO</td>
+</tr>
+
+<tr bgcolor="#FFccFF">
+<td>DF8802</td> <td><a href="YAMAHA_W.htm">YAMAHA_W</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>YAMAHA AUDIO</td>
+</tr>
+
+
+
+
+
+
+<tr bgcolor="#FFcccc">
+<td>DFFA07</td> <td><a href="MFP_IERA.htm">MFP_IERA</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>MFP Timer</td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFFA09</td>
+<td><a href="MFP_IERB.htm">MFP_IERB</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFFA0B</td>
+<td><a href="MFP_IPRA.htm">MFP_IPRA</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFFA0D</td>
+<td><a href="MFP_IPRB.htm">MFP_IPRB</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA0F</td>
+<td><a href="MFP_ISRA.htm">MFP_ISRA</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFFA11</td>
+<td><a href="MFP_ISRB.htm">MFP_ISRB</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA13</td>
+<td><a href="MFP_IMRA.htm">MFP_IMRA</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+<tr bgcolor="#FFcccc">
+<td>DFFA15</td>
+<td><a href="MFP_IMRB.htm">MFP_IMRB</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFFA17</td>
+<td><a href="MFP_VEC.htm">MFP_VEC</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA19</td>
+<td><a href="MFP_TACR.htm">MFP_TACR</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+<tr bgcolor="#FFcccc">
+<td>DFFA1B</td>
+<td><a href="MFP_TBCR.htm">MFP_TBCR</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA1D</td>
+<td><a href="MFP_TCDCR.htm">MFP_TCDCR</a></td>
+<td>R/W</td>
+<td> </td> <td> </td> <td> </td> <td>*</td>
+<td>MFP Timer</td>
+</tr>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFFA1F</td> <td><a href="MFP_TADR.htm">MFP_TADR</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>MFP Timer</td>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA21</td> <td><a href="MFP_TBDR.htm">MFP_TBDR</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>MFP Timer</td>
+
+
+<tr bgcolor="#FFcccc">
+<td>DFFA23</td> <td><a href="MFP_TCDR.htm">MFP_TCDR</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>MFP Timer</td>
+
+<tr bgcolor="#FFcccc">
+<td>DFFA25</td> <td><a href="MFP_TDDR.htm">MFP_TDDR</a></td>
+<td>R/W</td> <td> </td> <td> </td> <td> </td> <td>*</td> <td>MFP Timer</td>
+
+
+</table>
+
+</body>
+</html>
