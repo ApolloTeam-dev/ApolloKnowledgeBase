@@ -20,6 +20,7 @@ sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 5.1 and 5.2"
   - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
   - "Gunnar (core developer), memory controller width, 2026-11-04"
+  - "WDrijver (maintainer), same core on every V4 model, 2026-11-04"
 ---
 
 ## Summary
@@ -75,8 +76,11 @@ The memory controller is 128-bit from Core 12600 and 64-bit on older cores
 - the CPU itself: when it reads and writes at the same time, the write goes
   first;
 - other memory users (Copper, Blitter, Maggie, Arne, HDMI), which can be
-  served before the CPU;
-- the memory controller, which differs between V4 models.
+  served before the CPU.
+
+The memory controller is part of the core, so it is the same on every V4
+model that runs the same core (see
+[hardware/index.md](../../hardware/index.md)).
 
 The 27 cycles above are one case: dependent random reads over 4 MB. When
 you measure a miss, state these conditions.
