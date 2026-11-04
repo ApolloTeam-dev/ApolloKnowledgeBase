@@ -38,6 +38,10 @@ Every one of the 419 rows of the original is marked SAGA, because SAGA contains 
 
 For every other register, the Amiga Hardware Reference Manual applies, with one difference: **on SAGA, all classic pointer registers (BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and reach all RAM** (WDrijver, 2026-11-04). Their pages in the original still say 18 bits. FMODE (`$DFF1FC`) bit 4 "SAGA" enables the SAGA features (original).
 
+### Reading back write-only registers
+
+Every write-only register at `$DFF000`–`$DFF1FF` reads back at the same offset in `$DFE000`–`$DFE1FF` (WDrijver, 2026-11-04). This holds for the classic and the SAGA registers in that range, for example DMACON `$DFF096` at `$DFE096`, GFXMODE `$DFF1F4` at `$DFE1F4` and the pointer position `$DFF1D0` at `$DFE1D0`. The original doesn't mention it.
+
 ### Access codes (original)
 
 | Code | Meaning |
@@ -172,7 +176,7 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 
 1. The Copper form `dc.w $8380,$00FF,$0000` in the colour port pages: how the SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.
 2. "IRQ $48" (Ethernet) and "IRQ $50" (Arne channels 4–15): vector offsets or vector numbers, and at which interrupt level.
-3. Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and `$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back there?
+3. Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read back at `$DFE000`–`$DFE1FF`. Is there a read-back for the write-only registers from `$DFF200` up (Maggie, DMACON2, colour ports, PIP, Arne)?
 
 ## Differences from AmigaOS / AROS / 68060
 

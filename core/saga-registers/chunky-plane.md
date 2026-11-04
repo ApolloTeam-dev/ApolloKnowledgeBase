@@ -99,7 +99,7 @@ Values `$08`–`$0B` are Atari planar formats (ApolloLib names them APOLLO_ATARI
 
 ### Reading the current mode back
 
-The original gives no read address. maggie.library's samples save the current mode and frame pointer from `$DFE1F4` and `$DFE1EC` (SRC, see [maggie-library.md](../../os/libraries/maggie-library.md)). Whether every SAGA register reads back at `$DFExxx` is an open question (see [index.md](index.md)).
+Every write-only register at `$DFF000`–`$DFF1FF` reads back at the same offset in `$DFE000`–`$DFE1FF` (WDrijver, 2026-11-04): GFXMODE at `$DFE1F4`, the chunky pointer at `$DFE1EC`, the modulo at `$DFE1E6`. maggie.library's samples save the mode and frame pointer this way (SRC, see [maggie-library.md](../../os/libraries/maggie-library.md)).
 
 ## Differences from AmigaOS / AROS / 68060
 

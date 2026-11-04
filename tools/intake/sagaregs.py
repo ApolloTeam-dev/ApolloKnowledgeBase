@@ -343,11 +343,11 @@ def chunky_plane(rows):
                 "text says \"UHRES bitplane pointer\"; on SAGA it is the chunky plane: "
                 "the number of bytes skipped after each row (ApolloLib, SRC).", "",
                 "### Reading the current mode back", "",
-                "The original gives no read address. maggie.library's samples save "
-                "the current mode and frame pointer from `$DFE1F4` and `$DFE1EC` "
-                "(SRC, see [maggie-library.md](../../os/libraries/maggie-library.md)). "
-                "Whether every SAGA register reads back at `$DFExxx` is an open "
-                "question (see [index.md](index.md))."]
+                "Every write-only register at `$DFF000`–`$DFF1FF` reads back at the "
+                f"same offset in `$DFE000`–`$DFE1FF` ({WDS}): GFXMODE at `$DFE1F4`, "
+                "the chunky pointer at `$DFE1EC`, the modulo at `$DFE1E6`. "
+                "maggie.library's samples save the mode and frame pointer this way "
+                "(SRC, see [maggie-library.md](../../os/libraries/maggie-library.md))."]
     return doc("chunky-plane.md", "SAGA chunky plane: GFXMODE, pointer and modulo",
                ["saga-video-isabelle"], ["saga", "isabelle", "gfxmode", "chunky", "registers"],
                "The SAGA chunky plane is a linear framebuffer in any RAM. GFXMODE "
@@ -482,7 +482,8 @@ def pointer(rows):
                "position registers are the same for both.", "",
                "### Position (original and SRC)", ""] + reg_table(pos)
     details += ["", "- Write X to `$DFF1D0` and Y to `$DFF1D2`; read them back at "
-                "`$DFE1D0` and `$DFE1D2` (ApolloLib, SRC).",
+                f"`$DFE1D0` and `$DFE1D2`, as every write-only register up to `$DFF1FF` "
+                f"({WDS}; ApolloLib does this, SRC).",
                 "- ApolloLib writes the mouse position + 16 (X) and + 8 (Y) (SRC).", "",
                 "### 32x32 pointer sprite, Core 12500 and later (SRC, not in the original)", "",
                 "From the current ApolloLib and the ApolloPointer example:", "",
@@ -805,9 +806,9 @@ OPEN = [
     "SAGA Copper encodes a 32-bit MOVE and which SAGA registers it reaches.",
     "\"IRQ $48\" (Ethernet) and \"IRQ $50\" (Arne channels 4–15): vector offsets or "
     "vector numbers, and at which interrupt level.",
-    "Read-back at `$DFExxx`: known for `$DFE1D0`/`$DFE1D2` (pointer) and "
-    "`$DFE1F4`/`$DFE1EC` (mode, frame pointer). Does every write register read back "
-    "there?",
+    "Read-back above `$DFF1FF`: write-only registers at `$DFF000`–`$DFF1FF` read "
+    "back at `$DFE000`–`$DFE1FF`. Is there a read-back for the write-only registers "
+    "from `$DFF200` up (Maggie, DMACON2, colour ports, PIP, Arne)?",
 ]
 
 
@@ -857,6 +858,12 @@ def index(rows, keep, applied):
                f"reach all RAM** ({WDS}). Their pages in the "
                "original still say 18 bits. FMODE (`$DFF1FC`) bit 4 \"SAGA\" enables "
                "the SAGA features (original).", "",
+               "### Reading back write-only registers", "",
+               "Every write-only register at `$DFF000`–`$DFF1FF` reads back at the "
+               f"same offset in `$DFE000`–`$DFE1FF` ({WDS}). This holds for the "
+               "classic and the SAGA registers in that range, for example DMACON "
+               "`$DFF096` at `$DFE096`, GFXMODE `$DFF1F4` at `$DFE1F4` and the pointer "
+               "position `$DFF1D0` at `$DFE1D0`. The original doesn't mention it.", "",
                "### Access codes (original)", "",
                "| Code | Meaning |", "|---|---|"]
     details += [f"| {k} | {v} |" for k, v in ACCESS.items()]

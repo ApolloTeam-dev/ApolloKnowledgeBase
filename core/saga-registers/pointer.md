@@ -48,7 +48,7 @@ From Core 12500 the 32x32 sprite replaces the 16x16 pointer (WDrijver, 2026-11-0
 - `$DFF1D0`: on SAGA this is the pointer X position; the original also marks ECS and AGA.
 - `$DFF1D2`: on SAGA this is the pointer Y position; the original also marks ECS and AGA.
 
-- Write X to `$DFF1D0` and Y to `$DFF1D2`; read them back at `$DFE1D0` and `$DFE1D2` (ApolloLib, SRC).
+- Write X to `$DFF1D0` and Y to `$DFF1D2`; read them back at `$DFE1D0` and `$DFE1D2`, as every write-only register up to `$DFF1FF` (WDrijver, 2026-11-04; ApolloLib does this, SRC).
 - ApolloLib writes the mouse position + 16 (X) and + 8 (Y) (SRC).
 
 ### 32x32 pointer sprite, Core 12500 and later (SRC, not in the original)
