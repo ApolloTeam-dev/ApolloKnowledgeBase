@@ -13,6 +13,7 @@ tags: [saga, arne, isabelle, maggie, library, apollolib, maggie-library, registe
 related:
   - core/saga-registers/index.md
   - os/libraries/maggie-library.md
+  - toolchain/apollolib/index.md
   - core/saga-audio-arne/index.md
   - core/saga-video-isabelle/index.md
   - core/saga-3d-maggie/index.md
@@ -41,7 +42,10 @@ For the SAGA chips, prefer the library calls to direct register access
 
 - An official library for Arne and Isabelle is in development. Until it is
   released, ApolloLib is the best choice for library calls to Arne and
-  Isabelle.
+  Isabelle. It is described in
+  [toolchain/apollolib/](../../toolchain/apollolib/index.md); check its
+  [fixed bugs and remaining limits](../../toolchain/pitfalls/apollolib-known-bugs.md)
+  first.
 - maggie.library is described in
   [os/libraries/maggie-library.md](../../os/libraries/maggie-library.md).
   When you need more than that file covers, the author's repository is the
