@@ -4,7 +4,7 @@ type: best-practice
 owner: TuKo1982
 status: draft
 origin: ai-assisted
-basis: [measured, official]
+basis: [core-developer, measured, official]
 components: [cpu-68080]
 applies_to:
   core: "Core 12841"
@@ -16,6 +16,7 @@ related:
   - core/pitfalls/fused-copy-overlap.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rules 12-13), 5.1 and 12"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Goal
@@ -51,5 +52,8 @@ Copy of a 156 x 2464-byte shape (M, Core 12841):
   optimising a blit copy gained only 3–10 %.
 - `move16` is never faster than aligned AMMX or fused quad moves, so it is
   not worth the extra alignment work.
+- Gunnar agrees aligned writes are good, but expects write combining to make
+  misaligned writes work well in many cases (G, 2026-11-03). The 1.7–1.8x
+  above is what this copy measured.
 - Tiny shapes: for rows of 64 bytes or less, plain 68k code wins (see
   [ammx-where-it-wins.md](ammx-where-it-wins.md)).

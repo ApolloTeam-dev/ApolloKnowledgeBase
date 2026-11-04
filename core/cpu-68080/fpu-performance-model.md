@@ -16,6 +16,7 @@ related:
   - core/best-practices/fpu-when-it-pays.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 4.1"
+  - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03)"
 ---
 
 ## Summary
@@ -51,6 +52,9 @@ predicted all 25 measured patterns exactly.
   a floor of 4.0.
 - Gunnar's rule (G): **a pipelined unit showing more than 1 cycle per
   instruction means the schedule is wrong.**
+- Gunnar's rule of thumb (G): expect about 6 cycles latency for fadd and
+  fmul, unroll FPU code to cover it, and use the 32 registers available for
+  FPU work (FP0–FP7 and E0–E23). The measured fmul latency is 5.
 
 ## Differences from AmigaOS / AROS / 68060
 

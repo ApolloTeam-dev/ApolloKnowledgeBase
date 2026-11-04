@@ -17,6 +17,7 @@ related:
   - core/best-practices/use-fusable-pairs.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 2.1-2.4"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Summary
@@ -49,7 +50,8 @@ only starts on the second pass over the code.
 
 - The two instructions are fully independent, or form a fused pair (see
   [prm/instruction-fusing.md](prm/instruction-fusing.md)).
-- Together they fit in one 32-byte fetch.
+- Together they fit in one group of at most 16 bytes (some I-cache variants:
+  18) (G, 2026-11-03). See [execution-units.md](execution-units.md).
 - Together they need at most one data-cache access.
 - Measured pairs with an independent `add.l` (M): `smi`, `extb.l`, `ext.l`,
   `swap`, `asr/lsr #n`, `rol.l`, `move.w`, `move.b`, `eor`, `tst.b`,

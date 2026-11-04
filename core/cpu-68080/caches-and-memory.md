@@ -18,6 +18,7 @@ related:
   - core/pitfalls/touch-misuse.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 5.1 and 5.2"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Summary
@@ -57,7 +58,26 @@ counter, median of 7, two identical runs (M, Core 12841, 2026-10-29):
 - Aliasing: rows exactly 64 KB apart cost about 10 %, and 8 lookups 64 KB
   apart gave 8 misses.
 - Store-to-load forwarding works, but a counter kept in memory with
-  read-modify-write in a loop serialises.
+  read-modify-write in a loop serialises (M). Gunnar expects a loop of
+  `add.l #1,memcounter` + `dbra` to run at about 1 iteration per cycle (G,
+  2026-11-03); a measurement of that loop is still to be done.
+
+### What a miss costs (G, 2026-11-03)
+
+There is no single number. A miss loads a 64-byte burst: the memory
+latency plus the burst cycles, 4 on a 128-bit bus and 8 on a 64-bit bus.
+On top of that it depends on:
+
+- whether the access hits the same row, page or bank as the last one;
+- whether the last access was a read or a write;
+- the CPU itself: when it reads and writes at the same time, the write goes
+  first;
+- other memory users (Copper, Blitter, Maggie, Arne, HDMI), which can be
+  served before the CPU;
+- the memory controller, which differs between V4 models.
+
+The 27 cycles above are one case: dependent random reads over 4 MB. When
+you measure a miss, state these conditions.
 
 ### Alignment
 
@@ -98,4 +118,5 @@ Copy of a 156 x 2464-byte shape (M):
 - DO read memory densely and in address order.
 - DON'T chase pointers over large data, or use big lookup tables read at
   random.
+- DON'T use a table for anything you can compute in 16 cycles or less (G).
 - DON'T keep a loop counter in memory.

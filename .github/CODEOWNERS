@@ -19,6 +19,7 @@
 /core/best-practices/ammx-where-it-wins.md @TuKo1982
 /core/best-practices/close-loops-with-dbra.md @TuKo1982
 /core/best-practices/code-size-and-placement.md @TuKo1982
+/core/best-practices/fewer-and-shorter-instructions.md @WDrijver
 /core/best-practices/fixed-point-and-bitstreams.md @TuKo1982
 /core/best-practices/fpu-schedule-by-completion-slot.md @TuKo1982
 /core/best-practices/fpu-when-it-pays.md @TuKo1982
@@ -31,6 +32,7 @@
 /core/cpu-68080/caches-and-memory.md @TuKo1982
 /core/cpu-68080/core-at-a-glance.md @TuKo1982
 /core/cpu-68080/core-bugs-by-revision.md @TuKo1982
+/core/cpu-68080/execution-units.md @WDrijver
 /core/cpu-68080/fpu-performance-model.md @TuKo1982
 /core/cpu-68080/index.md @WDrijver
 /core/cpu-68080/isa-notes-measured.md @TuKo1982
@@ -132,6 +134,7 @@
 /core/pitfalls/ammx-pc-relative-source.md @TuKo1982
 /core/pitfalls/ammx-upper-32-bits.md @TuKo1982
 /core/pitfalls/bank-prefix-pitfalls.md @TuKo1982
+/core/pitfalls/double-memory-indirect.md @WDrijver
 /core/pitfalls/fpu-47-bit-context-save.md @TuKo1982
 /core/pitfalls/fpu-broken-instructions.md @TuKo1982
 /core/pitfalls/fpu-exceptions-never-trap.md @TuKo1982

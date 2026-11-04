@@ -4,7 +4,7 @@ type: best-practice
 owner: TuKo1982
 status: draft
 origin: ai-assisted
-basis: [measured]
+basis: [core-developer, measured]
 components: [cpu-68080]
 applies_to:
   core: "Core 12841"
@@ -15,6 +15,7 @@ related:
   - core/cpu-68080/pipeline-15-stages.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rule 6) and 11"
+  - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03)"
 ---
 
 ## Goal
@@ -28,6 +29,27 @@ pipe idle.
 Split the work into two independent chains (two blocks, two halves of a
 buffer, two lanes of a hash) and interleave their instructions, so that each
 instruction pairs with one from the other chain.
+
+The same holds within a few lines (G): instructions with different
+destinations can go in parallel; instructions writing the same destination
+form a chain. The exception is a fusing pair: keep the two instructions of a
+supported pair next to each other.
+
+```asm
+; good: three different destinations at each step
+    add.l   d0,d1
+    add.l   d0,d2
+    add.l   d0,d3
+    and.w   #$ff,d1
+    and.w   #$ff,d2
+    and.w   #$ff,d3
+
+; bad: each register's steps back to back
+    add.l   d0,d1
+    and.w   #$ff,d1
+    add.l   d0,d2
+    and.w   #$ff,d2
+```
 
 ```asm
 ; Two independent accumulators instead of one chain

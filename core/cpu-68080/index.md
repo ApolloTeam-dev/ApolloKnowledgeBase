@@ -36,12 +36,13 @@ converted in [prm/](prm/index.md).
 | Cycle counts, benchmark, optimizing | [prm/instruction-timing.md](prm/instruction-timing.md), [prm/instruction-efficiency.md](prm/instruction-efficiency.md), [prm/optimizing.md](prm/optimizing.md) |
 | Caches, bus, trace | [prm/specs.md](prm/specs.md), [prm/trace.md](prm/trace.md) |
 
-### Measured on V4 cores (rank above the PRM when they disagree)
+### From the core developer and measured on V4 cores (rank above the PRM when they disagree)
 
 | Topic | File |
 |---|---|
 | Key numbers: clock, pipes, caches, AttnFlags | [core-at-a-glance.md](core-at-a-glance.md) |
 | The real 15-stage pipeline | [pipeline-15-stages.md](pipeline-15-stages.md) |
+| Execution units (branch path, EA units, ALUs), 16-byte instruction groups | [execution-units.md](execution-units.md) |
 | Second pipe, pairing, learning, fusing measured | [superscalar-issue.md](superscalar-issue.md) |
 | Branch costs, prediction, predication | [branches-and-prediction.md](branches-and-prediction.md) |
 | Cycle costs per instruction | [measured-instruction-costs.md](measured-instruction-costs.md) |

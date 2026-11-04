@@ -19,6 +19,7 @@ related:
   - core/cpu-68080/prm/integer/dbcc-l.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 2.6"
+  - "Gunnar (core developer), answers to questions on the guidelines, 2026-11-03"
 ---
 
 ## Summary
@@ -79,8 +80,9 @@ Measured: 3.0 cycles whatever the pattern, never mispredicted (M).
 ## Differences from AmigaOS / AROS / 68060
 
 - A loop closed with `bne.w` is not accelerated on the 68080. Close loops
-  with `dbra` or a fused `subq.l #1,Dn` + `bne.s`: loop overhead goes from 3
-  cycles to 1 (M). Do not carry over 68060 loop-closing habits unmeasured.
+  with `dbra` (`dbra.l` for a 32-bit counter): loop overhead goes from 3
+  cycles to 1 (M). Gunnar does not recommend `subq.l` + `bne` (G). Do not
+  carry over 68060 loop-closing habits unmeasured.
 - A `bcc.s` over one instruction becoming a conditional instruction is 68080
   specific.
 - The return cache makes RTS cheap only when the return address is not

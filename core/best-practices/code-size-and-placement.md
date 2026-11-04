@@ -17,6 +17,7 @@ related:
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rules 14-15), 5.3 and 12"
   - "Gunnar (core developer), statements on unrolling and padding, 2026-10-29 and 2026-10-30"
+  - "Gunnar (core developer), Simply 68080 coding guidelines, draft (2026-11-03)"
 ---
 
 ## Goal
@@ -29,7 +30,14 @@ evicts other code, and reloading it costs hundreds of cycles.
 - **Don't unroll by default** (G): "DBRA is fast and nearly free." "If you
   can loop 512 times, loop 512 times." "10 lines made into 6 KB = big
   mistake."
+- **Unroll copies only a little** (G): 4 x `move.l (a0)+,(a1)+` (16 bytes) or
+  2 x `move16 (a0)+,(a1)+` (32 bytes) per loop turn, and not much more.
 - **Share code** instead of duplicating variants.
+- **Keep code and data apart** (G). Code and read-only constants may share a
+  4 KB page, in two blocks: 2 KB code, then 2 KB constants is fine. Finely
+  interleaved code and constants (20 bytes of code, 16 bytes of constants,
+  50 bytes of code, ...) is bad. Never put writable data in a code page (see
+  [self-modifying-code-and-caches.md](../pitfalls/self-modifying-code-and-caches.md)).
 - **Keep hot code contiguous.** Link the assembler routine right after the C
   code that calls it, and put cold objects first. Profile builds must keep
   the release link order: use `-fno-toplevel-reorder` and the same object
