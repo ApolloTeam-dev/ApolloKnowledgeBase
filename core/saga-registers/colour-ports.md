@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: draft
 origin: official
-basis: [official, source-code, other]
+basis: [core-developer, official, source-code]
 components: [saga-video-isabelle]
 applies_to:
   core: "Core 12000+"
@@ -15,7 +15,7 @@ related:
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
-  - "BigGun, Apollo chat, 2026-11-04 (relayed by WDrijver)"
+  - "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver)"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -70,10 +70,10 @@ Each port is one 32-bit register (the original lists its high and low word, H an
     dc.w    $8380,$00FF,$0000    ; colour 0 = red (original)
 ```
 
-- The SAGA Copper can do 32-bit moves (BigGun, 2026-11-04).
-- A 32-bit MOVE has the high bit of its first word set (BigGun, 2026-11-04): `$8380` = bit 15 + register `$380`. The two words after it are the 32-bit value, high word first, as in the original's example.
-- It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) first (BigGun, 2026-11-04).
-- Without the SAGA bit, the Copper can write only `$DFF0xx` and `$DFF1xx` (BigGun, 2026-11-04), so it can't reach the colour ports at `$DFF3xx`.
+- The SAGA Copper can do 32-bit moves (G, 2026-11-04).
+- A 32-bit MOVE has the high bit of its first word set (G, 2026-11-04): `$8380` = bit 15 + register `$380`. The two words after it are the 32-bit value, high word first, as in the original's example.
+- It needs SAGA mode: set the SAGA bit in FMODE (`$DFF1FC` bit 4) first (G, 2026-11-04).
+- Without the SAGA bit, the Copper can write only `$DFF0xx` and `$DFF1xx` (G, 2026-11-04), so it can't reach the colour ports at `$DFF3xx`.
 
 A classic Copper MOVE is two words (register, 16-bit value). Read the classic way, `$8380` would be COLOR00 (`$180`), and the third word the start of the next instruction.
 

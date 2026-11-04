@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: draft
 origin: official
-basis: [official, source-code]
+basis: [core-developer, official, source-code]
 components: [saga-video-isabelle, saga-audio-arne, saga-3d-maggie, general]
 applies_to:
   core: "Core 12000+"
@@ -14,6 +14,7 @@ sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)"
   - "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
+  - "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver)"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -36,7 +37,7 @@ The SAGA-specific chipset registers of the Apollo V4, converted from the officia
 
 Every one of the 419 rows of the original is marked SAGA, because SAGA contains the classic chipset. These files cover the 188 SAGA-specific rows: the rows where OCS, ECS and AGA are empty, plus the SAGA addresses that the original also marks as classic.
 
-For every other register, the Amiga Hardware Reference Manual applies, with one difference: **on SAGA, all classic pointer registers (BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and reach all RAM** (WDrijver, 2026-11-04). Their pages in the original still say 18 bits. FMODE (`$DFF1FC`) bit 4 "SAGA" enables the SAGA features (original); among them, it lets the Copper write above `$DFF1FF` and do 32-bit moves (BigGun, 2026-11-04, see [colour-ports.md](colour-ports.md)).
+For every other register, the Amiga Hardware Reference Manual applies, with one difference: **on SAGA, all classic pointer registers (BPLxPT, SPRxPT, COPxLC, BLTxPT, AUDxLC, DSKPT) are 32 bits wide and reach all RAM** (WDrijver, 2026-11-04). Their pages in the original still say 18 bits. FMODE (`$DFF1FC`) bit 4 "SAGA" enables the SAGA features (original); among them, it lets the Copper write above `$DFF1FF` and do 32-bit moves (G, 2026-11-04, see [colour-ports.md](colour-ports.md)).
 
 ### Reading back write-only registers
 

@@ -30,8 +30,8 @@ CORE = "Core 12000+"
 SOURCE_NAME = "SAGA register documentation, sources/official/saga-registers/ (HTML)"
 WD = "WDrijver (maintainer), answers on the SAGA register documentation, 2026-11-04"
 WDS = "WDrijver, 2026-11-04"
-BIGGUN = "BigGun, Apollo chat, 2026-11-04 (relayed by WDrijver)"
-BGS = "BigGun, 2026-11-04"
+BIGGUN = "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver)"
+BGS = "G, 2026-11-04"
 APOLLOLIB = ("ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib "
              "(ApolloCrossDev_Defines.h, ApolloCrossDev_LibC.c), commit 2dfaa5c (2026-09-02)")
 APOLLOLIB_OLD = ("ApolloLib, older copy in ApolloClaude docs/toolchain/_ApolloLib "
@@ -411,7 +411,7 @@ def colour_ports(rows):
                ["DO write the port with one `move.l`.",
                 "DO set FMODE bit 4 (SAGA) before a Copper list writes a colour port.",
                 "DO set bit 15 in the first word of a 32-bit Copper MOVE."],
-               sources=[APOLLOLIB, BIGGUN], basis=["official", "source-code", "other"])
+               sources=[APOLLOLIB, BIGGUN], basis=["core-developer", "official", "source-code"])
 
 
 PIP2 = [("DFF3B0", "PIP2 X start"), ("DFF3B2", "PIP2 Y start"),
@@ -927,7 +927,8 @@ def index(rows, keep, applied):
                 "registers here.",
                 "DON'T use a register listed under the open questions without checking "
                 "it on real hardware."],
-               sources=[APOLLOLIB, WD], basis=["official", "source-code"])
+               sources=[APOLLOLIB, WD, BIGGUN],
+               basis=["core-developer", "official", "source-code"])
 
 
 def build():
