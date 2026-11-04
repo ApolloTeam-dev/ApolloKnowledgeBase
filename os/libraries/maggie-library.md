@@ -12,6 +12,7 @@ applies_to:
 tags: [maggie, 3d, library, textures, dxt1, rendering]
 related:
   - os/pitfalls/maggie-library-side-effects.md
+  - os/libraries/maggie-library-functions.md
   - core/saga-3d-maggie/registers.md
   - core/pitfalls/maggie-depth-test-colour-write.md
   - core/pitfalls/maggie-span-tail.md
@@ -30,9 +31,10 @@ before using it: a call changes your task's FPCR and E registers.
 
 ## Details
 
-Source: <https://github.com/RMortenB/MaggieLibrary>. These notes were read
-against commit `64c78ef` (2026-08-17); the full API is in
-`MaggieLibrary_API.md`. Version tested on a V4: `maggie 4.0 (Sep 9 2026)`,
+Source: <https://github.com/RMortenB/MaggieLibrary>, the golden source.
+These notes were read against commit `64c78ef` (2026-08-17); the full API is
+in `MaggieLibrary_API.md`, and every function with its registers is in
+[maggie-library-functions.md](maggie-library-functions.md). Version tested on a V4: `maggie 4.0 (Sep 9 2026)`,
 AmigaOS 3.9.
 
 ### Linking and building (SRC)
@@ -88,7 +90,9 @@ AmigaOS 3.9.
   the whole transform in any one matrix. The viewport is fixed:
   `* halfres + halfres`. Front faces are clockwise (`MAG_DRAWMODE_CULL_CCW`
   swaps); culling is always on.
-- **Scissor:** `magScissor(x, y, w, h)`, in pixels.
+- **Scissor:** `magScissor(x0, y0, x1, y1)`: two inclusive corners, in
+  pixels. The API document says width and height; the source takes corners
+  (see [maggie-library-functions.md](maggie-library-functions.md)).
 
 ### Draw paths, fastest first
 
