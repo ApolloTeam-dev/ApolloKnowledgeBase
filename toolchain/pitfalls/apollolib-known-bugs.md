@@ -61,6 +61,7 @@ hardware yet.
 | `ApolloPlaySound` | The free-channel search starts at channel 1 |
 | `ApolloPlay`, `ApolloPlayFile` | Subtract 32 sample pairs from the length, without an explanation |
 | `ApolloLoadPicture` | Keeps its file state in `static` variables: not reentrant |
+| `ApolloShowPiP1/2` | Don't load the palette of an 8-bit picture into the PIP colour port. The older ApolloLib did it in `ApolloLoadPicture`, chosen by `picture->pip`; the field is now `target`, and nothing reads it. |
 | `ApolloRelease` | Restores the priority saved by `ApolloTakeOver`; called without it, it sets priority 0 |
 
 ## Wrong

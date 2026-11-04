@@ -52,7 +52,7 @@ Core 12500 and later.
 | `ApolloAllocPicture(pic)` | Allocates an aligned buffer of `width × height × depth / 8` bytes (or `size`) |
 | `ApolloFreePicture(pic)` | `FreeVec` of the buffer |
 | `ApolloShowPicture(pic)` | Picks the GFXMODE from width × height (see below) and depth 8, 15, 16, 24 or 32, loads the chunky palette for depth ≤ 8, writes GFXMODE (`$DFF1F4`), modulo (`$DFF1E6`) and pointer (`$DFF1EC`) |
-| `ApolloShowPiP1(pic)` / `ApolloShowPiP2(pic)` | Writes the PIP's DMA row length (`width × depth / 8`), which switches it on. Set position, pointer, format and modulo first (see [pip.md](../../core/saga-registers/pip.md)). |
+| `ApolloShowPiP1(pic)` / `ApolloShowPiP2(pic)` | Writes the PIP's DMA row length (`width × depth / 8`), which switches it on. Set position, pointer, format and modulo first (see [pip.md](../../core/saga-registers/pip.md)). It doesn't load the palette of an 8-bit picture: write `pic->palette` to the PIP colour port yourself (see [the example](../../examples/saga-pip-overlay-and-chroma-key.md)). |
 | `ApolloHidePiP1()` / `ApolloHidePiP2()` | Writes 0 to the DMA row length: the PIP goes off |
 | `ApolloLoadPointer(ptr, pic)` | Converts a 32x32 BMP (8-bit with palette, or 32-bit ARGB) into pointer sprite data: colour index + transparency byte per pixel and a 256-entry palette |
 | `ApolloShowPointer(ptr)` | Writes the palette (`$DFF3A8` index, `$DFF3AA` colour) and copies the image to `$DFD000` |
@@ -116,6 +116,8 @@ if (ApolloLoadPicture(&pic) == APOLLO_PICTURE_OK) {
 
 - DO set the PIP registers before `ApolloShowPiP1/2`: they only write the
   DMA row length.
+- DO load an 8-bit PIP's palette into its colour port (`$DFF38C` for PIP 1,
+  `$DFF37C` for PIP 2) yourself.
 - DO restore GFXMODE and the chunky pointer before the program exits.
 - DON'T free a picture that is still shown.
 - DON'T use `ApolloShowPicture` for 320-pixel-wide or 8-bit pictures with

@@ -44,6 +44,7 @@ jobs:
     env:
       ACD_DIR: /home/runner/ApolloCrossDev
       PREFIX: /home/runner/ApolloCrossDev/Compilers/GCC-6.50-Dev
+      APOLLOLIB: /home/runner/acd-src/Projects/ApolloLib
     steps:
       - uses: actions/checkout@v4
 
@@ -52,6 +53,16 @@ jobs:
       - name: Find ApolloCrossDev commit
         id: acd
         run: echo "sha=$(git ls-remote https://github.com/WDrijver/ApolloCrossDev refs/heads/main | cut -f1)" >> "$GITHUB_OUTPUT"
+      # Snippets may include ApolloLib's headers: fetch only Projects/ApolloLib
+      # of the same commit (a few hundred KB), also when the toolchain is cached.
+      - name: Fetch ApolloLib
+        run: |
+          git init -q /home/runner/acd-src
+          cd /home/runner/acd-src
+          git sparse-checkout set --no-cone Projects/ApolloLib
+          git fetch -q --depth 1 --filter=blob:none https://github.com/WDrijver/ApolloCrossDev ${{ steps.acd.outputs.sha }}
+          git checkout -q FETCH_HEAD
+          test -f "$APOLLOLIB/ApolloCrossDev_Lib.h"
       - name: Restore ApolloCrossDev
         id: cache
         uses: actions/cache/restore@v4
