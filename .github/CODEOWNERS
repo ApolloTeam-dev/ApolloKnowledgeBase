@@ -176,10 +176,11 @@
 /guides/generators-and-verification.md @TuKo1982
 /guides/writing-cpu-tests.md @TuKo1982
 /hardware/index.md @WDrijver
+/hardware/v4-generic/i2c-header.md @WDrijver
 /hardware/v4-generic/memory.md @TuKo1982
+/hardware/v4-generic/p21-serial-console.md @TuKo1982
 /hardware/v4-generic/p22-secondary-sd-slot.md @TuKo1982
 /hardware/v4-standalone/p20-i2s-audio-header.md @TuKo1982
-/hardware/v4-unicorn/p21-serial-console.md @TuKo1982
 /os/apolloos-and-amigaos-on-v4.md @WDrijver
 /os/apolloos-specific-on-v4.md @WDrijver
 /os/os-takeover.md @WDrijver

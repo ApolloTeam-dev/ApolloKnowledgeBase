@@ -13,7 +13,7 @@ applies_to:
 tags: [hardware, header, spi, sd, storage, p22, sagasd]
 related:
   - hardware/index.md
-  - hardware/v4-unicorn/p21-serial-console.md
+  - hardware/v4-generic/p21-serial-console.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 8.4"
   - "Apollo diagram \"Apollo V4 - Secondary SD-Slot (SPI)\" (as quoted in the guide)"
