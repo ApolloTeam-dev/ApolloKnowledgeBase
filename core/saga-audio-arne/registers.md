@@ -4,7 +4,7 @@ type: reference
 owner: TuKo1982
 status: draft
 origin: ai-assisted
-basis: [measured]
+basis: [core-developer, measured]
 components: [saga-audio-arne]
 applies_to:
   core: "Core 12841"
@@ -16,6 +16,7 @@ related:
   - core/saga-registers/arne-channels.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 1 and 13"
+  - "Gunnar (core developer, BigGun), Apollo chat, 2026-11-04 (relayed by WDrijver): Paula clock, 60 kHz max mode, no minimum rate, HDMI resampling, 44.1 kHz for games"
 ---
 
 ## Summary
@@ -50,9 +51,15 @@ The channel base addresses are in the official register map:
 
 ### Behaviour
 
-- The high-quality rate caps at about 66 kHz: decimate input above 64 kHz.
+- Arne runs in a 60 kHz max mode (G, 2026-11-04): decimate input above
+  that. The guide gave about 66 kHz (decimate above 64 kHz); the core
+  developer's figure is leading. There is no minimum sample rate, and the
+  HDMI audio output resamples down for compatibility with all monitors
+  (G, 2026-11-04).
+- For games, use 44.1 kHz (period 80), the CD standard (G, 2026-11-04).
 - ARNE can DMA from Fast RAM.
-- Periods are based on the PAL colour clock of 3546895 Hz, as on Paula.
+- Periods are based on the PAL colour clock of 3546895 Hz, as on Paula:
+  the period coding is Paula-compatible (G, 2026-11-04).
 
 ## Differences from AmigaOS / AROS / 68060
 
@@ -64,6 +71,7 @@ The channel base addresses are in the official register map:
 ## Do / Don't
 
 - DO keep the period at 65 or higher.
+- DO use 44.1 kHz for game audio (G).
 - DO give LEN in sample pairs, not words.
 - DON'T guess ARNE registers: use the official map in
   `core/saga-registers/`.

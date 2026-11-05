@@ -180,7 +180,6 @@ Wrong or missing page links in the original: the 32-bit Arne rows link to the cl
 ### Open questions
 
 1. "IRQ $48" (Ethernet) and "IRQ $50" (Arne channels 4–15): vector offsets or vector numbers, and at which interrupt level.
-2. Arne maximum rate: the period counts Paula's clock (G), so period 65 is 54.6 kHz. Is 65 the minimum, and where does the "about 66 kHz" in core/saga-audio-arne/registers.md come from?
 
 ## Differences from AmigaOS / AROS / 68060
 

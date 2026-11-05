@@ -674,9 +674,13 @@ def arne_channels(rows):
                 f"clock as Paula ({BGS}), the PAL colour clock of 3546895 Hz. So "
                 "period = 3546895 / sample rate (44.1 kHz gives 80), and period 65 gives "
                 "3546895 / 65 = 54.6 kHz, not the 56 kHz in the original.", "",
-                "Whether Arne accepts periods below 65 is not documented: "
-                "core/saga-audio-arne/registers.md states a rate of about 66 kHz, which "
-                "would need period 54 (see [index.md](index.md))."]
+                "### Sample rate (G, 2026-11-04)", "",
+                f"- Arne runs in a 60 kHz max mode ({BGS}): about 60 kHz is the highest "
+                "rate; that is about period 59 (3546895 / 60000, calculated here).",
+                f"- There is no minimum sample rate ({BGS}).",
+                f"- The HDMI audio output resamples down, for compatibility with all "
+                f"monitors ({BGS}).",
+                f"- For games, use 44.1 kHz (period 80), the CD standard ({BGS})."]
     return doc("arne-channels.md", "SAGA Arne audio channel registers",
                ["saga-audio-arne"], ["saga", "arne", "audio", "registers"],
                "Arne, the SAGA audio unit, has 16 channels of 8- or 16-bit mono or "
@@ -688,7 +692,9 @@ def arne_channels(rows):
                 "`$DFF400`.",
                 "- Classic AUDxLEN counts words; Arne AUDxLEN counts sample pairs and "
                 "is 32 bits."],
-               ["DO keep the period at 65 or higher.",
+               ["DO use 44.1 kHz (period 80) for game audio (G).",
+                "DO keep the period at 65 or higher, as the original says; above about "
+                "60 kHz nothing is gained (G).",
                 "DO give AUDxLEN in sample pairs.",
                 "DO start channels 0–3 with DMACON and channels 4–15 with DMACON2.",
                 "DON'T program channel 0–3 through both register sets at the same time."],
@@ -844,9 +850,6 @@ FILES = [("chunky-plane.md", "Chunky plane: GFXMODE, pointer, modulo"),
 OPEN = [
     "\"IRQ $48\" (Ethernet) and \"IRQ $50\" (Arne channels 4–15): vector offsets or "
     "vector numbers, and at which interrupt level.",
-    "Arne maximum rate: the period counts Paula's clock (G), so period 65 is 54.6 kHz. "
-    "Is 65 the minimum, and where does the \"about 66 kHz\" in "
-    "core/saga-audio-arne/registers.md come from?",
 ]
 
 
