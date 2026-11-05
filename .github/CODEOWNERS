@@ -15,6 +15,7 @@
 /.github/ @WDrijver @TuKo1982
 /.markdownlint.jsonc @WDrijver @TuKo1982
 
+/conventions/text-files-iso-8859-1.md @TuKo1982
 /core/best-practices/align-copy-destination.md @TuKo1982
 /core/best-practices/ammx-where-it-wins.md @TuKo1982
 /core/best-practices/close-loops-with-dbra.md @TuKo1982
@@ -171,7 +172,14 @@
 /core/saga-video-isabelle/index.md @WDrijver
 /examples/saga-pip-overlay-and-chroma-key.md @WDrijver
 /examples/saga-pointer-sprite.md @WDrijver
+/guides/benchmark-method.md @TuKo1982
+/guides/generators-and-verification.md @TuKo1982
+/guides/writing-cpu-tests.md @TuKo1982
 /hardware/index.md @WDrijver
+/hardware/v4-generic/memory.md @TuKo1982
+/hardware/v4-generic/p22-secondary-sd-slot.md @TuKo1982
+/hardware/v4-standalone/p20-i2s-audio-header.md @TuKo1982
+/hardware/v4-unicorn/p21-serial-console.md @TuKo1982
 /os/apolloos-and-amigaos-on-v4.md @WDrijver
 /os/apolloos-specific-on-v4.md @WDrijver
 /os/os-takeover.md @WDrijver

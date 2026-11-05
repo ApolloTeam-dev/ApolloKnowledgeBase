@@ -54,8 +54,17 @@ number, not the model. Put a physical difference in `hardware/`.
 - `hardware/best-practices/` and `hardware/pitfalls/`: as in the other
   pillars.
 
-**No content yet.** If your task depends on board details, tell the user
-that the knowledge base does not cover them yet.
+### Files
+
+| Topic | File | Boards |
+|---|---|---|
+| Memory: Chip, Fast and video RAM | [v4-generic/memory.md](v4-generic/memory.md) | All |
+| P22 secondary SD slot (SPI) | [v4-generic/p22-secondary-sd-slot.md](v4-generic/p22-secondary-sd-slot.md) | SA, UNI, FB, MC (not ICE) |
+| P21 serial console (UART) | [v4-unicorn/p21-serial-console.md](v4-unicorn/p21-serial-console.md) | UNI |
+| P20 I2S audio header | [v4-standalone/p20-i2s-audio-header.md](v4-standalone/p20-i2s-audio-header.md) | SA |
+
+For anything else on the boards, tell the user that the knowledge base does
+not cover it yet.
 
 ## Differences from AmigaOS / AROS / 68060
 
