@@ -60,7 +60,6 @@ number, not the model. Put a physical difference in `hardware/`.
 |---|---|---|
 | Memory: Chip, Fast and video RAM | [v4-generic/memory.md](v4-generic/memory.md) | All |
 | P22 secondary SD slot (SPI) | [v4-generic/p22-secondary-sd-slot.md](v4-generic/p22-secondary-sd-slot.md) | SA, UNI, FB, MC (not ICE) |
-| P21 serial console (UART) | [v4-generic/p21-serial-console.md](v4-generic/p21-serial-console.md) | SA, UNI, FB, MC (not ICE) |
 | P20 I2S audio header (PCM5102A DAC) | [v4-standalone/p20-i2s-audio-header.md](v4-standalone/p20-i2s-audio-header.md) | SA |
 | I2C header (5-pin), for an RTC module | [v4-generic/i2c-header.md](v4-generic/i2c-header.md) | All |
 

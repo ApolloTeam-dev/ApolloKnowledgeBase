@@ -13,17 +13,17 @@ applies_to:
 tags: [hardware, header, spi, sd, storage, p22, sagasd]
 related:
   - hardware/index.md
-  - hardware/v4-generic/p21-serial-console.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 8.4"
   - "Apollo diagram \"Apollo V4 - Secondary SD-Slot (SPI)\" (as quoted in the guide)"
   - "WDrijver (maintainer), 2026-11-04: the V4 IceDrake has no second SPI port"
+  - "WDrijver (maintainer), 2026-11-05: P22 is an SPI header on all V4 boards except the V4 IceDrake"
 ---
 
 ## Summary
 
-Most V4 models have a 10-pin SPI header, **P22**, for a second SD card
-slot: useful when you write or test a storage driver, or need a second
+Every V4 board except the IceDrake has a 10-pin SPI header, **P22**
+(WDrijver, 2026-11-05), for a second SD card slot: useful when you write or test a storage driver, or need a second
 card. The V4 IceDrake doesn't have it.
 
 ## Details
@@ -39,11 +39,11 @@ card. The V4 IceDrake doesn't have it.
 | 9 | MISO | Master in, slave out |
 | 1, 3, 10 | NC | Not connected |
 
-- **Layout:** as P21: even pins 2–10 on top, odd pins 1–9 below, key notch
-  under pin 5.
-- **Boards:** the diagram names the V4 Standalone, Firebird and Manticore.
-  On the UniCorn the slot is factory-fitted. The IceDrake has no second SPI
-  port (WDrijver, 2026-11-04).
+- **Layout:** even pins 2–10 on the top row, odd pins 1–9 on the bottom
+  row, key notch under pin 5.
+- **Boards:** every V4 except the IceDrake (WDrijver, 2026-11-05). The
+  diagram names the V4 Standalone, Firebird and Manticore; on the UniCorn
+  the slot is factory-fitted.
 - **Cable:** at most **10 cm**.
 - **Software:** AmigaOS needs **sagasd.device 2.8 or newer**.
 - **Power:** the VDD pin gives 3.3 V; the diagram itself says "work
