@@ -89,7 +89,7 @@ Afterwards `git status` in the project must not show the submodule as
 changed.
 
 **The ApolloKnowledgeBase-Manager.** At
-https://apolloknowledgebase.com/manager/ the developer signs in with GitHub
+<https://apolloknowledgebase.com/manager/> the developer signs in with GitHub
 and uses "Submit a lesson"; paste the approved text there.
 
 **Issue form.** Open an issue with the "Submit a lesson" form on
