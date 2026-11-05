@@ -24,11 +24,18 @@ is missing, ask; don't guess the target OS, it decides the headers.
 sh <this skill's folder>/scripts/find-acd.sh <project folder>
 ```
 
-It prints `ACD_ROOT`, `PREFIX`, `GCC`, the template and project Makefile
-versions, and `PROBLEM=` lines. Fix every `PROBLEM` before building, with
-the user: a missing toolchain means installing ApolloCrossDev
-(`KB toolchain/index.md`, section Install), a wrong `APOLLOCROSSDEV` means
-correcting it. Act on the `NOTE=` lines too.
+It prints `ACD_ROOT`, `PREFIX`, `GCC`, `BUILT`, the template and project
+Makefile versions, `PROBLEM=`, `NOTE=` and `UPDATE=` lines (`--offline`
+skips the check on GitHub).
+
+- Fix every `PROBLEM` before building, with the user: a missing toolchain
+  means installing ApolloCrossDev (`KB toolchain/index.md`, section
+  Install), a wrong `APOLLOCROSSDEV` means correcting it.
+- Act on the `NOTE=` lines.
+- `UPDATE=` lines don't block the build. Mention them once per session and
+  let the user decide: `UPDATE=checkout` is a quick `git pull` (mind
+  `LOCAL_CHANGES=`), `UPDATE=compiler` a reinstall of about 30 minutes that
+  the user runs.
 
 ## 3. Build
 
@@ -69,7 +76,7 @@ code around a symptom, check whether it is a known trap:
 
 | Symptom | Read in the KB |
 |---|---|
-| Internal compiler error, or wrong code that looks like a compiler bug | `toolchain/compiler-variants.md` (bug table: fixed only in a reinstalled GCC-6.50-Dev), then the pitfall it names |
+| Internal compiler error, or wrong code that looks like a compiler bug | First an `UPDATE=compiler` from step 2: the fix may only need a reinstall. Then `toolchain/compiler-variants.md` (bug table: fixed only in a reinstalled GCC-6.50-Dev) and the pitfall it names |
 | Floats wrong, or link errors about float functions | `toolchain/pitfalls/float-settings-mismatch.md` |
 | `sprintf`, headers or libnix surprises | `toolchain/pitfalls/libnix-and-header-traps.md` |
 | Other GCC oddities | `toolchain/pitfalls/gcc-misc-traps.md` |

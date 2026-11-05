@@ -1,6 +1,6 @@
 ---
 name: apollo-new-project
-description: Set up a new Apollo V4 software project (game, demo, tool, application, library, driver) as its own git repository with ApolloKnowledgeBase as submodule, a filled-in AGENTS.md, the ApolloCrossDev Makefile and a starting program for os-friendly or os-takeover mode that builds without warnings. Use when the user wants to start, create, scaffold or set up a new program or project for the Apollo V4, Vampire V4, 68080 or SAGA, or wants an existing folder of Apollo code prepared for AI-assisted work.
+description: Set up a new Apollo V4 software project (game, demo, tool, application, library, driver) as its own git repository with ApolloKnowledgeBase as submodule, a filled-in AGENTS.md, the ApolloCrossDev Makefile and a starting program for os-friendly or os-takeover mode that builds without warnings. Checks ApolloCrossDev first and offers updates. Use when the user wants to start, create, scaffold or set up a new program or project for the Apollo V4, Vampire V4, 68080 or SAGA, or wants an existing folder of Apollo code prepared for AI-assisted work.
 ---
 
 # apollo-new-project
@@ -33,20 +33,26 @@ answers to the first five.
 8. **ApolloLib** for SAGA sound, pictures, PIP, pointer and input [yes]. See
    `KB core/best-practices/prefer-library-calls-for-saga-chips.md`.
 
-## 2. Check the toolchain
+## 2. Check the toolchain, offer updates
 
-Run the apollo-build skill's check:
-`sh <skills folder>/apollo-build/scripts/find-acd.sh`. The project needs:
+Before creating anything, run the apollo-build skill's check:
+`sh <skills folder>/apollo-build/scripts/find-acd.sh`. Then tell the user
+what you found and let them choose:
 
-- GCC-6.50-Dev installed (no `PROBLEM=` lines);
-- Makefile template v1.2 or later (`TEMPLATE=`), which builds projects
-  outside ApolloCrossDev and has `make compile`. Older: ask the user to
-  update ApolloCrossDev (`git pull` in its folder);
-- `APOLLOCROSSDEV` set, because the project lives outside
-  `ApolloCrossDev/Projects/`. If the script notes it is unset, ask the user
-  to add `export APOLLOCROSSDEV="<ACD_ROOT>"` to `~/.zshrc` (macOS) or
-  `~/.bashrc` (Linux), next to `AMIGAHOST`. For this session, pass it on the
-  command line: `APOLLOCROSSDEV=<ACD_ROOT> make compile`.
+| Finding | Offer |
+|---|---|
+| `PROBLEM=` ApolloCrossDev not found or incomplete | Install it first (`KB toolchain/index.md`, section Install; needs `sudo`, about 30 minutes). Stop until it is done. |
+| `UPDATE=checkout` | `git pull` in the ApolloCrossDev folder: quick, brings new Makefile templates, ApolloLib and scripts. If `LOCAL_CHANGES=` is reported, the user decides about those first. Run the pull only with their consent. |
+| `UPDATE=compiler` | Reinstall GCC-6.50-Dev (the command is in the line; needs `sudo`, about 30 minutes; the user runs it). Say what the newer build changes: the bug table in `KB toolchain/compiler-variants.md`. The user may also continue now and reinstall later. |
+| `TEMPLATE=` older than v1.2 | `git pull` is required: the project needs `make compile` and builds outside ApolloCrossDev. |
+| `UPDATES=none` | Nothing to offer; say the toolchain is up to date. |
+
+Run the check again after an update. The project also needs
+`APOLLOCROSSDEV`, because it lives outside `ApolloCrossDev/Projects/`. If
+the check notes it is unset, ask the user to add
+`export APOLLOCROSSDEV="<ACD_ROOT>"` to `~/.zshrc` (macOS) or `~/.bashrc`
+(Linux), next to `AMIGAHOST`. For this session, pass it on the command
+line: `APOLLOCROSSDEV=<ACD_ROOT> make compile`.
 
 ## 3. Create the repository
 
