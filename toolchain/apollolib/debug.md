@@ -2,7 +2,7 @@
 title: ApolloLib serial debug output
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain]

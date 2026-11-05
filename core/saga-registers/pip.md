@@ -2,7 +2,7 @@
 title: "SAGA picture in picture (PIP 1 and PIP 2)"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official, source-code]
 components: [saga-video-isabelle]

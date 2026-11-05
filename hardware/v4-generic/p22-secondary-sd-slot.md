@@ -2,7 +2,7 @@
 title: P22 secondary SD slot header (SPI)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [official]
 components: [hardware]

@@ -2,7 +2,7 @@
 title: Mixed float settings and hidden soft-float break programs and libraries
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [toolchain]

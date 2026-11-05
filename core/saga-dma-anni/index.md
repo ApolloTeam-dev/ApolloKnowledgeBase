@@ -2,7 +2,7 @@
 title: SAGA DMA (Anni) overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [saga-dma-anni]
 applies_to:

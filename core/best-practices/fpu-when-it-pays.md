@@ -2,7 +2,7 @@
 title: Use the FPU when results stay floating point
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080]

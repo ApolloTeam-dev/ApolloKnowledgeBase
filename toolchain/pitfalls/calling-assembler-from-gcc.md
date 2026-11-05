@@ -2,7 +2,7 @@
 title: Calling assembler from GCC (registers, movem order, FPU ABI)
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [toolchain, cpu-68080]

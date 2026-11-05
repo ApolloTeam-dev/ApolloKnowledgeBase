@@ -2,7 +2,7 @@
 title: Read memory densely and in order; keep random-access data small
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080]

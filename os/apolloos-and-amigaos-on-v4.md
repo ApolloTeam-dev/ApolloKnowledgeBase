@@ -2,7 +2,7 @@
 title: Running on Apollo V4 under ApolloOS and AmigaOS
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [general]
 applies_to:

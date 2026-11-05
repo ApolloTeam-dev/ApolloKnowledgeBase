@@ -2,7 +2,7 @@
 title: GCC 6.5 16-bit loop counter in an address register runs away
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [toolchain]

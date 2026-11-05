@@ -2,7 +2,7 @@
 title: Multiply, bfffo and FP-to-integer block both pipes
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080]

@@ -2,7 +2,7 @@
 title: "SAGA hardware sprite pointer"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official, source-code]
 components: [saga-video-isabelle]

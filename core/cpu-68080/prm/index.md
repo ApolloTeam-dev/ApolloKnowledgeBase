@@ -2,7 +2,7 @@
 title: "Apollo 68080 Programmer's Reference Manual"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

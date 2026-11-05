@@ -2,7 +2,7 @@
 title: "DBcc: Test, Decrement & Branch Conditional"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

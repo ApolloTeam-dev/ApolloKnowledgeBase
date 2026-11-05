@@ -2,7 +2,7 @@
 title: "BSR: Branch to Sub Routine"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

@@ -2,7 +2,7 @@
 title: A branch that alternates every iteration is always mispredicted
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080]

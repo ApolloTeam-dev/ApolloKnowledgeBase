@@ -2,7 +2,7 @@
 title: FPU instructions that give wrong results on Core 12841
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080]

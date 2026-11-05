@@ -2,7 +2,7 @@
 title: vasm 68080 encodings that are wrong or missing
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [toolchain, cpu-68080]

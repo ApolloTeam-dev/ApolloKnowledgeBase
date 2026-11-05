@@ -2,7 +2,7 @@
 title: Write fusable instruction pairs back to back
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080]

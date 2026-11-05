@@ -2,7 +2,7 @@
 title: The ALU-to-EA bubble
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, official]
 components: [cpu-68080]

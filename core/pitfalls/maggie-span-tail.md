@@ -2,7 +2,7 @@
 title: The last 8 bytes of a Maggie span stay in the unit
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [saga-3d-maggie]

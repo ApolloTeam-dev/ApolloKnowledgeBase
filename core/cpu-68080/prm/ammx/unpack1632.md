@@ -2,7 +2,7 @@
 title: "UNPACK1632: Unpack 16 bit color to 32 bit color"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

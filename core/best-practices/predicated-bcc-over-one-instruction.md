@@ -2,7 +2,7 @@
 title: Use bcc.s over one instruction as a conditional instruction
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080]

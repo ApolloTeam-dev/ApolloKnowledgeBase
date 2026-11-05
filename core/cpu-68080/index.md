@@ -2,7 +2,7 @@
 title: 68080 CPU overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [cpu-68080]
 applies_to:

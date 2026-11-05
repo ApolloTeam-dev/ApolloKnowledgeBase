@@ -2,7 +2,7 @@
 title: I2C header (5-pin) for I2C chips such as an RTC
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [other]
 components: [hardware]

@@ -2,7 +2,7 @@
 title: maggie.library (Maggie 3D on AmigaOS)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [libraries, saga-3d-maggie]

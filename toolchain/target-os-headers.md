@@ -2,7 +2,7 @@
 title: NDK headers per target OS
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [toolchain]
 applies_to:

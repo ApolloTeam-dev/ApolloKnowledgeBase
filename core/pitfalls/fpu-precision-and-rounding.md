@@ -2,7 +2,7 @@
 title: 68080 FPU precision and rounding differ from the 6888x
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, official]
 components: [cpu-68080]

@@ -2,7 +2,7 @@
 title: vasm assembler options
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [toolchain, cpu-68080]
 applies_to:

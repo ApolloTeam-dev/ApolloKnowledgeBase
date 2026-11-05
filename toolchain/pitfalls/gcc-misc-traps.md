@@ -2,7 +2,7 @@
 title: Smaller GCC 6.5 traps (-mtune=68060, NULL writes, -O3)
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [toolchain]

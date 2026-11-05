@@ -2,7 +2,7 @@
 title: 68080 core bugs by core revision
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080, saga-3d-maggie]

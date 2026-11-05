@@ -2,7 +2,7 @@
 title: "SAGA display control, screen shift and screen mode adjust"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [saga-video-isabelle]

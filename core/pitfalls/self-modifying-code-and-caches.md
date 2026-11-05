@@ -2,7 +2,7 @@
 title: CacheClearU does nothing; writes near code are slow
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080]

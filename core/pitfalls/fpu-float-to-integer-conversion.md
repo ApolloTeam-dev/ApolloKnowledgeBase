@@ -2,7 +2,7 @@
 title: FP-to-integer conversion rounds wrongly except in RZ mode
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080]

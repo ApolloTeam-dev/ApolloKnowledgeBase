@@ -2,7 +2,7 @@
 title: "SAGA Arne audio channel registers"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [core-developer, official, source-code]
 components: [saga-audio-arne]

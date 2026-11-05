@@ -2,7 +2,7 @@
 title: Keep code small and hot code together; don't unroll by default
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080, toolchain]

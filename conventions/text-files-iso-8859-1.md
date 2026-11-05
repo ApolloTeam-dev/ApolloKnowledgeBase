@@ -2,7 +2,7 @@
 title: Text files for the Amiga are ISO-8859-1, not UTF-8
 type: convention
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [other]
 components: [general]

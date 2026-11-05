@@ -2,7 +2,7 @@
 title: Schedule FPU code by completion slot
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080]

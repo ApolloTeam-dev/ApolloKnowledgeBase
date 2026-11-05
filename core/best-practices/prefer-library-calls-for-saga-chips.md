@@ -2,7 +2,7 @@
 title: Prefer library calls over direct SAGA register access
 type: best-practice
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [other]
 components: [saga-audio-arne, saga-video-isabelle, saga-3d-maggie]

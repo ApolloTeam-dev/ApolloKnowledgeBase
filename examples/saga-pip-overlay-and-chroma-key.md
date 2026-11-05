@@ -2,7 +2,7 @@
 title: SAGA PIP in overlay and chroma-key mode (from the ApolloPiP example)
 type: example
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [saga-video-isabelle, toolchain]

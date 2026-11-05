@@ -2,7 +2,7 @@
 title: ApolloLib input functions (mouse, USB joypad, keyboard)
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, general]

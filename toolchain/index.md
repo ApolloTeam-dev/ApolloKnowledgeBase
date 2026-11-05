@@ -2,7 +2,7 @@
 title: ApolloCrossDev toolchain overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [toolchain]
 applies_to:

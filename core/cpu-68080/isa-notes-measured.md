@@ -2,7 +2,7 @@
 title: 68080 ISA notes beyond the PRM (measured)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, official]
 components: [cpu-68080]

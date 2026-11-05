@@ -2,7 +2,7 @@
 title: ApolloLib bugs fixed in 2026-11 and the limits that remain
 type: pitfall
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, saga-audio-arne, saga-video-isabelle]

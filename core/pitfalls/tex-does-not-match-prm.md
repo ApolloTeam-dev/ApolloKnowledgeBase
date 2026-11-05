@@ -2,7 +2,7 @@
 title: TEX does not match the PRM
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080]

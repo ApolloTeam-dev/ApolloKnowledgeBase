@@ -2,7 +2,7 @@
 title: "MOVEX: Move convert source to destination"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

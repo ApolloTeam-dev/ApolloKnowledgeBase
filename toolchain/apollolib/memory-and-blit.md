@@ -2,7 +2,7 @@
 title: ApolloLib memory, endian and blit routines
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, cpu-68080]

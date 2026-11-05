@@ -2,7 +2,7 @@
 title: Use fewer instructions, then shorter encodings
 type: best-practice
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer]
 components: [cpu-68080]

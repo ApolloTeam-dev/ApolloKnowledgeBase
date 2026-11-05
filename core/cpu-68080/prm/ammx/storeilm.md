@@ -2,7 +2,7 @@
 title: "STOREILM: Store Inverted Long masked register into memory"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

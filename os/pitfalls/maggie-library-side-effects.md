@@ -2,7 +2,7 @@
 title: What a maggie.library call does to your task
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, source-code]
 components: [libraries, saga-3d-maggie, cpu-68080]
