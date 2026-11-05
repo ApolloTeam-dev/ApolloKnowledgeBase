@@ -99,6 +99,7 @@ you read.
 | Build problems, compiler flags, optimization settings | `toolchain/`, `toolchain/best-practices/`, `toolchain/pitfalls/` |
 | A task with a matching how-to | `guides/` |
 | Looking for working code to start from | `examples/` |
+| Starting a project, building, writing a lesson | the matching skill, section 9 |
 
 Follow `related:` links in a file's frontmatter when they are relevant to the
 task.
@@ -166,8 +167,9 @@ workaround in the knowledge base.
 
 - Apply the relevant best practices and avoid all relevant pitfalls of each
   pillar.
-- Build with ApolloCrossDev as described in `toolchain/`, and fix all errors
-  and warnings before presenting code.
+- Build with ApolloCrossDev as described in `toolchain/` (step by step: the
+  apollo-build skill, section 9), and fix all errors and warnings before
+  presenting code.
 - In pull request descriptions, list the knowledge base files you relied on.
   This shows reviewers where wrong code came from if the knowledge base itself
   was wrong.
@@ -210,3 +212,31 @@ Then:
    submodule), on a branch `lesson/YYYY-MM-project-name`; otherwise give the
    developer the text for the "Submit a lesson" issue form.
 4. Return the submodule to the commit the project uses afterwards.
+
+The akb-lesson skill (section 9) has these steps in detail.
+
+---
+
+## 9. Skills: step-by-step procedures
+
+`skills/` holds procedures for recurring tasks, in the open Agent Skills
+format: one folder per skill with a `SKILL.md`. Each one points to the
+knowledge base files it needs instead of repeating them.
+
+| Skill | Use it when |
+|---|---|
+| `skills/apollo-new-project/` | the user starts a new Apollo V4 project, or wants a folder of Apollo code set up for AI-assisted work |
+| `skills/apollo-build/` | Apollo V4 code is compiled, linked or assembled, flags come up, a build fails, or before presenting code |
+| `skills/akb-lesson/` | a project, release or milestone is done, the user asks for a summary, or an assumption from section 2 turned out wrong |
+
+If your agent loads skills by itself (Claude Code with the `akb` plugin,
+or an agent whose skills folder links to this `skills/` folder), it picks
+them up from their descriptions. If it doesn't, read
+`skills/<name>/SKILL.md` when the task matches the table above, and follow
+it. Paths in a SKILL.md are relative to its own folder or, when marked
+`KB`, to the knowledge base root.
+
+Claude Code users install the skills once with
+`/plugin marketplace add ApolloTeam-dev/ApolloKnowledgeBase` and
+`/plugin install akb@apolloknowledgebase`; they are then called as
+`/akb:apollo-build` and so on.

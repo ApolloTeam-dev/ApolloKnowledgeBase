@@ -1,0 +1,15 @@
+{
+  "name": "apolloknowledgebase",
+  "description": "ApolloKnowledgeBase: knowledge and skills for software development on the Apollo V4 (68080, SAGA, ApolloOS and AmigaOS, ApolloCrossDev).",
+  "owner": {
+    "name": "Apollo Team",
+    "url": "https://github.com/ApolloTeam-dev"
+  },
+  "plugins": [
+    {
+      "name": "akb",
+      "source": "./",
+      "description": "Skills for Apollo V4 development: apollo-new-project, apollo-build, akb-lesson. They read ApolloKnowledgeBase, which comes with the plugin."
+    }
+  ]
+}

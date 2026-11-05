@@ -422,3 +422,33 @@ on, the files are edited like any other file.
 - Differences from the 68000/68060 or AmigaOS called out explicitly.
 - Anything that did not convert cleanly is listed in the PR, not silently
   dropped.
+
+---
+
+## 12. Skills
+
+`skills/` holds the AI agent skills: procedures for recurring tasks, such as
+starting a project or building it. A skill tells an agent *how* to do a
+task; the knowledge (*what* is true) stays in the content folders, and the
+skill points to it.
+
+- **Format:** the open Agent Skills format. One folder per skill,
+  `skills/<name>/SKILL.md`, with frontmatter `name` (equal to the folder
+  name: lowercase letters, digits and single hyphens) and `description`
+  (what the skill does and when to use it, at most 1024 characters). No
+  other frontmatter fields, so every agent can read it.
+- **Description:** the agent decides from it alone whether to use the skill.
+  Name the tasks and the words developers use, and say "even when it looks
+  like ordinary m68k or Amiga work" where AGENTS.md section 2 applies.
+- **Body:** at most 500 lines. Point to knowledge base files as
+  `KB <path>`; don't copy their content. Files of the skill itself
+  (`scripts/`, `assets/`) are referenced relative to its folder.
+- **Scripts:** POSIX `sh`, no Claude-specific variables. Code in `assets/`
+  must build with ApolloCrossDev without warnings.
+- **New skills** are listed in AGENTS.md section 9 in the same pull request.
+- Claude Code installs `skills/` as the plugin `akb` (`.claude-plugin/`);
+  other agents read it through AGENTS.md section 9.
+
+CI runs `tools/check_skills.py` on every pull request: frontmatter, name,
+description length, body length, and that every `KB <path>` and file of
+the skill exists.
