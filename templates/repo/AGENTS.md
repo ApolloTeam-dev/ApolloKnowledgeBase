@@ -18,7 +18,7 @@ without it.
 
 - **What it is:** <one or two sentences, e.g. "the ApolloOS kernel and core
   libraries" or "a 2D platform game">
-- **Kind:** <OS component | application | tool | game | library>
+- **Kind:** <game | demo | tool | application | library | device | datatype>
 - **Target core:** <e.g. Core 12841+>
 - **Target model:** <any V4 model | one or more: V4 Standalone (SA), V4 UniCorn (UNI, A6000), V4 IceDrake (ICE), V4 Manticore (MC), V4 Firebird (FB)>
 - **Target OS:** <one or more: ApolloOS R10, AmigaOS 3.9, AmigaOS 3.2>
