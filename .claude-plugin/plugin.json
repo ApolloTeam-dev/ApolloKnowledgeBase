@@ -1,0 +1,11 @@
+{
+  "name": "akb",
+  "description": "Skills for Apollo V4 development with ApolloKnowledgeBase: apollo-new-project, apollo-build, akb-lesson.",
+  "author": {
+    "name": "Apollo Team",
+    "url": "https://github.com/ApolloTeam-dev"
+  },
+  "homepage": "https://apolloknowledgebase.com",
+  "repository": "https://github.com/ApolloTeam-dev/ApolloKnowledgeBase",
+  "keywords": ["apollo", "vampire", "68080", "saga", "amiga", "apolloos"]
+}

@@ -35,10 +35,13 @@ are released, ApolloLib is the preferred way to use them (see
 ### Using it in a project
 
 ApolloLib is not a link library: a project compiles its sources. The
-example Makefiles (ApolloPointer, ApolloPiP) set
-`APOLLOLIB = $(PWD)/../../Projects/ApolloLib`, add `-I$(APOLLOLIB)`,
-and compile every `.c` and `.s` file there into the program (see
-[project-makefile.md](../project-makefile.md)).
+Makefile template (v1.2 and later) sets
+`APOLLOLIB = $(ACD_ROOT)/Projects/ApolloLib`, adds `-I$(APOLLOLIB)`, and
+compiles every `.c` and `.s` file there with the project's flags into the
+project's `.apollolib/` folder, also for projects outside ApolloCrossDev
+(see [project-makefile.md](../project-makefile.md)). The example Makefiles
+(ApolloPointer, ApolloPiP) do the same with `$(PWD)/../../Projects/ApolloLib`,
+which works only inside `Projects/`.
 
 ```c
 #include "ApolloCrossDev_Lib.h"   /* includes _Defines.h and _Debug.h */

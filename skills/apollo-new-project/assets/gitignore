@@ -1,0 +1,5 @@
+# ApolloCrossDev build output
+*.o
+.apollolib/
+*.info
+*_Debug
