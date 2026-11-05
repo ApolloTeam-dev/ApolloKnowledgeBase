@@ -1,16 +1,25 @@
 #!/bin/sh
 # find-acd.sh - find ApolloCrossDev and check that it can build.
 #
-# Usage: sh find-acd.sh [project folder]
-# Prints KEY=value lines (ACD_ROOT, PREFIX, GCC, TEMPLATE, MAKEFILE) and
-# exits 0 when the GCC-6.50-Dev toolchain is complete; otherwise prints
+# Usage: sh find-acd.sh [--offline] [project folder]
+# Prints KEY=value lines (ACD_ROOT, PREFIX, GCC, BUILT, TEMPLATE, MAKEFILE)
+# and exits 0 when the GCC-6.50-Dev toolchain is complete; otherwise prints
 # PROBLEM= lines and exits 1.
+#
+# Updates (skipped with --offline or without network), as UPDATE= lines:
+#   UPDATE=checkout ...   the ApolloCrossDev checkout is behind GitHub:
+#                         git pull (quick; LOCAL_CHANGES= warns first)
+#   UPDATE=compiler ...   GCC-6.50-Dev was built before its install script
+#                         or the patches last changed on GitHub: reinstall
+#   UPDATES=none          up to date
 #
 # Where it looks for ApolloCrossDev, in this order:
 #   1. $APOLLOCROSSDEV
 #   2. two folders above the project (the project is in ApolloCrossDev/Projects/)
 #   3. $HOME/ApolloCrossDev
 
+offline=0
+[ "$1" = "--offline" ] && { offline=1; shift; }
 project=${1:-.}
 problems=0
 problem() { echo "PROBLEM=$1"; problems=1; }
@@ -37,6 +46,14 @@ for b in m68k-amigaos-gcc m68k-amigaos-g++ vasmm68k_mot; do
 done
 [ -x "$prefix/bin/m68k-amigaos-gcc" ] && echo "GCC=$("$prefix/bin/m68k-amigaos-gcc" --version | head -n 1)"
 
+# when the compiler was built (UTC), from the gcc binary's file time
+built=""
+if [ -f "$prefix/bin/m68k-amigaos-gcc" ]; then
+    t=$(stat -f %m "$prefix/bin/m68k-amigaos-gcc" 2>/dev/null || stat -c %Y "$prefix/bin/m68k-amigaos-gcc" 2>/dev/null)
+    built=$(date -u -r "$t" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d "@$t" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)
+    [ -n "$built" ] && echo "BUILT=$built"
+fi
+
 template="$root/Projects/_makefiles/Makefile"
 if [ -f "$template" ]; then
     echo "TEMPLATE=$(sed -n 's/^# ApolloCrossDev Makefile Template //p' "$template" | head -n 1)"
@@ -48,6 +65,39 @@ fi
 if [ -f "$project/Makefile" ]; then
     echo "MAKEFILE=$(sed -n 's/^# ApolloCrossDev Makefile Template //p' "$project/Makefile" | head -n 1)"
     grep -q '^compile:' "$project/Makefile" || echo "NOTE=the project Makefile has no 'make compile' target; build with: make cleanbefore build"
+fi
+
+# updates on GitHub
+if [ $offline = 0 ]; then
+    updates=0
+    if git -C "$root" rev-parse HEAD >/dev/null 2>&1; then
+        here=$(git -C "$root" rev-parse HEAD)
+        there=$(git -C "$root" ls-remote origin refs/heads/main 2>/dev/null | cut -f1)
+        if [ -z "$there" ]; then
+            echo "NOTE=could not reach GitHub to check for ApolloCrossDev updates"
+        elif [ "$here" != "$there" ] && ! git -C "$root" merge-base --is-ancestor "$there" "$here" 2>/dev/null; then
+            echo "UPDATE=checkout: local ${here%"${here#???????}"}, GitHub ${there%"${there#???????}"}; update with: git -C $root pull"
+            updates=1
+            changed=$(git -C "$root" status --porcelain --untracked-files=no | wc -l | tr -d ' ')
+            [ "$changed" != 0 ] && echo "LOCAL_CHANGES=$changed tracked files changed in $root; commit or stash them before git pull"
+        fi
+    fi
+    if [ -n "$built" ]; then
+        case $(uname) in Darwin) script=GCC-6.50-Dev-MacOS.sh ;; *) script=GCC-6.50-Dev-Linux.sh ;; esac
+        for path in "$script" Compilers/_archives/patches; do
+            json=$(curl -s -m 8 "https://api.github.com/repos/WDrijver/ApolloCrossDev/commits?path=$path&per_page=1" 2>/dev/null)
+            when=$(printf '%s' "$json" | sed -n 's/.*"date": *"\([^"]*\)".*/\1/p' | head -n 1)
+            what=$(printf '%s' "$json" | sed -n 's/.*"message": *"\([^"\\]*\).*/\1/p' | head -n 1)
+            if [ -z "$when" ]; then
+                echo "NOTE=could not check $path on GitHub"
+            elif [ "$when" \> "$built" ]; then
+                echo "UPDATE=compiler: built $built, $path changed $when ($what); reinstall with: cd $root && ./$script (about 30 minutes)"
+                updates=1
+                break
+            fi
+        done
+    fi
+    [ $updates = 0 ] && echo "UPDATES=none"
 fi
 
 exit $problems
