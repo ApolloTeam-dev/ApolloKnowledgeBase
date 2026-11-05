@@ -2,7 +2,7 @@
 title: SAGA video (Isabelle) overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [saga-video-isabelle]
 applies_to:

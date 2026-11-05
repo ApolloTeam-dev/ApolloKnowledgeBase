@@ -2,7 +2,7 @@
 title: OS takeover on Apollo V4
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [general]
 applies_to:

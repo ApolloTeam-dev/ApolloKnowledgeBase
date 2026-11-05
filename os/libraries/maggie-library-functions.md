@@ -2,7 +2,7 @@
 title: maggie.library function reference
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [libraries, saga-3d-maggie]

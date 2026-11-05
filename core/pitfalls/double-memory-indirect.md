@@ -2,7 +2,7 @@
 title: Memory indirect addressing blocks the core (except in JMP and JSR)
 type: pitfall
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, source-code]
 components: [cpu-68080]

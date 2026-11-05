@@ -2,7 +2,7 @@
 title: 68080 execution units and instruction groups
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer]
 components: [cpu-68080]

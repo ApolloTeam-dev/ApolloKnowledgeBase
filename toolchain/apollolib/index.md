@@ -2,7 +2,7 @@
 title: ApolloLib, the ApolloCrossDev library for SAGA and the 68080
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, saga-audio-arne, saga-video-isabelle]

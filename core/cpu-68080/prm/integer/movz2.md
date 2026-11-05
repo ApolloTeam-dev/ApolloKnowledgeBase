@@ -2,7 +2,7 @@
 title: "MOVZ2: Move two with Zero fill"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [cpu-68080]

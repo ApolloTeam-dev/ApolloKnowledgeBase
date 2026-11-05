@@ -2,7 +2,7 @@
 title: ApolloLib picture, PIP and pointer functions (Isabelle)
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, saga-video-isabelle]

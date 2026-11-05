@@ -2,7 +2,7 @@
 title: "SAGA DMACON2, INTENA2 and INTREQ2"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official]
 components: [saga-audio-arne]

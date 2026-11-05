@@ -2,7 +2,7 @@
 title: "SAGA system registers: board ID, core revision, chip ID, SPI"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official, source-code]
 components: [general]

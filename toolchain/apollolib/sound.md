@@ -2,7 +2,7 @@
 title: ApolloLib sound functions (Arne)
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, saga-audio-arne]

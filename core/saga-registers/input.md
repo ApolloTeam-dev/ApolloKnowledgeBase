@@ -2,7 +2,7 @@
 title: "SAGA input registers: USB joypads, mouse wheel, DB9"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official, source-code]
 components: [general]

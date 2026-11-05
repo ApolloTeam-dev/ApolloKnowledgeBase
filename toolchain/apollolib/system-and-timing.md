@@ -2,7 +2,7 @@
 title: ApolloLib system and timing routines (VBlank, CPU cycles, takeover)
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [toolchain, cpu-68080]

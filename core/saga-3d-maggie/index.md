@@ -2,7 +2,7 @@
 title: SAGA 3D (Maggie) overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [saga-3d-maggie]
 applies_to:

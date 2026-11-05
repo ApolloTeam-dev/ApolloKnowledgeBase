@@ -2,7 +2,7 @@
 title: "SAGA registers (SAGA-specific)"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [core-developer, official, source-code]
 components: [saga-video-isabelle, saga-audio-arne, saga-3d-maggie, general]

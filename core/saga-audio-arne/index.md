@@ -2,7 +2,7 @@
 title: SAGA audio (Arne) overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [saga-audio-arne]
 applies_to:

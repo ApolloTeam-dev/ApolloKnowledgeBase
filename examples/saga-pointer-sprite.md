@@ -2,7 +2,7 @@
 title: SAGA hardware pointer from a 32x32 BMP (from the ApolloPointer example)
 type: example
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [source-code]
 components: [saga-video-isabelle, toolchain]

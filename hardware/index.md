@@ -2,7 +2,7 @@
 title: Apollo V4 hardware overview
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: ai-assisted
 components: [hardware]
 applies_to:

@@ -2,7 +2,7 @@
 title: "SAGA colour ports (24-bit palettes)"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [core-developer, official, source-code]
 components: [saga-video-isabelle]
