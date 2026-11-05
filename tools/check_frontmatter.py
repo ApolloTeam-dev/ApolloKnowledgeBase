@@ -7,32 +7,28 @@ import re
 
 import yaml
 
-from kblib import (HANDLE_RE, ROOT, content_files, expected_type, frontmatter,
-                   maintainers, read, report)
+from kblib import (HANDLE_RE, ROOT, SCHEMA, content_files, expected_type,
+                   frontmatter, maintainers, read, report)
 
-TYPES = {"reference", "guide", "convention", "best-practice", "pitfall",
-         "example", "lesson"}
-STATUSES = {"draft", "reviewed", "verified", "deprecated"}
-ORIGINS = {"human", "ai-assisted", "official"}
-COMPONENTS = {"cpu-68080", "saga-video-isabelle", "saga-audio-arne",
-              "saga-dma-anni", "saga-3d-maggie", "libraries", "devs",
-              "filesys", "commands", "datatypes", "toolchain", "hardware",
-              "general"}
-OSES = {"any", "apolloos-r10", "amigaos-3.9", "amigaos-3.2"}
-MODES = {"any", "os-friendly", "os-takeover"}
-BOARDS = {"any", "v4-standalone", "v4-unicorn", "v4-icedrake", "v4-manticore",
-          "v4-firebird"}
+# The allowed values and patterns come from tools/schema.json, which the
+# ApolloKnowledgeBase-Manager wizard reads too.
+TYPES = set(SCHEMA["types"])
+STATUSES = set(SCHEMA["statuses"])
+ORIGINS = set(SCHEMA["origins"])
+COMPONENTS = set(SCHEMA["components"])
+OSES = set(SCHEMA["oses"])
+MODES = set(SCHEMA["modes"])
+BOARDS = set(SCHEMA["boards"])
 # Kinds of source, highest rank first (CONTRIBUTING.md section 4).
-BASES = ["core-developer", "measured", "official", "source-code", "other"]
+BASES = list(SCHEMA["bases"])
 # "any", one core ("Core 12841"), a range ("Core 12830-12840") or a minimum
 # ("Core 12841+").
-CORE_RE = re.compile(r"^(any|Core \d+(\+|-\d+)?)$")
-REQUIRED = ["title", "type", "owner", "status", "origin", "components",
-            "applies_to"]
-NEEDS_SOURCES = {"reference", "best-practice"}
+CORE_RE = re.compile(SCHEMA["core_pattern"])
+REQUIRED = list(SCHEMA["required"])
+NEEDS_SOURCES = set(SCHEMA["needs_sources"])
 
-KEBAB_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.md$")
-LESSON_RE = re.compile(r"^\d{4}-\d{2}-[a-z0-9]+(-[a-z0-9]+)*\.md$")
+KEBAB_RE = re.compile(SCHEMA["kebab_pattern"])
+LESSON_RE = re.compile(SCHEMA["lesson_pattern"])
 
 
 def check_values(at, key, allowed):

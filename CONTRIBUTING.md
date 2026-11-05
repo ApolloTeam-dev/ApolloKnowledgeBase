@@ -176,6 +176,10 @@ generated_from:                           # only for document intake, section 11
 
 ### Allowed values
 
+The machine-readable form of these rules is `tools/schema.json`: CI and the
+ApolloKnowledgeBase-Manager wizard both read it. Change a rule there and here
+together.
+
 - **type:** `reference`, `guide`, `convention`, `best-practice`, `pitfall`,
   `example`, `lesson`
 - **status:**
