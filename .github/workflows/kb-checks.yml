@@ -12,8 +12,8 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pip install pyyaml==6.0.2
@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Markdown lint
-        uses: DavidAnson/markdownlint-cli2-action@v16
+        uses: DavidAnson/markdownlint-cli2-action@v25
         with:
           globs: |
             **/*.md
@@ -46,16 +46,19 @@ jobs:
       PREFIX: /home/runner/ApolloCrossDev/Compilers/GCC-6.50-Dev
       APOLLOLIB: /home/runner/acd-src/Projects/ApolloLib
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      # The toolchain is built from source once per ApolloCrossDev commit and
-      # cached; a full build takes about an hour.
+      # The toolchain is built from source and cached. The cache key covers only
+      # what the build uses: the build script and Compilers/_archives (patches,
+      # sources). Commits to Projects/ (ApolloLib, examples) or the README don't
+      # trigger a rebuild, which takes about an hour.
       - name: Find ApolloCrossDev commit
         id: acd
         run: echo "sha=$(git ls-remote https://github.com/WDrijver/ApolloCrossDev refs/heads/main | cut -f1)" >> "$GITHUB_OUTPUT"
-      # Snippets may include ApolloLib's headers: fetch only Projects/ApolloLib
-      # of the same commit (a few hundred KB), also when the toolchain is cached.
-      - name: Fetch ApolloLib
+      # Fetch the commit without file contents (blob:none) plus Projects/ApolloLib:
+      # the trees give the cache key, and snippets may include ApolloLib's headers.
+      - name: Fetch ApolloLib and the build key
+        id: key
         run: |
           git init -q /home/runner/acd-src
           cd /home/runner/acd-src
@@ -63,12 +66,15 @@ jobs:
           git fetch -q --depth 1 --filter=blob:none https://github.com/WDrijver/ApolloCrossDev ${{ steps.acd.outputs.sha }}
           git checkout -q FETCH_HEAD
           test -f "$APOLLOLIB/ApolloCrossDev_Lib.h"
+          script=$(git rev-parse --short=12 FETCH_HEAD:GCC-6.50-Dev-Linux.sh)
+          archives=$(git rev-parse --short=12 FETCH_HEAD:Compilers/_archives)
+          echo "build=$script-$archives" >> "$GITHUB_OUTPUT"
       - name: Restore ApolloCrossDev
         id: cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: ${{ env.PREFIX }}
-          key: apollocrossdev-gcc650dev-${{ steps.acd.outputs.sha }}
+          key: apollocrossdev-gcc650dev-${{ steps.key.outputs.build }}
 
       - name: Free disk space
         if: steps.cache.outputs.cache-hit != 'true'
@@ -92,13 +98,13 @@ jobs:
           "$PREFIX/bin/m68k-amigaos-gcc" --version | head -1
       - name: Upload build logs
         if: failure() && steps.cache.outputs.cache-hit != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: apollocrossdev-logs
           path: ${{ env.PREFIX }}/_logs
       - name: Save ApolloCrossDev
         if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ${{ env.PREFIX }}
           key: ${{ steps.cache.outputs.cache-primary-key }}
@@ -108,7 +114,7 @@ jobs:
           mkdir -p build/smoke
           cp tools/smoke/* build/smoke/
           sh tools/compile-snippets.sh build/smoke
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pip install pyyaml==6.0.2
