@@ -2,7 +2,7 @@
 title: FPU values above 47 bits change at task switches
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured, official]
 components: [cpu-68080]

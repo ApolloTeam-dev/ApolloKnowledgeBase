@@ -2,7 +2,7 @@
 title: Maggie's depth test does not gate the colour write
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [saga-3d-maggie]

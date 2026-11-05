@@ -2,7 +2,7 @@
 title: Maggie span traps (zero length, no cache snoop, one user, counters)
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [saga-3d-maggie]

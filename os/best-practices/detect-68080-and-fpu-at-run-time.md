@@ -2,7 +2,7 @@
 title: Detect the 68080 and the FPU at run time
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [general, cpu-68080]

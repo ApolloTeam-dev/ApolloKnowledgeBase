@@ -2,7 +2,7 @@
 title: Maggie span unit registers (as used by maggie.library)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [saga-3d-maggie]

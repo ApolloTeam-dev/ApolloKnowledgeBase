@@ -2,7 +2,7 @@
 title: BANK prefix traps (single operands, unsupported instructions, B registers)
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official]
 components: [cpu-68080, toolchain]

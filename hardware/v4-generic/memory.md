@@ -2,7 +2,7 @@
 title: V4 memory (Chip, Fast and video RAM)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [other]
 components: [hardware]

@@ -2,7 +2,7 @@
 title: Benchmark 68080 code so the result is real
 type: guide
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080]

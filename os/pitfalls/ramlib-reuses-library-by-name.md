@@ -2,7 +2,7 @@
 title: OpenLibrary by path returns the version already in memory
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [libraries]

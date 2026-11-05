@@ -2,7 +2,7 @@
 title: 68080 FPU performance model (measured)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080]

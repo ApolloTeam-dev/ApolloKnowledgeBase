@@ -2,7 +2,7 @@
 title: Library globals are shared between calling tasks
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [libraries]

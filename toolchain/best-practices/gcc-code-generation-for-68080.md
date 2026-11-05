@@ -2,7 +2,7 @@
 title: Get the most from GCC 6.5 on the 68080
 type: best-practice
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [toolchain, cpu-68080]

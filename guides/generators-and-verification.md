@@ -2,7 +2,7 @@
 title: Write big 68080 kernels with a generator, and verify them in five steps
 type: guide
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [cpu-68080]

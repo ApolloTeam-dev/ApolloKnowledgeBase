@@ -2,7 +2,7 @@
 title: 32-bit writes can clear the upper half of a 64-bit register
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [core-developer, measured]
 components: [cpu-68080]

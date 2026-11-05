@@ -2,7 +2,7 @@
 title: vasm -m68080 turns absolute destinations into PC-relative ones
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, official, source-code]
 components: [toolchain, cpu-68080]

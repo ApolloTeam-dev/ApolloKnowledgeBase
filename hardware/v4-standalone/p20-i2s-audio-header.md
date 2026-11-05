@@ -2,7 +2,7 @@
 title: P20 I2S audio header with a PCM5102A DAC (V4 Standalone)
 type: reference
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [other]
 components: [hardware, saga-audio-arne]

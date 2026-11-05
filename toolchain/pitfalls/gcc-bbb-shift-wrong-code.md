@@ -2,7 +2,7 @@
 title: GCC 6.5 bbb pass deletes needed instructions around shifts
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured, source-code]
 components: [toolchain]

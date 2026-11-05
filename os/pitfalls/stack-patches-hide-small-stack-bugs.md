@@ -2,7 +2,7 @@
 title: Stack patches hide small-stack code paths
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [general]

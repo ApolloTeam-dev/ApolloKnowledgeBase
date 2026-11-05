@@ -2,7 +2,7 @@
 title: V4 ROM modules, soft resets and avail flush
 type: pitfall
 owner: TuKo1982
-status: draft
+status: reviewed
 origin: ai-assisted
 basis: [measured]
 components: [devs, general]
