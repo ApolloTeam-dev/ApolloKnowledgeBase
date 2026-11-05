@@ -1,16 +1,22 @@
 ---
 name: apollo-new-project
-description: Set up a new Apollo V4 software project (game, demo, tool, application, library, driver) as its own git repository with ApolloKnowledgeBase as submodule, a filled-in AGENTS.md, the ApolloCrossDev Makefile and a starting program for os-friendly or os-takeover mode that builds without warnings. Checks ApolloCrossDev first and offers updates. Use when the user wants to start, create, scaffold or set up a new program or project for the Apollo V4, Vampire V4, 68080 or SAGA, or wants an existing folder of Apollo code prepared for AI-assisted work.
+description: Set up a new Apollo V4 software project (game, demo, tool, application, library, driver) as its own git repository in which every AI agent uses ApolloKnowledgeBase as its central source of Apollo V4 knowledge, then check, install or update ApolloCrossDev, and create the Makefile and a starting program for os-friendly or os-takeover mode that builds without warnings. Use when the user wants to start, create, scaffold or set up a new program or project for the Apollo V4, Vampire V4, 68080 or SAGA, pastes the "Start Apollo V4 Project" prompt from apolloknowledgebase.com, or wants an existing folder of Apollo code prepared for AI-assisted work.
 ---
 
 # apollo-new-project
 
 Create a project that every AI agent can work in correctly from the first
-prompt: it knows its target, finds ApolloKnowledgeBase, and builds.
+prompt: it treats ApolloKnowledgeBase (AKB) as the central source of Apollo
+V4 knowledge, knows its target, and builds with ApolloCrossDev.
 
-**The knowledge base (KB):** before the project exists, the repository this
-skill is in (two folders above this file). KB paths below are relative to
-its root. This skill's own files are in `assets/` next to this file.
+**Where the files are.** You may have this skill as a local copy (an AKB
+clone, the Claude Code plugin `akb`) or only from its URL on GitHub. Either
+way, from step 2 on use the project's own `ApolloKnowledgeBase/` submodule:
+**KB** paths below are relative to it, and this skill's files are in
+`ApolloKnowledgeBase/skills/apollo-new-project/assets/`, and the toolchain
+check is `ApolloKnowledgeBase/skills/apollo-build/scripts/find-acd.sh`. In step
+1, before the submodule exists, read KB files on GitHub if you need them:
+`https://raw.githubusercontent.com/ApolloTeam-dev/ApolloKnowledgeBase/main/<path>`.
 
 ## 1. Ask what the project is
 
@@ -33,28 +39,7 @@ answers to the first five.
 8. **ApolloLib** for SAGA sound, pictures, PIP, pointer and input [yes]. See
    `KB core/best-practices/prefer-library-calls-for-saga-chips.md`.
 
-## 2. Check the toolchain, offer updates
-
-Before creating anything, run the apollo-build skill's check:
-`sh <skills folder>/apollo-build/scripts/find-acd.sh`. Then tell the user
-what you found and let them choose:
-
-| Finding | Offer |
-|---|---|
-| `PROBLEM=` ApolloCrossDev not found or incomplete | Install it first (`KB toolchain/index.md`, section Install; needs `sudo`, about 30 minutes). Stop until it is done. |
-| `UPDATE=checkout` | `git pull` in the ApolloCrossDev folder: quick, brings new Makefile templates, ApolloLib and scripts. If `LOCAL_CHANGES=` is reported, the user decides about those first. Run the pull only with their consent. |
-| `UPDATE=compiler` | Reinstall GCC-6.50-Dev (the command is in the line; needs `sudo`, about 30 minutes; the user runs it). Say what the newer build changes: the bug table in `KB toolchain/compiler-variants.md`. The user may also continue now and reinstall later. |
-| `TEMPLATE=` older than v1.2 | `git pull` is required: the project needs `make compile` and builds outside ApolloCrossDev. |
-| `UPDATES=none` | Nothing to offer; say the toolchain is up to date. |
-
-Run the check again after an update. The project also needs
-`APOLLOCROSSDEV`, because it lives outside `ApolloCrossDev/Projects/`. If
-the check notes it is unset, ask the user to add
-`export APOLLOCROSSDEV="<ACD_ROOT>"` to `~/.zshrc` (macOS) or `~/.bashrc`
-(Linux), next to `AMIGAHOST`. For this session, pass it on the command
-line: `APOLLOCROSSDEV=<ACD_ROOT> make compile`.
-
-## 3. Create the repository
+## 2. Create the repository with AKB
 
 In `<where>/<name>`, which must not exist yet or be empty:
 
@@ -66,24 +51,76 @@ git submodule add https://github.com/ApolloTeam-dev/ApolloKnowledgeBase ApolloKn
 If the folder already holds code, don't overwrite anything: add only what is
 missing and show the user what you would change.
 
-## 4. AGENTS.md and CLAUDE.md
+## 3. Make AKB the agents' central source
 
-- `AGENTS.md`: from `KB templates/repo/AGENTS.md`. Fill in every
-  `<placeholder>` from step 1, remove the template's HTML comments.
+These files make every agent that opens the project read AKB first.
+
+- **`AGENTS.md`** (read by most agents): from `KB templates/repo/AGENTS.md`.
+  Fill in every `<placeholder>` from step 1, remove the template's HTML
+  comments.
   - **Build and test:** `make compile` to build, `make` to build and upload
     to the V4 at `$AMIGAHOST`.
   - **Relevant knowledge base areas:** pick from the table in
     `KB AGENTS.md` section 3. Always `toolchain/`; `os/os-takeover.md` and
     `core/` for os-takeover; the SAGA folders that the program will use;
     `toolchain/apollolib/` with ApolloLib.
-  - **Repository-specific rules:** leave one `- <rule>` line only if the user
-    gives none; better, remove the section's placeholder.
-- `CLAUDE.md`: copy `KB templates/repo/CLAUDE.md` as it is (it loads both
-  AGENTS.md files for Claude Code).
+  - **Repository-specific rules:** the user's rules, or remove the section's
+    placeholder line.
+- **`CLAUDE.md`** (Claude Code): copy `KB templates/repo/CLAUDE.md` as it is.
+  It loads both AGENTS.md files.
+- **`.claude/settings.json`** (Claude Code): offers the AKB skills to
+  everyone who opens the project. Each person installs the plugin once with
+  `/plugin install akb@apolloknowledgebase`; Claude Code reminds them.
+
+  ```json
+  {
+    "extraKnownMarketplaces": {
+      "apolloknowledgebase": {
+        "source": { "source": "github", "repo": "ApolloTeam-dev/ApolloKnowledgeBase" }
+      }
+    },
+    "enabledPlugins": {
+      "akb@apolloknowledgebase": true
+    }
+  }
+  ```
+
+Other agents reach the AKB skills through `KB AGENTS.md` section 9, which
+the project's AGENTS.md sends them to.
+
+## 4. ApolloCrossDev: check, install or update
+
+Run the check from the submodule:
+
+```sh
+sh ApolloKnowledgeBase/skills/apollo-build/scripts/find-acd.sh
+```
+
+Tell the user what you found and let them choose:
+
+| Finding | Offer |
+|---|---|
+| `PROBLEM=` ApolloCrossDev not found | Install it (`KB toolchain/index.md`, sections Host requirements and Install). With the user's consent, clone it: `git clone https://github.com/WDrijver/ApolloCrossDev ~/ApolloCrossDev`. The install script needs `sudo` and takes about 30 minutes, so the user runs it in their terminal: `cd ~/ApolloCrossDev && ./GCC-6.50-Dev-MacOS.sh` (or `-Linux.sh`). Wait until it is done. |
+| `PROBLEM=` a binary is missing | The install failed: point the user to `Compilers/GCC-6.50-Dev/_logs/*_err.log` and the reinstall command. Wait until it is fixed. |
+| `UPDATE=checkout` | `git pull` in the ApolloCrossDev folder: quick, brings new Makefile templates, ApolloLib and scripts. If `LOCAL_CHANGES=` is reported, the user decides about those first. Run the pull only with their consent. |
+| `UPDATE=compiler` | Reinstall GCC-6.50-Dev (the command is in the line; `sudo`, about 30 minutes; the user runs it). Say what the newer build changes: the bug table in `KB toolchain/compiler-variants.md`. The user may also continue now and reinstall later. |
+| `TEMPLATE=` older than v1.2 | `git pull` is required: the project needs `make compile` and builds outside ApolloCrossDev. |
+| `UPDATES=none` | Say the toolchain is up to date. |
+
+Run the check again after an install or update, until it reports no
+`PROBLEM=` line.
+
+**`APOLLOCROSSDEV`:** the project lives outside `ApolloCrossDev/Projects/`,
+so the Makefile needs it. If the check notes it is unset, offer to add
+`export APOLLOCROSSDEV="<ACD_ROOT>"` to `~/.zshrc` (macOS) or `~/.bashrc`
+(Linux), next to `AMIGAHOST` (the V4's IP address, needed for upload; ask
+for it if that is missing too). Change the file only with the user's
+consent. For this session, pass it on the command line:
+`APOLLOCROSSDEV=<ACD_ROOT> make compile`.
 
 ## 5. Makefile
 
-Copy `$APOLLOCROSSDEV/Projects/_makefiles/Makefile` and change only:
+Copy `<ACD_ROOT>/Projects/_makefiles/Makefile` and change only:
 
 | Line | Set to |
 |---|---|
@@ -96,8 +133,8 @@ Keep `C_OPTIONS` and `S_FLAGS` as they are.
 
 ## 6. The starting program
 
-Copy one file from `assets/` to `main.c` and replace `@PROJECT@`, `@WHAT@`
-and `@TARGETS@` (core, model, target OS):
+Copy one file from this skill's `assets/` to `main.c` and replace
+`@PROJECT@`, `@WHAT@` and `@TARGETS@` (core, model, target OS):
 
 | Mode | ApolloLib | File |
 |---|---|---|
@@ -113,13 +150,14 @@ Copy `assets/gitignore` to `.gitignore`.
 
 ## 7. Build it
 
-Build with the apollo-build skill (`make compile`). It must end with no
-errors and no warnings before you continue.
+Build as the apollo-build skill describes (`KB skills/apollo-build/SKILL.md`):
+`make compile`. It must end with no errors and no warnings before you
+continue.
 
 ## 8. Hand over
 
 - Show the user the files you made and the build result.
 - Offer a first commit; commit only when they agree.
-- Tell them how to work from here: open the project folder in their agent;
-  `git submodule update --remote ApolloKnowledgeBase` brings in newer KB
-  content when they want it.
+- Tell them how to work from here: open the project folder in their agent,
+  which now reads AKB first; `git submodule update --remote ApolloKnowledgeBase`
+  brings in newer AKB content when they want it.
