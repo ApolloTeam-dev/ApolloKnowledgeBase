@@ -1,0 +1,87 @@
+{
+  "comment": "The frontmatter and placement rules of the knowledge base, in one place. Read by tools/check_frontmatter.py and tools/kblib.py (CI) and by the ApolloKnowledgeBase-Manager wizard. Change a rule here, and CONTRIBUTING.md with it.",
+  "types": {
+    "reference": "Facts: registers, APIs, behaviour, numbers",
+    "best-practice": "A technique that makes code faster, smaller or more robust, with evidence",
+    "pitfall": "A trap: symptom, cause, wrong and right code, evidence",
+    "guide": "Step-by-step how-to",
+    "example": "Small, compiling, tested code",
+    "convention": "A team rule for code or process",
+    "lesson": "What a project learned, for the lessons loop"
+  },
+  "statuses": {
+    "draft": "Unreviewed",
+    "reviewed": "Checked by its owner",
+    "verified": "Tested on real hardware (needs last_verified)",
+    "deprecated": "Do not use (needs superseded_by)"
+  },
+  "origins": {
+    "human": "Written by a person",
+    "ai-assisted": "Drafted with an AI",
+    "official": "Converted from official Apollo documentation (maintainers only)"
+  },
+  "components": {
+    "cpu-68080": "The 68080 CPU, AMMX, FPU",
+    "saga-video-isabelle": "SAGA video (Isabelle)",
+    "saga-audio-arne": "SAGA audio (Arne)",
+    "saga-dma-anni": "SAGA DMA (Anni)",
+    "saga-3d-maggie": "SAGA 3D (Maggie)",
+    "libraries": "OS libraries",
+    "devs": "Devices and drivers",
+    "filesys": "Filesystems",
+    "commands": "Shell commands",
+    "datatypes": "Datatypes",
+    "toolchain": "ApolloCrossDev: compilers, assembler, libraries",
+    "hardware": "The V4 boards: connectors, headers, memory",
+    "general": "Anything else"
+  },
+  "oses": {
+    "any": "Any OS",
+    "apolloos-r10": "ApolloOS R10",
+    "amigaos-3.9": "AmigaOS 3.9",
+    "amigaos-3.2": "AmigaOS 3.2"
+  },
+  "modes": {
+    "any": "Any execution mode",
+    "os-friendly": "Uses the OS; direct SAGA access only at the developer's discretion",
+    "os-takeover": "Takes over the machine (games, demos) and restores it on exit"
+  },
+  "boards": {
+    "any": "Every V4 model",
+    "v4-standalone": "V4 Standalone (SA)",
+    "v4-unicorn": "V4 UniCorn (UNI, A6000)",
+    "v4-icedrake": "V4 IceDrake (ICE)",
+    "v4-manticore": "V4 Manticore (MC)",
+    "v4-firebird": "V4 Firebird (FB)"
+  },
+  "bases": {
+    "core-developer": "(G) the core developer",
+    "measured": "(M) measured on V4 hardware",
+    "official": "(official) official Apollo documentation",
+    "source-code": "(SRC) source code",
+    "other": "Anything else"
+  },
+  "core_pattern": "^(any|Core \\d+(\\+|-\\d+)?)$",
+  "core_examples": ["any", "Core 12841", "Core 12830-12840", "Core 12841+"],
+  "required": ["title", "type", "owner", "status", "origin", "components", "applies_to"],
+  "needs_sources": ["reference", "best-practice"],
+  "kebab_pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.md$",
+  "lesson_pattern": "^\\d{4}-\\d{2}-[a-z0-9]+(-[a-z0-9]+)*\\.md$",
+  "handle_pattern": "^@?[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$",
+  "pillars": {
+    "core": "The 68080 and SAGA",
+    "hardware": "The V4 boards",
+    "os": "ApolloOS and AmigaOS on V4",
+    "toolchain": "ApolloCrossDev"
+  },
+  "pillar_subfolder_types": {
+    "best-practices": "best-practice",
+    "pitfalls": "pitfall"
+  },
+  "folder_types": {
+    "guides": "guide",
+    "conventions": "convention",
+    "examples": "example",
+    "lessons": "lesson"
+  }
+}

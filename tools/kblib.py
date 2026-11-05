@@ -1,4 +1,5 @@
 """Shared helpers for ApolloKnowledgeBase CI scripts."""
+import json
 import os
 import re
 import sys
@@ -12,19 +13,18 @@ SKIP_TOP_FILES = {"README.md", "AGENTS.md", "CONTRIBUTING.md", "CLAUDE.md"}
 SKIP_DIRS = {"templates", "seed", "sources", "tools", "skills", "evals",
              ".github", ".git"}
 
+# The rules live in tools/schema.json, shared with the ApolloKnowledgeBase-
+# Manager wizard.
+with open(os.path.join(ROOT, "tools", "schema.json"), encoding="utf-8") as _f:
+    SCHEMA = json.load(_f)
+
 # The four knowledge pillars. Files in a pillar are references, except in
 # its best-practices/ and pitfalls/ subfolders.
-PILLARS = {"core", "hardware", "os", "toolchain"}
-PILLAR_SUBFOLDER_TYPES = {"best-practices": "best-practice",
-                          "pitfalls": "pitfall"}
+PILLARS = set(SCHEMA["pillars"])
+PILLAR_SUBFOLDER_TYPES = dict(SCHEMA["pillar_subfolder_types"])
 
 # Expected `type` per cross-cutting top-level folder.
-FOLDER_TYPES = {
-    "guides": "guide",
-    "conventions": "convention",
-    "examples": "example",
-    "lessons": "lesson",
-}
+FOLDER_TYPES = dict(SCHEMA["folder_types"])
 
 MAINTAINERS_FILE = os.path.join(ROOT, ".github", "CODEOWNERS.base")
 
@@ -50,7 +50,7 @@ def maintainers():
     return set()
 
 
-HANDLE_RE = re.compile(r"^@?[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$")
+HANDLE_RE = re.compile(SCHEMA["handle_pattern"])
 
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
