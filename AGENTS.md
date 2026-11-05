@@ -225,7 +225,7 @@ knowledge base files it needs instead of repeating them.
 
 | Skill | Use it when |
 |---|---|
-| `skills/apollo-new-project/` | the user starts a new Apollo V4 project, or wants a folder of Apollo code set up for AI-assisted work |
+| `skills/apollo-new-project/` | the user starts a new Apollo V4 project (also from the "Start Apollo V4 Project" prompt on apolloknowledgebase.com), or wants a folder of Apollo code set up for AI-assisted work |
 | `skills/apollo-build/` | Apollo V4 code is compiled, linked or assembled, flags come up, a build fails, or before presenting code |
 | `skills/akb-lesson/` | a project, release or milestone is done, the user asks for a summary, or an assumption from section 2 turned out wrong |
 
