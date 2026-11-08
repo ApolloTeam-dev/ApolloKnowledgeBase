@@ -70,6 +70,20 @@ Compile with `-S` and look for a register that is loaded with `move.w`,
 used as a shift count and then used as a 32-bit value with no `ext.l` in
 between. Compare the results with the same code built with `-fbbb=-`.
 
+CI checks that GCC-6.50-Dev keeps the `ext.l` in the example above. A Dev
+install built before the fix (2026-10-08) still drops it, while `-fbbb=-`
+keeps it:
+
+```c
+// kb:compile
+// kb:expect ext.l
+int f(const short *p, int x)
+{
+    int n = *p;
+    return (x << n) + n;
+}
+```
+
 ## Evidence
 
 | Claim | Source | Core | Method |

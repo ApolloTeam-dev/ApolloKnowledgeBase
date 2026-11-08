@@ -41,7 +41,28 @@ pays off.
   float temporary through a Dn; in maggie.library that caused about 1320
   spills of 12-byte values (SRC).
 - **Libraries that may run on other CPUs**: check AttnFlags bit 10 (68080) in
-  LibInit, and build that object with `-m68020`.
+  LibInit, and build that object with `-m68020`. CI checks that `-m68020`
+  emits none of the 080-only opcodes that `-m68080` gives for the same code
+  (see [compiler-variants.md](../compiler-variants.md)):
+
+```c
+// kb:compile
+// kb:opts -O2 -m68020 -fomit-frame-pointer
+// kb:expect cmp.l #1000,
+// kb:expect-not cmpiw
+// kb:expect-not addiw
+// kb:expect-not dbral
+int is_k(long x) { return x == 1000; }
+void add_k(long *p) { *p += 1000; }
+long sum(const long *p, long n)
+{
+    long s = 0, i;
+    for (i = 0; i < n; i++)
+        s += p[i];
+    return s;
+}
+```
+
 - **Portable builds**: one code base can ship a 68020 build (`-m68020`, soft
   float at compile and link time, assembler limited to 68020) and an 080
   build.
