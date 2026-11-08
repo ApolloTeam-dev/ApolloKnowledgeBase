@@ -289,6 +289,13 @@ don't use.
     the standard ones (for example `-O2 -m68080` without `-m68881`).
   - A check that fails means the text no longer matches the toolchain:
     update the text, not only the check.
+- CI also assembles every other `asm` block with vasm, as a fragment
+  (undefined labels are fine), so each instruction must exist and take its
+  operands. A block that must not assemble, such as an example of a vasm
+  error, starts with `; kb:no-assemble <reason>`.
+- A SAGA address (`$DFExxx`, `$DFFxxx`) must be documented in
+  `core/saga-registers/`. A real address that is not documented there yet
+  goes in `tools/saga_addresses_allowed.yml`, with its source.
 
 ---
 
@@ -365,6 +372,10 @@ Every pull request runs (scripts in `tools/`):
   `tools/compile-snippets.sh`)
 - `check_emitted_code.py`: the `kb:expect` and `kb:expect-not` checks of
   those blocks (section 6)
+- Assembly of all other `asm` blocks with vasm, except in generated files
+  and blocks marked `; kb:no-assemble` (section 6)
+- `check_saga_addresses.py`: every SAGA address is in
+  `core/saga-registers/` or `tools/saga_addresses_allowed.yml`
 
 On every merge to `main`, `generate_codeowners.py` regenerates
 `.github/CODEOWNERS`. Fixed owners for files without frontmatter go in

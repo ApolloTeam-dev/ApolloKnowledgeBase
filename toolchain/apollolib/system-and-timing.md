@@ -31,7 +31,7 @@ counterpart that undoes it; call it before the program exits.
 | Function | What it does |
 |---|---|
 | `ApolloWaitVBL()` | Polls INTREQR bit 5 (VERTB) until set, then clears it in INTREQ |
-| `ApolloCPUTick()` | Returns the clock cycle counter CCC (`movec $809,d0`, see [performance-counters.md](../../core/cpu-68080/performance-counters.md)) |
+| `ApolloCPUTick()` | Returns the clock cycle counter CCC (`movec ccc,d0`, register `$809`, see [performance-counters.md](../../core/cpu-68080/performance-counters.md)) |
 | `ApolloCPUDelay(ms)` | Busy-waits `ms × multiplier × 7094` cycles on CCC; the multiplier is the low byte of `$DFF3FC` (14 if 0) |
 | `ApolloTimer()` | Adds a VBlank interrupt server (`AddIntServer`, `INTB_VERTB`) that increments `GlobalTimer` every frame |
 | `ApolloTimerStop()` | Removes that server (`RemIntServer`) |
