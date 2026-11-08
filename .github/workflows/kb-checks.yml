@@ -123,3 +123,5 @@ jobs:
       - run: python tools/extract_compile_blocks.py
       - name: Compile kb:compile blocks
         run: sh tools/compile-snippets.sh
+      - name: Check emitted code (kb:expect)
+        run: python tools/check_emitted_code.py

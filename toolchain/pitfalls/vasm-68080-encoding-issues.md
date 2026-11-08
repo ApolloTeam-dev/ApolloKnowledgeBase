@@ -73,6 +73,30 @@ Assemble with `-L file.lst` and check:
 - odd displacement bytes in `.s` branches (the `.s+` form);
 - `(pc)` source operands on AMMX instructions.
 
+CI checks three rows of the table with the vasm that ApolloCrossDev ships
+and the standard flags (`-m68080 -m68881 -opt-speed`). When a vasm update
+changes one of these encodings, the check fails and this table needs
+updating:
+
+```asm
+; kb:compile
+; add.l b1,d0: a lone BANK word $71F1 (SS not 0).
+; tst e6: BANK $7104 (AA only), then tst.w d6.
+; add.l #imm,En: BANK $7101 (BB only).
+; Out-of-range bra.s: bra.s+ with odd byte $49 (+200).
+; kb:expect 71f1
+; kb:expect 7104 4a46
+; kb:expect 7101
+; kb:expect 6049
+	section	code,code
+	add.l	b1,d0
+	tst	e6
+	add.l	#5,e1
+	bra.s	far
+	ds.b	200
+far:	rts
+```
+
 ## Evidence
 
 | Claim | Source | Core | Method |

@@ -277,6 +277,18 @@ don't use.
   first line: `; kb:compile` (assembly) or `// kb:compile` (C, C++).
   CI compiles each block on its own to an object file (no linking), so a
   `kb:compile` block must be a complete source file with its own includes.
+- A claim about the code the toolchain emits gets a check in its
+  `kb:compile` block: comment lines right after the first line, in the
+  block's comment style.
+  - `kb:expect <text>` / `kb:expect-not <text>`: for C and C++ the text
+    must, or must not, occur in GCC's `-S` output (runs of spaces count as
+    one). For assembly the text is hex bytes (`71f1`, `7104 4a46`) that
+    must, or must not, occur in vasm's `-Fbin` output, so the block must not
+    reference outside symbols.
+  - `kb:opts <flags>`: build with these code-generation flags instead of
+    the standard ones (for example `-O2 -m68080` without `-m68881`).
+  - A check that fails means the text no longer matches the toolchain:
+    update the text, not only the check.
 
 ---
 
@@ -351,6 +363,8 @@ Every pull request runs (scripts in `tools/`):
 - Compilation of all `kb:compile` code blocks with ApolloCrossDev
   (GCC-6.50-Dev, flags as in its Makefile template; see
   `tools/compile-snippets.sh`)
+- `check_emitted_code.py`: the `kb:expect` and `kb:expect-not` checks of
+  those blocks (section 6)
 
 On every merge to `main`, `generate_codeowners.py` regenerates
 `.github/CODEOWNERS`. Fixed owners for files without frontmatter go in

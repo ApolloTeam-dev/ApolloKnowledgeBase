@@ -86,8 +86,40 @@ bug.
 
 ### 68080 instructions the compiler generates
 
-According to the ApolloCrossDev README, the patched GCC 6.5 generates these
-68080 instructions: `cmpiw.l`, `addiw.l`, `dbra.l`, `moviw.l`, `bcc.s`.
+The ApolloCrossDev README lists `cmpiw.l`, `addiw.l`, `dbra.l`, `moviw.l`
+and `bcc.s+`. The GCC source has output patterns for three of them (SRC,
+WDrijver/gcc branches `gcc-stable` and `68080regs`, 2026-11-08):
+
+| Instruction | GCC emits it for | Where |
+|---|---|---|
+| `cmpiw.l` | comparing a long with a 16-bit immediate | `m68k.md` |
+| `addiw.l` | adding a 16-bit immediate to a long | `m68k.c` |
+| `dbra.l` (`dbral`) | a loop with a 32-bit counter | `m68k.md` |
+
+DON'T expect `moviw.l` or `bcc.s+` from GCC. Neither the GCC branches nor
+the patches in ApolloCrossDev's `Compilers/_archives/patches/` have a
+pattern for them; GCC-6.50-Dev emits a 6-byte `move.l #imm` for a 16-bit
+constant. Write them in assembly when you need them. CI checks this:
+
+```c
+// kb:compile
+// kb:expect cmpiw.l #1000,
+// kb:expect addiw.l #1000,
+// kb:expect dbral
+// kb:expect move.l #1000,d0
+// kb:expect-not moviw
+int is_k(long x) { return x == 1000; }
+void add_k(long *p) { *p += 1000; }
+long k(void) { return 1000; }
+long sum(const long *p, long n)
+{
+    long s = 0, i;
+    for (i = 0; i < n; i++)
+        s += p[i];
+    return s;
+}
+```
+
 Planned, not yet supported: `mov3q`, `clr.q`, `move2.b`, `movs.b/w`,
 `movz.b/w`.
 
