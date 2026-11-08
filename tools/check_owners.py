@@ -3,6 +3,7 @@
 Uses GITHUB_TOKEN from the environment (provided by GitHub Actions)."""
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 
@@ -10,19 +11,30 @@ import yaml
 
 from kblib import HANDLE_RE, content_files, frontmatter, read, report
 
+TRIES = 5
+
 
 def exists(handle, token, cache={}):
     if handle not in cache:
         req = urllib.request.Request(f"https://api.github.com/users/{handle}")
         if token:
             req.add_header("Authorization", f"Bearer {token}")
-        try:
-            with urllib.request.urlopen(req) as r:
-                cache[handle] = json.load(r).get("type") == "User"
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
-            cache[handle] = False
+        for attempt in range(TRIES):
+            try:
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    cache[handle] = json.load(r).get("type") == "User"
+                break
+            except urllib.error.HTTPError as e:
+                if e.code == 404:
+                    cache[handle] = False
+                    break
+                if e.code < 500 or attempt == TRIES - 1:
+                    raise
+            except (urllib.error.URLError, TimeoutError):
+                if attempt == TRIES - 1:
+                    raise
+            # A 5xx or network error from GitHub is usually gone in seconds.
+            time.sleep(2 ** attempt)
     return cache[handle]
 
 
