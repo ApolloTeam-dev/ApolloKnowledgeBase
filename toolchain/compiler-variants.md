@@ -120,8 +120,8 @@ long sum(const long *p, long n)
 }
 ```
 
-Planned, not yet supported: `mov3q`, `clr.q`, `move2.b`, `movs.b/w`,
-`movz.b/w`.
+On the ApolloCrossDev roadmap: `move2.b`. Not planned: `mov3q`, `clr.q`,
+`movs.b/w` and `movz.b/w`.
 
 `mov3q`, `clr.q`, `movs` and `movz` are LineA instructions that exist only
 on cores 10280–10904 (official, see [core/cpu-68080/isa-notes-measured.md](../core/cpu-68080/isa-notes-measured.md)).
