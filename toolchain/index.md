@@ -102,7 +102,9 @@ The `Docs/` folder of ApolloCrossDev contains `AC68080PRM.pdf`,
 ### In this knowledge base's CI
 
 `kb:compile` code blocks are built with GCC-6.50-Dev and the standard flags,
-see `tools/compile-snippets.sh`.
+see `tools/compile-snippets.sh`. Their `kb:expect` lines check the code GCC
+and vasm emit, see `tools/check_emitted_code.py` and `CONTRIBUTING.md`
+section 6.
 
 ## Differences from AmigaOS / AROS / 68060
 

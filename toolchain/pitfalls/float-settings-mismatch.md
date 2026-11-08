@@ -62,6 +62,26 @@ m68k-amigaos-gcc lib.o app.o -noixemul -o app            # mixed
 - Compile one float function with `-S` and check for `fmul`/`fadd` instead
   of calls.
 
+CI checks both cases on every run. With the standard flags
+(`-m68080 -m68881`) GCC emits an FPU multiply:
+
+```c
+// kb:compile
+// kb:expect fsmul.s
+// kb:expect-not ___mulsf3
+float scale(float a, float b) { return a * b; }
+```
+
+With `-m68080` alone it calls the soft-float routine:
+
+```c
+// kb:compile
+// kb:opts -O2 -m68080 -ffast-math -fomit-frame-pointer
+// kb:expect ___mulsf3
+// kb:expect-not fsmul
+float scale(float a, float b) { return a * b; }
+```
+
 ## Evidence
 
 | Claim | Source | Core | Method |
