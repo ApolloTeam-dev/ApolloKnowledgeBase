@@ -59,6 +59,19 @@ m68k-amigaos-gcc -O2 -m68080 -mrtd ...   # GCC-6.50-Base or -Stable: ICE
 The ICE above, or a link of `-mrtd` objects with a C library that was not
 built with `-mrtd`.
 
+CI checks that GCC-6.50-Dev compiles a call with stack arguments under
+`-mrtd`. A Dev install built before the fix (2026-10-08) stops on this file
+with the ICE above, at `-O0` and `-O2`. The called function must be external:
+GCC inlines one from the same file, and no call is left to test.
+
+```c
+// kb:compile
+// kb:opts -O2 -m68080 -m68881 -ffast-math -fomit-frame-pointer -mrtd
+// kb:expect _add3
+int add3(int a, int b, int c);
+int callit(int x) { return add3(x, 2, 3) + 1; }
+```
+
 ## Evidence
 
 | Claim | Source | Core | Method |
