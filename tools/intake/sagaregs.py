@@ -43,6 +43,8 @@ EX_POINTER = ("Example ApolloPointer.c, github.com/WDrijver/ApolloCrossDev "
 APOLLOOS = ("ApolloOS source, github.com/ApolloTeam-dev/ApolloOS.R10 "
             "arch/m68k-amiga/hidd/sagagfx/sagagfx_hw.h, commit ca5ef46 (2025-06-10)")
 MAGGIE = "maggie.library samples, see os/libraries/maggie-library.md"
+MAGGIE_SRC = "maggie.library source, github.com/RMortenB/MaggieLibrary, commit 64c78ef (2026-08-17)"
+MAGGIE_TESTS = "Regression test test-maggiecnt, Core 12847, 2026-11-01 (see core/saga-3d-maggie/registers.md)"
 
 ACCESS = {"R": "read", "W": "write", "S": "strobe (a write of any value "
           "triggers the action)", "ER": "early read",
@@ -740,17 +742,32 @@ def maggie(rows):
                 "in [registers.md](../saga-3d-maggie/registers.md):", "",
                 "| Offset | Name (original) |", "|---|---|"]
     details += [f"| {addr(r['addr']) - 0xDFF250} | {md(r['name'])} |" for r in t]
+    details += ["", "### Performance counters at `$DFF300` (SRC and M, not in the original)",
+                "", "From the maggie.library source (SRC):", "",
+                "| Address | Size | Access | Counts |", "|---|---|---|---|",
+                "| `$DFF300` | L | R | Texture fetches |",
+                "| `$DFF304` | L | R | Depth fetches |",
+                "| `$DFF308` | L | R | Destination fetches |",
+                "| `$DFF30C` | L | R | Pixels started, including pixels the depth test "
+                "or alpha later kills |", "",
+                "The library describes them as free-running. **On Core 12847 they read 0 "
+                "and never move** (M, regression test test-maggiecnt, 2026-11-01)."]
     return doc("maggie-3d.md", "SAGA Maggie 3D registers (official names)",
                ["saga-3d-maggie"], ["saga", "maggie", "3d", "texture", "registers"],
                "Maggie, the SAGA texture-mapping unit, is programmed through registers at "
-               "`$DFF250`–`$DFF28F`. This file gives the official names; the measured "
+               "`$DFF250`–`$DFF28F`, with performance counters at `$DFF300`–`$DFF30F`. "
+               "This file gives the official names; the measured "
                "behaviour is in core/saga-3d-maggie/registers.md.",
                details,
                ["- Classic Amiga chipsets have no texture-mapping unit."],
                ["DO write TEXSTRT (`$DFF25E`) last: it starts the span.",
+                "DON'T use the counters at `$DFF300` for timing or sync on Core 12847: "
+                "they read 0.",
                 "DO check core/saga-3d-maggie/registers.md and its pitfalls for the "
                 "measured behaviour."],
-               related=["core/saga-3d-maggie/registers.md"])
+               sources=[MAGGIE_SRC, MAGGIE_TESTS], basis=["official", "source-code", "measured"],
+               related=["core/saga-3d-maggie/registers.md",
+                        "core/pitfalls/maggie-span-usage.md"])
 
 
 def inputs(rows):

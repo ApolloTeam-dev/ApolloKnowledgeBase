@@ -2,9 +2,9 @@
 title: "SAGA Maggie 3D registers (official names)"
 type: reference
 owner: WDrijver
-status: reviewed
+status: draft
 origin: official
-basis: [official]
+basis: [official, source-code, measured]
 components: [saga-3d-maggie]
 applies_to:
   core: "Core 12000+"
@@ -13,9 +13,12 @@ tags: [saga, maggie, 3d, texture, registers]
 related:
   - core/saga-registers/index.md
   - core/saga-3d-maggie/registers.md
+  - core/pitfalls/maggie-span-usage.md
   - core/best-practices/prefer-library-calls-for-saga-chips.md
 sources:
   - "SAGA register documentation, sources/official/saga-registers/ (HTML)"
+  - "maggie.library source, github.com/RMortenB/MaggieLibrary, commit 64c78ef (2026-08-17)"
+  - "Regression test test-maggiecnt, Core 12847, 2026-11-01 (see core/saga-3d-maggie/registers.md)"
 generated_from: sources/official/saga-registers/index.htm
 ---
 
@@ -23,7 +26,7 @@ generated_from: sources/official/saga-registers/index.htm
 
 ## Summary
 
-Maggie, the SAGA texture-mapping unit, is programmed through registers at `$DFF250`–`$DFF28F`. This file gives the official names; the measured behaviour is in core/saga-3d-maggie/registers.md.
+Maggie, the SAGA texture-mapping unit, is programmed through registers at `$DFF250`–`$DFF28F`, with performance counters at `$DFF300`–`$DFF30F`. This file gives the official names; the measured behaviour is in core/saga-3d-maggie/registers.md.
 
 ## Details
 
@@ -73,6 +76,19 @@ Offsets from `$DFF250`, for comparison with the measured layout in [registers.md
 | 56 | TEXZZzz |
 | 60 | TEXdZZzz |
 
+### Performance counters at `$DFF300` (SRC and M, not in the original)
+
+From the maggie.library source (SRC):
+
+| Address | Size | Access | Counts |
+|---|---|---|---|
+| `$DFF300` | L | R | Texture fetches |
+| `$DFF304` | L | R | Depth fetches |
+| `$DFF308` | L | R | Destination fetches |
+| `$DFF30C` | L | R | Pixels started, including pixels the depth test or alpha later kills |
+
+The library describes them as free-running. **On Core 12847 they read 0 and never move** (M, regression test test-maggiecnt, 2026-11-01).
+
 ## Differences from AmigaOS / AROS / 68060
 
 - Classic Amiga chipsets have no texture-mapping unit.
@@ -81,4 +97,5 @@ Offsets from `$DFF250`, for comparison with the measured layout in [registers.md
 
 - DO prefer the library calls (maggie.library) to direct access to these registers: a best practice, not a forced rule (see [prefer-library-calls-for-saga-chips.md](../best-practices/prefer-library-calls-for-saga-chips.md)).
 - DO write TEXSTRT (`$DFF25E`) last: it starts the span.
+- DON'T use the counters at `$DFF300` for timing or sync on Core 12847: they read 0.
 - DO check core/saga-3d-maggie/registers.md and its pitfalls for the measured behaviour.
