@@ -42,11 +42,15 @@ reliable way to time code. The other event counters read 0 on release cores.
 ### Reading the cycle counter
 
 ```asm
-    movec   $809,a6        ; CCC before
+    movec   ccc,a6         ; CCC ($809) before
     ; ... code to time ...
-    movec   $809,d7
+    movec   ccc,d7
     sub.l   a6,d7          ; cycles, stable to less than 1 %
 ```
+
+vasm accepts the counter only by name: `movec ccc,d7` assembles to
+`$4E7A 7809`, while `movec $809,d7` is an error ("illegal operand types").
+ApolloLib writes the instruction as `dc.w $4E7A,$x809` (SRC).
 
 - Measure under exec `Disable()`.
 - For whole-program timing, sum CCC deltas around each call in 64 bits: 32

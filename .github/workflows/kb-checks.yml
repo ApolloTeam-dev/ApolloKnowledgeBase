@@ -26,6 +26,8 @@ jobs:
         run: for s in tools/intake/*.py; do python "$s" --check; done
       - name: Owners are GitHub users
         run: python tools/check_owners.py
+      - name: SAGA addresses are documented
+        run: python tools/check_saga_addresses.py
       - name: Skills
         run: python tools/check_skills.py
         env:
@@ -125,3 +127,5 @@ jobs:
         run: sh tools/compile-snippets.sh
       - name: Check emitted code (kb:expect)
         run: python tools/check_emitted_code.py
+      - name: Assemble all other asm blocks
+        run: sh tools/compile-snippets.sh build/fragments

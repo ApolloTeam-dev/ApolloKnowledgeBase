@@ -1,0 +1,13 @@
+# SAGA-range addresses ($DFExxx, $DFFxxx) that content files may name
+# although core/saga-registers/ does not document them. Checked by
+# tools/check_saga_addresses.py. Give each one its source.
+#
+# Address (hex, no $): reason and source
+
+# Classic custom chip registers (Amiga Hardware Reference Manual)
+DFF00A: JOY0DAT, mouse/joystick port 1 counters
+DFF00B: JOY0DAT low byte (X counter)
+DFF016: POTINP, pot port data (mouse buttons 2 and 3)
+
+# Real, but not in the SAGA register documentation yet
+DFF300: Maggie performance counters, measured (M) Core 12847, see core/saga-3d-maggie/registers.md

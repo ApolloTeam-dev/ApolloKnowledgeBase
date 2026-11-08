@@ -27,7 +27,7 @@ for one of the reasons below (M).
 
 ## Prerequisites
 
-- Timing with the CCC cycle counter (`movec $809,Dn`), see
+- Timing with the CCC cycle counter (`movec ccc,Dn`, register `$809`), see
   [performance-counters.md](../core/cpu-68080/performance-counters.md).
 - Two or more builds of the code to compare, and a way to run each one many
   times in one boot.
