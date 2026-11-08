@@ -10,7 +10,8 @@
 #   UPDATE=checkout ...   the ApolloCrossDev checkout is behind GitHub:
 #                         git pull (quick; LOCAL_CHANGES= warns first)
 #   UPDATE=compiler ...   GCC-6.50-Dev was built before its install script
-#                         or the patches last changed on GitHub: reinstall
+#                         or the patches last changed, in the local checkout
+#                         (checked also with --offline) or on GitHub: reinstall
 #   UPDATES=none          up to date
 #
 # Where it looks for ApolloCrossDev, in this order:
@@ -67,9 +68,27 @@ if [ -f "$project/Makefile" ]; then
     grep -q '^compile:' "$project/Makefile" || echo "NOTE=the project Makefile has no 'make compile' target; build with: make cleanbefore build"
 fi
 
+case $(uname) in Darwin) script=GCC-6.50-Dev-MacOS.sh ;; *) script=GCC-6.50-Dev-Linux.sh ;; esac
+updates=0
+compiler_old=0
+
+# compiler older than the install script or patches in the local checkout:
+# needs no network, and catches a git pull without a reinstall
+if [ -n "$built" ] && git -C "$root" rev-parse HEAD >/dev/null 2>&1; then
+    for path in "$script" Compilers/_archives/patches; do
+        when=$(TZ=UTC git -C "$root" log -1 --format=%cd --date=format-local:%Y-%m-%dT%H:%M:%SZ -- "$path" 2>/dev/null)
+        what=$(git -C "$root" log -1 --format=%s -- "$path" 2>/dev/null)
+        if [ -n "$when" ] && [ "$when" \> "$built" ]; then
+            echo "UPDATE=compiler: built $built, $path changed $when in the local checkout ($what); reinstall with: cd $root && ./$script (about 30 minutes)"
+            updates=1
+            compiler_old=1
+            break
+        fi
+    done
+fi
+
 # updates on GitHub
 if [ $offline = 0 ]; then
-    updates=0
     if git -C "$root" rev-parse HEAD >/dev/null 2>&1; then
         here=$(git -C "$root" rev-parse HEAD)
         there=$(git -C "$root" ls-remote origin refs/heads/main 2>/dev/null | cut -f1)
@@ -82,8 +101,7 @@ if [ $offline = 0 ]; then
             [ "$changed" != 0 ] && echo "LOCAL_CHANGES=$changed tracked files changed in $root; commit or stash them before git pull"
         fi
     fi
-    if [ -n "$built" ]; then
-        case $(uname) in Darwin) script=GCC-6.50-Dev-MacOS.sh ;; *) script=GCC-6.50-Dev-Linux.sh ;; esac
+    if [ -n "$built" ] && [ $compiler_old = 0 ]; then
         for path in "$script" Compilers/_archives/patches; do
             json=$(curl -s -m 8 "https://api.github.com/repos/WDrijver/ApolloCrossDev/commits?path=$path&per_page=1" 2>/dev/null)
             when=$(printf '%s' "$json" | sed -n 's/.*"date": *"\([^"]*\)".*/\1/p' | head -n 1)
@@ -97,7 +115,7 @@ if [ $offline = 0 ]; then
             fi
         done
     fi
-    [ $updates = 0 ] && echo "UPDATES=none"
 fi
+[ $updates = 0 ] && [ $offline = 0 ] && echo "UPDATES=none"
 
 exit $problems
