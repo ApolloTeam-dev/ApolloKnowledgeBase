@@ -2,7 +2,7 @@
 title: "SAGA Maggie 3D registers (official names)"
 type: reference
 owner: WDrijver
-status: draft
+status: reviewed
 origin: official
 basis: [official, source-code, measured]
 components: [saga-3d-maggie]
