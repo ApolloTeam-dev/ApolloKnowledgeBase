@@ -26,7 +26,9 @@ sh <this skill's folder>/scripts/find-acd.sh <project folder>
 
 It prints `ACD_ROOT`, `PREFIX`, `GCC`, `BUILT`, the template and project
 Makefile versions, `PROBLEM=`, `NOTE=` and `UPDATE=` lines (`--offline`
-skips the check on GitHub).
+skips the check on GitHub). `UPDATE=compiler` also comes from the local
+checkout alone: a compiler built before the install script or patches there
+last changed, for example after a `git pull` without a reinstall.
 
 - Fix every `PROBLEM` before building, with the user: a missing toolchain
   means installing ApolloCrossDev (`KB toolchain/index.md`, section
