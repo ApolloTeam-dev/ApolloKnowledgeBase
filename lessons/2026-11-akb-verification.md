@@ -19,17 +19,17 @@ related:
   - core/cpu-68080/performance-counters.md
   - core/saga-registers/system.md
   - guides/benchmark-method.md
+sources:
+  - "ApolloTeam-dev/ApolloKnowledgeBase pull requests #32 to #41 (2026-11-08 to 2026-11-09)"
+  - "WDrijver/ApolloCrossDev pull request #24 (README opcode list)"
+  - "Test programs tools/v4/tests/ (moviw, add-mem-dbra, fpu-m68881, serial-out), run on a V4 UniCorn, Core 12556, 2026-11-09"
+  - "WDrijver: ApolloControl CO prints the core number (2026-11-09)"
 distilled_into:
   - guides/testing-on-v4-hardware.md
   - toolchain/vasm-assembler.md
   - toolchain/c-compiler-options.md
   - toolchain/pitfalls/float-settings-mismatch.md
   - core/cpu-68080/performance-counters.md
-sources:
-  - "ApolloTeam-dev/ApolloKnowledgeBase pull requests #32 to #41 (2026-11-08 to 2026-11-09)"
-  - "WDrijver/ApolloCrossDev pull request #24 (README opcode list)"
-  - "Test programs tools/v4/tests/ (moviw, add-mem-dbra, fpu-m68881, serial-out), run on a V4 UniCorn, Core 12556, 2026-11-09"
-  - "WDrijver: ApolloControl CO prints the core number (2026-11-09)"
 ---
 
 ## Project
