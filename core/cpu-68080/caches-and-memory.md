@@ -62,7 +62,10 @@ counter, median of 7, two identical runs (M, Core 12841, 2026-10-29):
 - Store-to-load forwarding works, but a counter kept in memory with
   read-modify-write in a loop serialises (M). Gunnar expects a loop of
   `add.l #1,memcounter` + `dbra` to run at about 1 iteration per cycle (G,
-  2026-11-03); a measurement of that loop is still to be done.
+  2026-11-03). Measured on Core 12556, the loop takes 2 cycles per
+  iteration, and 20–23 when the counter is in the same 64-byte line as the
+  loop code; `dbra` alone and `addq.l #1,Dn` + `dbra` take 1 cycle
+  (M, Core 12556, V4 UniCorn, `tools/v4/tests/add-mem-dbra`, 2026-11-09). Not yet measured on Core 12841.
 
 ### What a miss costs (G, 2026-11-03)
 
@@ -130,5 +133,8 @@ Copy of a 156 x 2464-byte shape (M):
   random.
 - DON'T use a table for anything you can compute in 16 cycles or less (G).
 - DON'T keep a loop counter in memory.
+- DON'T write data in a loop that sits in the same 64-byte line as the
+  loop's code: a read-modify-write there cost 10 times as much (M, Core
+  12556).
 - DON'T compare memory-bound timings across Core 12600: the memory
   controller doubled from 64 to 128 bits there.

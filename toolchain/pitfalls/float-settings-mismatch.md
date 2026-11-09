@@ -29,7 +29,8 @@ sources:
 
 - For the AmigaOS target, `-m68080` alone does **not** turn on the FPU: no
   680x0 CPU option does (SRC). Hardware floating point comes from `-m68881`
-  (assumed correct; still to be validated with a test build). `-m68080`
+  (M: on Core 12556 a float loop built with `-m68080 -m68881` ran 7.9
+  times faster than with `-m68080` alone). `-m68080`
   alone compiles float work into calls such as `__floatsisf` (M).
 - Objects built with different float settings, linked together (for example
   `-m68080` objects with a libnix `printf` built for the other setting), pass
@@ -50,6 +51,8 @@ m68k-amigaos-gcc lib.o app.o -noixemul -o app            # mixed
 
 - Compile **and** link everything with the same flags, including `-m68881`:
   the standard set is in [c-compiler-options.md](../c-compiler-options.md).
+- A program built for soft-float on purpose links with `-lm`: libnix keeps
+  `__mulsf3` and the other soft-float routines in its `libm` (M).
 - Keep library code (`-nostartfiles`) integer (fixed point), and check its
   objects for soft-float symbols.
 - Write FPU kernels in assembler when you need full control over the FPU
@@ -90,3 +93,4 @@ float scale(float a, float b) { return a * b; }
 | No 680x0 CPU option sets the FPU flag for AmigaOS; `-m68881` sets hard float explicitly | (SRC) | any | GCC source, `m68k.c` |
 | `-m68080` objects with libnix `printf` printed garbage doubles | (M) | any | MP3 project |
 | Soft-float in a `-nostartfiles` library crashed with a CHK error | (M) | any | MP3 library, ReplayGain path |
+| `-m68080 -m68881` runs FPU code on a V4: 8 cycles per element of a float dot product, 63 with `-m68080` alone | (M) | Core 12556 | `tools/v4/tests/fpu-m68881`, V4 UniCorn, 3 alternating rounds, 2026-11-09 |

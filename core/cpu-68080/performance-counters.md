@@ -38,6 +38,7 @@ reliable way to time code. The other event counters read 0 on release cores.
 - The debug and event counters (BPC/BPW, DCH/DCM `$80E/$80F`,
   STR/STC/STB/MWR) read 0 on release cores (M).
 - On Core 12830–12841 the counters are readable with `movec` in user mode.
+  CCC is too on Core 12556 (M, V4 UniCorn, `tools/v4/tests/`, 2026-11-09).
 
 ### Reading the cycle counter
 

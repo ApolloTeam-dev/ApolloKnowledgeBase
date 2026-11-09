@@ -57,7 +57,9 @@ hazard unit, the D-cache read and the write FIFO.
 - **One memory address per cycle.** There is one EAMEM, shared by all
   pipes. Two loads in one cycle are impossible by design. The data cache does
   one read and one write per cycle, so a read-modify-write such as
-  `add.l #1,mem` runs at about 1 per cycle (G, 2026-11-03).
+  `add.l #1,mem` runs at about 1 per cycle (G, 2026-11-03). Measured with
+  `dbra` on Core 12556: 2 cycles per iteration (M, see
+  [caches-and-memory.md](caches-and-memory.md)).
 - **The ALU-to-EA bubble.** Addresses are computed at stage 8; an ALU result
   arrives at stage 11/12. A Dn produced by the ALU and used for an address by
   a following instruction arrives 3–4 stages too late (M: write it about 4
