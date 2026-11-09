@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: reviewed
 origin: ai-assisted
-basis: [core-developer]
+basis: [core-developer, measured]
 components: [cpu-68080]
 applies_to:
   core: "any"
@@ -67,7 +67,8 @@ the ALUs that own the data registers. Most cores run 2 pipes; 3 are planned.
 - The data cache does one read and one write per cycle. A loop of
   `add.l #1,memcounter` + `dbra` should run about 100 million times a second
   at 100 MHz: 100 million reads and 100 million writes, here to the same
-  address.
+  address. Measured on Core 12556: 2 cycles per iteration, see
+  [caches-and-memory.md](caches-and-memory.md) (M, Core 12556, V4 UniCorn, `tools/v4/tests/add-mem-dbra`, 2026-11-09).
 - One memory address is computed per cycle (one EAMEM in
   [pipeline-15-stages.md](pipeline-15-stages.md)). An instruction with two
   memory operands, such as `move.l (a0)+,(a1)+`, needs two addresses. A
