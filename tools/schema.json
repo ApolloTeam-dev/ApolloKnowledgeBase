@@ -65,6 +65,9 @@
   "core_examples": ["any", "Core 12841", "Core 12830-12840", "Core 12841+"],
   "required": ["title", "type", "owner", "status", "origin", "components", "applies_to"],
   "needs_sources": ["reference", "best-practice"],
+  "lesson_only_fields": {
+    "distilled_into": "Files the lesson was distilled into; each must name the lesson in its sources"
+  },
   "kebab_pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.md$",
   "lesson_pattern": "^\\d{4}-\\d{2}-[a-z0-9]+(-[a-z0-9]+)*\\.md$",
   "handle_pattern": "^@?[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$",

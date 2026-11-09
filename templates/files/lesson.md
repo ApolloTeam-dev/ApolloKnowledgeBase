@@ -15,6 +15,7 @@ last_verified: <YYYY-MM-DD, required once status is verified>
 tags: [<optional keywords>]
 related: [<optional paths to related files>]
 sources: [<spec, source file, hardware test, lesson>]
+distilled_into: [<optional, added during distillation: paths of the files this lesson went into>]
 ---
 
 ## Project

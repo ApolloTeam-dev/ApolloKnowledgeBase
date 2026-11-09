@@ -16,6 +16,7 @@ related:
 sources:
   - "github.com/WDrijver/ApolloCrossDev Projects/_makefiles/Makefile"
   - "WDrijver (ApolloCrossDev maintainer), 2026-11-02"
+  - "lessons/2026-11-akb-verification.md"
 ---
 
 ## Summary
@@ -75,6 +76,15 @@ Optional include folders: `<prefix>/m68k-amigaos/include/GL`, `.../SDL`,
 | SDL | `-lSDL -lSDL_ttf -lfreetype` |
 | MUI | `-lmui` |
 | Math | `-lm` |
+
+libnix's `libm` also holds the soft-float routines (`__mulsf3`,
+`__addsf3` and so on): a program built without `-m68881` on purpose does
+not link without `-lm` (M).
+
+GCC picks the libraries by CPU and FPU options (multilib). `-m68080`, with
+or without `-m68881`, links the base libraries (multilib folder `.`), not
+the `libm020` or `libm020/libm881` builds (SRC: `m68k-amigaos-gcc
+-print-multi-directory` and `-print-multi-lib`, GCC-6.50-Dev).
 
 ### Other options in the Makefile template
 

@@ -15,6 +15,7 @@ related:
   - core/cpu-68080/prm/optimizing.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 7.3 and 8.1"
+  - "lessons/2026-11-akb-verification.md"
 ---
 
 ## Summary

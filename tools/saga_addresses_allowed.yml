@@ -8,3 +8,6 @@
 DFF00A: JOY0DAT, mouse/joystick port 1 counters
 DFF00B: JOY0DAT low byte (X counter)
 DFF016: POTINP, pot port data (mouse buttons 2 and 3)
+DFF018: SERDATR, serial port data and status (also ApolloLib ApolloCrossDev_Debug.h)
+DFF030: SERDAT, serial port data and stop bits (also ApolloLib ApolloCrossDev_Debug.h)
+DFF032: SERPER, serial port period and control (also ApolloLib ApolloCrossDev_Debug.h)
