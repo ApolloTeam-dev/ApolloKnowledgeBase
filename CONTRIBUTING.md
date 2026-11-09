@@ -75,7 +75,8 @@ lessons/                    project retrospectives
 
 Not content: `templates/` (file, repo and seed templates), `sources/`
 (original documents for document intake, section 11), `skills/` (AI agent
-skills, step 2), `evals/` (AI benchmarks, step 5), `tools/` (CI scripts).
+skills, step 2), `evals/` (AI benchmarks, step 5), `tools/` (CI scripts,
+and the V4 test runner in `tools/v4/`).
 
 Each chip folder keeps its register map in `registers.md` inside that folder.
 The official SAGA register documentation is generated into
@@ -376,6 +377,27 @@ Every pull request runs (scripts in `tools/`):
   and blocks marked `; kb:no-assemble` (section 6)
 - `check_saga_addresses.py`: every SAGA address is in
   `core/saga-registers/` or `tools/saga_addresses_allowed.yml`
+
+- Build of the V4 hardware tests in `tools/v4/tests/` (see below)
+
+### Tests on V4 hardware
+
+`tools/v4/v4test.py` builds a test from `tools/v4/tests/` with
+ApolloCrossDev, copies it to a V4 with ApolloExplorer (`acp`), runs it there
+(`ash`), and stores the output, the serial log and optionally a screenshot
+or video in `build/v4/`. A test prints `PASS`, `FAIL` and `VALUE` lines (see
+`tools/v4/tests/akbtest.h`). Variants of one test (`v4:variant`) run
+alternately, as `guides/benchmark-method.md` asks. The script's header lists
+the environment variables for the V4's address, serial port, capture device
+and power plug.
+
+```sh
+AKB_V4_HOST=<address> python tools/v4/v4test.py run moviw --rounds 3 --shot
+```
+
+CI only builds the tests; running them needs a V4. A measured fact (M) that
+rests on such a test names it in the Evidence table's Method column, with
+the core and board it ran on.
 
 On every merge to `main`, `generate_codeowners.py` regenerates
 `.github/CODEOWNERS`. Fixed owners for files without frontmatter go in
