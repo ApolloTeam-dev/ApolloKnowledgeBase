@@ -19,6 +19,12 @@ related:
   - core/cpu-68080/performance-counters.md
   - core/saga-registers/system.md
   - guides/benchmark-method.md
+distilled_into:
+  - guides/testing-on-v4-hardware.md
+  - toolchain/vasm-assembler.md
+  - toolchain/c-compiler-options.md
+  - toolchain/pitfalls/float-settings-mismatch.md
+  - core/cpu-68080/performance-counters.md
 sources:
   - "ApolloTeam-dev/ApolloKnowledgeBase pull requests #32 to #41 (2026-11-08 to 2026-11-09)"
   - "WDrijver/ApolloCrossDev pull request #24 (README opcode list)"

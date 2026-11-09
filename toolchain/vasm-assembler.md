@@ -16,6 +16,7 @@ sources:
   - "github.com/WDrijver/ApolloCrossDev Projects/_makefiles/Makefile"
   - "github.com/WDrijver/ApolloCrossDev GCC-6.50-Dev-Linux.sh"
   - "vasm documentation (Volker Barthelmann, Frank Wille)"
+  - "lessons/2026-11-akb-verification.md"
 ---
 
 ## Summary
@@ -99,5 +100,10 @@ _my_function:
 - DO check the listing of code that writes to labels after a
   full-extension-format source, or address such destinations through a
   register.
+- DO write the word immediate of `moviw.l`, `addiw.l` and `cmpiw.l` as the
+  signed value it stands for: `moviw.l #-32477,d0` or
+  `moviw.l #$FFFF8123,d0`, not `#$8123`. vasm encodes all three the same
+  (`$303D 8123`), but warns about `#$8123` ("using signed operand as
+  unsigned", warning 2028).
 - DON'T invent AMMX mnemonics. Check `core/cpu-68080/`, or the `AMMX` folder
   in ApolloCrossDev `Docs/`.

@@ -16,6 +16,7 @@ related:
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), sections 0 (rules 19 and 21) and 9.1-9.2"
   - "WDrijver/gcc, gcc/config/m68k/m68k.c (branch gcc-6-base-amiga): no 680x0 CPU option sets FL_68881 for the AmigaOS target"
+  - "lessons/2026-11-akb-verification.md"
 ---
 
 ## Symptom

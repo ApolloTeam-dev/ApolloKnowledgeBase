@@ -173,6 +173,8 @@ def check(path):
         elif not os.path.isfile(os.path.join(ROOT, sb)):
             errs.append(f"superseded_by points to missing file '{sb}'")
 
+    errs += check_distilled(path, fm, t)
+
     related = fm.get("related") or []
     if not isinstance(related, list):
         errs.append("related must be a list")
@@ -181,6 +183,31 @@ def check(path):
             if not os.path.isfile(os.path.join(ROOT, str(r))):
                 errs.append(f"related points to missing file '{r}'")
 
+    return errs
+
+
+def check_distilled(path, fm, t):
+    """distilled_into: only on lessons, a list of existing files, and each of
+    those files names the lesson in its sources (CONTRIBUTING.md section 7)."""
+    if "distilled_into" not in fm:
+        return []
+    if t != "lesson":
+        return ["distilled_into is only for lessons"]
+    targets = fm["distilled_into"]
+    if not isinstance(targets, list):
+        return ["distilled_into must be a list"]
+    lesson = path.replace(os.sep, "/")
+    errs = []
+    for d in targets:
+        if not os.path.isfile(os.path.join(ROOT, str(d))):
+            errs.append(f"distilled_into points to missing file '{d}'")
+            continue
+        try:
+            sources = (frontmatter(read(str(d)))[0] or {}).get("sources") or []
+        except yaml.YAMLError:
+            sources = []
+        if not any(lesson in str(s) for s in sources):
+            errs.append(f"distilled_into: '{d}' does not name {lesson} in its sources")
     return errs
 
 

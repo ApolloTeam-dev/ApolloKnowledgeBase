@@ -170,6 +170,7 @@ related:                                  # optional, paths to related files
 sources:                                  # required for reference, best-practice
   - "Apollo core spec, section X"
 superseded_by:                            # only when status is deprecated
+distilled_into:                           # lessons only, see section 7
 generated_from:                           # only for document intake, section 11
 ---
 ```
@@ -326,7 +327,9 @@ Lessons carry what a project learned back into the knowledge base.
 5. **Distill.** The team turns the lesson's "Candidates for distillation"
    into files in the pillars' `best-practices/` or `pitfalls/`, or into
    `guides/`, and links the lesson in their `sources`. From then on every
-   agent finds it.
+   agent finds it. The lesson lists those files in `distilled_into`; CI
+   checks that each one exists and names the lesson in its `sources`. A
+   lesson without `distilled_into` is not distilled yet.
 6. Distilled lessons stay in place as history.
 
 ---
