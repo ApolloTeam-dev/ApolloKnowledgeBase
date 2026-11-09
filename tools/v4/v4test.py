@@ -19,6 +19,8 @@ Markers in test.c:
                           one variant, "default", with the ApolloCrossDev
                           template flags)
   v4:timeout SECONDS      time limit for one run (default 60)
+  v4:serial-expect TEXT   the serial log must contain TEXT (for tests that
+                          report over the serial line, such as os-takeover)
 
 The variants run alternately, ROUNDS times (guides/benchmark-method.md).
 Results go to build/v4/<UTC time>/: per run the program's output, the serial
@@ -190,6 +192,10 @@ def markers(src):
     return variants or [("default", DEFAULT_OPTS)], int(t.group(1)) if t else 60
 
 
+def serial_expect(src):
+    return re.findall(r"v4:serial-expect[ \t]+(.+?)[ \t]*$", open(src).read(), re.M)
+
+
 def build(test_dir, name, variant, opts, out_dir):
     prefix = acd_prefix()
     tgt = os.path.join(prefix, "m68k-amigaos")
@@ -227,7 +233,7 @@ def parse(output):
             "ok": done and not fails}
 
 
-def run_one(exe, timeout, run_dir, opts, args):
+def run_one(exe, timeout, run_dir, opts, args, expect=()):
     os.makedirs(run_dir, exist_ok=True)
     serial = SerialLog(os.path.join(run_dir, "serial.log"))
     serial.start()
@@ -251,6 +257,12 @@ def run_one(exe, timeout, run_dir, opts, args):
     open(os.path.join(run_dir, "output.txt"), "w").write(output + "\n")
     res = parse(output)
     res.update(finished=finished, seconds=seconds, opts=opts, serial_port=serial.port)
+    log = os.path.join(run_dir, "serial.log")
+    serial_text = open(log, "rb").read().decode("latin-1") if os.path.exists(log) else ""
+    for e in expect:
+        if e not in serial_text:
+            res["ok"] = False
+            res["failed"].append("FAIL serial-expect %r not in the serial log" % e)
     if not finished:
         res["ok"] = False
         res["failed"].append("FAIL timeout no answer within %d s" % timeout)
@@ -296,21 +308,22 @@ def cmd_run(args):
     for t in args.tests:
         d, name = test_dir(t)
         variants, timeout = markers(os.path.join(d, "test.c"))
+        expect = serial_expect(os.path.join(d, "test.c"))
         exes = {}
         for v, opts in variants:
             out_dir = os.path.join(session, "build", name, v)
             os.makedirs(out_dir, exist_ok=True)
             exes[v] = (build(d, name, v, opts, out_dir), opts)
             upload(exes[v][0], REMOTE_DIR)
-        plan.append((name, variants, exes, timeout))
+        plan.append((name, variants, exes, timeout, expect))
 
     all_ok = True
-    for name, variants, exes, timeout in plan:
+    for name, variants, exes, timeout, expect in plan:
         for r in range(args.rounds):
             for v, _ in variants:
                 exe, opts = exes[v]
                 run_dir = os.path.join(session, "%s-%s-%d" % (name, v, r + 1))
-                res = run_one(exe, timeout, run_dir, opts, args)
+                res = run_one(exe, timeout, run_dir, opts, args, expect)
                 all_ok &= res["ok"]
                 summary["runs"].append(dict(test=name, variant=v, round=r + 1, **res))
                 vals = " ".join("%s=%d" % (k, x[0]) for k, x in res["values"].items())
