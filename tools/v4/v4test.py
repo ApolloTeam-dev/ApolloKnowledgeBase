@@ -22,7 +22,8 @@ Markers in test.c:
 
 The variants run alternately, ROUNDS times (guides/benchmark-method.md).
 Results go to build/v4/<UTC time>/: per run the program's output, the serial
-log and result.json, and summary.json for the whole session.
+log and result.json, and summary.json for the whole session, with the core
+number from `ApolloControl CO`.
 
 The machine is set with environment variables:
   AKB_V4_HOST     V4 address (ApolloExplorerSrv must run on it)   required
@@ -285,7 +286,10 @@ def cmd_run(args):
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     session = os.path.join(KB, "build", "v4", stamp)
     version, _ = ash("C:Version")
-    summary = {"time": stamp, "host_version": version, "runs": []}
+    core, _ = ash("ApolloControl CO")               # core number, e.g. 12556
+    core = core.strip() if core.strip().isdigit() else None
+    print("V4 at %s: core %s, %s" % (host(), core or "unknown", version))
+    summary = {"time": stamp, "core": core, "host_version": version, "runs": []}
     ash("C:MakeDir %s" % REMOTE_DIR)                # fails harmlessly when it exists
 
     plan = []
