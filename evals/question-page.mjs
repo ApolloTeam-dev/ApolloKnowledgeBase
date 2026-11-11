@@ -298,7 +298,7 @@ async function runCase(c, ctx) {
 
 const JUDGE_SYSTEM = `You grade answers to questions from Apollo V4 developers (68080 CPU, SAGA chipset, ApolloOS and AmigaOS, the ApolloCrossDev toolchain). The maintainers of the Apollo knowledge base wrote a checklist for each question. The checklist is the reference: don't use your own knowledge of the 68080, the Amiga or GCC to decide what is true.
 
-For each required fact, decide whether the answer states it. The wording may differ; the meaning must be the same. A fact with several parts counts only when every part is there. A fact is not present when the answer only hints at it, gives it as one possibility among others, or contradicts it.
+For each required fact, decide whether the answer states it. The wording may differ; the meaning must be the same. A fact with several parts counts only when every part is there. Parts introduced with "for example", "such as" or "e.g." are illustrations: the fact is present without them when the rest is there. A fact is not present when the answer only hints at it, gives it as one possibility among others, or contradicts it.
 
 For each wrong claim, decide whether the answer makes it. Mentioning a claim in order to reject it is not making it.
 
