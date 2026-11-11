@@ -16,6 +16,7 @@ related:
   - core/pitfalls/pc-relative-destination.md
 sources:
   - "TuKo1982, 68080 compilation and optimisation guide (2026-10-30), section 7.2"
+  - "WDrijver (maintainer), 2026-11-11: LineA instructions are not yet implemented; only a few unreleased test cores had them"
 ---
 
 ## Summary
@@ -33,8 +34,10 @@ integer form, instructions that do nothing, and 68060-style exception frames.
   `rex`.
 - `move2.l (An),Dx:Dy` loads both registers correctly on Core 12841 (on Core
   12001 the second was wrong) (M).
-- **LineA instructions** (`clr.q`, `mov3q`, `movs`, `movz`) exist only on
-  cores 10280–10904 (official): don't use them. Use the fused pairs instead
+- **LineA instructions** (`clr.q`, `mov3q`, `movs`, `movz`) are not yet
+  implemented in any released core: don't use them. The manual lists them
+  for cores 10280–10904 (official); those were a few unreleased test
+  cores, for test purposes only (WDrijver). Use the fused pairs instead
   (`moveq #0` + `move.b`, `move.w` + `ext.l`).
 - **abs/min/max/andn** (`$0E81 $20xx`) do nothing and raise no exception
   (M). vasm still assembles them.
