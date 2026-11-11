@@ -4,7 +4,7 @@ type: reference
 owner: WDrijver
 status: reviewed
 origin: ai-assisted
-basis: [source-code]
+basis: [source-code, measured]
 components: [toolchain]
 applies_to:
   core: "any"
@@ -13,8 +13,10 @@ tags: [apollolib, debug, serial, rawdofmt, logging]
 related:
   - toolchain/apollolib/index.md
   - toolchain/project-makefile.md
+  - guides/testing-on-v4-hardware.md
 sources:
   - "ApolloLib, github.com/WDrijver/ApolloCrossDev Projects/ApolloLib (ApolloCrossDev_Debug.h, _Debug.c, _Defines.h), commit 639e195 (2026-11-04)"
+  - "guides/testing-on-v4-hardware.md (serial output on a V4 UniCorn, 2026-11-09)"
 ---
 
 ## Summary
@@ -38,6 +40,22 @@ the levelled `Debug_Info()` … `Debug_Flag()` macros.
 | `WriteRegisterWord(reg, v)`, `ReadRegisterWord(reg)` | Write and read a 16-bit hardware register |
 
 `char ApolloDebugMessage[256]` is the shared buffer for `sprintf`.
+
+### Registers and the terminal
+
+The output goes through the Paula UART, without OS calls (SRC):
+
+| Register | Address | Use |
+|---|---|---|
+| `SERPER` | `$DFF032` | Baud rate: set once to 115200 by `ApolloDebugInit()` |
+| `SERDATR` | `$DFF018` | Wait until `TBE` (transmit buffer empty) is set |
+| `SERDAT` | `$DFF030` | Write the character, with its stop bit |
+
+On the other side, set the terminal to 115200 8N1 without flow control, for
+example with a USB-to-serial cable on the V4's serial port. Writing to
+`SER:` (for example `Echo >SER:`) goes through serial.device and did not
+reach the cable at any baud rate between 9600 and 115200 (M). Use the
+direct UART writes above for debug output.
 
 ### Macros, set 1: AD and ADX (ApolloCrossDev_Defines.h)
 
