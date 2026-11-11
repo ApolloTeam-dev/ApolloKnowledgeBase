@@ -10,7 +10,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # Top-level files and folders that are not knowledge base content.
 SKIP_TOP_FILES = {"README.md", "AGENTS.md", "CONTRIBUTING.md", "CLAUDE.md"}
-SKIP_DIRS = {"templates", "seed", "sources", "tools", "skills", "evals",
+SKIP_DIRS = {"templates", "seed", "sources", "tools", "skills", "evals", "build",
              ".github", ".git"}
 
 # The rules live in tools/schema.json, shared with the ApolloKnowledgeBase-
