@@ -19,6 +19,7 @@ sources:
   - "github.com/WDrijver/ApolloCrossDev pull requests #5 to #10, #12 and #13 (merged on 2026-11-03)"
   - "github.com/WDrijver/ApolloCrossDev pull request #15 (removes double-indirect-fix.patch) and issue #14"
   - "WDrijver (ApolloCrossDev maintainer), 2026-11-04"
+  - "WDrijver (maintainer), 2026-11-11: LineA instructions are not yet implemented; only a few unreleased test cores had them"
 ---
 
 ## Summary
@@ -123,8 +124,9 @@ long sum(const long *p, long n)
 On the ApolloCrossDev roadmap: `move2.b`. Not planned: `mov3q`, `clr.q`,
 `movs.b/w` and `movz.b/w`.
 
-`mov3q`, `clr.q`, `movs` and `movz` are LineA instructions that exist only
-on cores 10280–10904 (official, see [core/cpu-68080/isa-notes-measured.md](../core/cpu-68080/isa-notes-measured.md)).
+`mov3q`, `clr.q`, `movs` and `movz` are LineA instructions that are not yet
+implemented in any released core; only a few unreleased test cores
+(10280–10904 in the manual) had them (see [core/cpu-68080/isa-notes-measured.md](../core/cpu-68080/isa-notes-measured.md)).
 Code generated with them would not run on current cores; the fused pairs
 (`moveq #0` + `move.b`, `move.w` + `ext.l`) give the same effect.
 
