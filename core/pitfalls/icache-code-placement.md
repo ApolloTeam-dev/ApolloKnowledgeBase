@@ -18,6 +18,7 @@ sources:
   - "Willem Drijver (2026-11-26): Core 12870 has a 1-way I-cache and a 2-way D-cache"
   - "ApolloOS-Port docs/perf/finding-code-layout.md and plan-code-layout.md (2026-11-26/27)"
   - "ApolloOS-Port tools/icachemap.py, C:LineCheck RECT, C:MemLoop CYCLES"
+  - "ApolloOS-Port docs/perf/plan-wb-backingstore.md (2026-11-27): a 28-byte shift in the hot region"
 ---
 
 ## Symptom
@@ -30,6 +31,9 @@ sources:
   cycles.
 - **A single before/after benchmark of a ROM change can show a gain or a
   loss of up to ~50 %** that has nothing to do with the change.
+- **Even code that is already placed can lose speed when it moves by a few
+  bytes:** Text() got 15 % slower when one function in front of it grew by
+  28 bytes, with no new set collisions.
 
 ## Cause
 
@@ -40,6 +44,9 @@ sources:
   call misses on both, at about 40-60 cycles a line.
 - **Every link shifts the code:** a change anywhere moves everything
   linked after it, so which paths collide is luck.
+- **The offset inside the line counts too:** the cost of a hot loop also
+  depends on where it lies within its 64-byte lines. A shift that is not
+  a multiple of 64 bytes can slow it down without any collision.
 - **Code in RAM counts too:** jump tables of libraries in RAM count as
   well. Exec's table below SysBase holds code (Forbid is inline there) and
   is passed on every exec call. A ROM function on the same sets
@@ -65,6 +72,10 @@ after  = rectfill_cycles(rom_b);    /* rom_b: one unrelated file changed */
   - **How ApolloOS R10 does it:** `-ffunction-sections`, a list
     `rom.hot`, and a generated linker script (tools/romhot.py) that also
     checks the result.
+- **When a hot function grows, keep what follows on its old offset:**
+  add padding (code that never runs) after it, so that the growth plus
+  the padding is a multiple of 64 bytes. Then re-check the small
+  benchmarks of the code that follows.
 - **Keep the boot entry in place.** On AROS/ApolloOS, ColdReboot jumps to
   `rom_init` - 2 after `reset`. That code must stay right after the ROM
   header, so the hot region goes after it.
@@ -89,4 +100,5 @@ after  = rectfill_cycles(rom_b);    /* rom_b: one unrelated file changed */
 | Same 1,131-1,154 instructions per RectFill 10x10; 1,815 vs 2,864 cycles in two layouts | (M) ApolloOS-Port finding-code-layout.md | Core 12870 | C:LineCheck RECT, 6,000 calls, CCC + IEP1/IEP2, 2 runs each |
 | The colliding pair: gfx.hidd FillRect on 8 sets of graphics' do_render_with_gc | (M) tools/icachemap.py | Core 12870 | PerfSample profile at 500 Hz + vlink map |
 | AllocMem 8 B 648 -> ~410 cycles from 1 KB of never-executed padding | (M) C:MemLoop CYCLES | Core 12870 | median of 2,000 calls, trial ROM |
+| Text 39 chars 437 -> 500 us when nommu_AllocMem (in front of it in the hot region) grew by 28 bytes; 445 us with 36 bytes of padding after it (28 + 36 = 64); no new set collisions | (M) ApolloOS-Port plan-wb-backingstore.md | Core 12870 | C:PerfSuite, median of 31 samples, two boots; tools/icachemap.py |
 | With a placed hot region: RectFill 10x10 28.0 -> 13.6 us, Signal+Wait 14.4 -> 12.0 us, no PerfSuite test slower than +3 % | (M) ApolloOS-Port runs/2026-11-27-0245-hot6-* | Core 12870 | C:PerfSuite, median of 31 samples |
